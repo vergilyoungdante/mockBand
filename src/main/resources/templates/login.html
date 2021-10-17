@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <link rel="stylesheet" href="/css/layui.css">
+    <script src="/js/jquery-3.6.0.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="layui-row layui-col-space30" style="max-width: 500px; text-align: center;">
+
+</div>
+
+    <div class="layui-row layui-col-space30" style="max-width: 500px; text-align: center;">
+        <form class="layui-form" action="/login" method="post" style="text-align: center;">
+            <div class="layui-form-item" style="text-align: center;">
+                <label class="layui-form-label"style="text-align: center;">用户名</label>
+                <div class="layui-input-block"style="text-align: center;">
+                    <input type="text" name="name" required lay-verify="required" placeholder="请输入用户名"
+                           autocomplete="off" class="layui-input" style="width: 300px;">
+                </div>
+            </div>
+            <div class="layui-form-item" style="text-align: center;">
+                <label class="layui-form-label"style="text-align: center;">密码</label>
+                <div class="layui-input-inline"style="text-align: center;">
+                    <input type="password" name="password" required lay-verify="required" placeholder="请输入密码"
+                           autocomplete="off" class="layui-input" style="width: 300px;">
+                </div>
+            </div>
+
+            <div class="layui-form-item" style="text-align: center;">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit>登录</button>
+                    <button class="layui-btn" onclick="jump()">注册</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <#include "footer.html">
+
+    <script>
+        function jump(){
+            window.location.href="/register";
+        }
+    </script>
+</body>
+</html>
