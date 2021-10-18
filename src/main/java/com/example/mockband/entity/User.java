@@ -22,6 +22,8 @@ public class User implements UserDetails {
     @NotBlank(message = "必须输入密码")
     private String password;
     private Date createDate;
+    private String authority;
+    private int type;
 
     @PrePersist
     void createdAt(){
