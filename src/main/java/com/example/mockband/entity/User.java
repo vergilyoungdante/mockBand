@@ -22,8 +22,11 @@ public class User implements UserDetails {
     @NotBlank(message = "必须输入密码")
     private String password;
     private Date createDate;
-    private String authority;
-    private int type;
+
+    @Transient//这个是让数据库忽略属性的注释
+    private String authority;//回来把表建好了去掉注释
+    @Transient
+    private int type;//回来把表建好了去掉注释
 
     @PrePersist
     void createdAt(){
@@ -32,7 +35,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
     }
 
     @Override

@@ -15,6 +15,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //依赖注入通用的用户服务类
     @Autowired
     private UserSecurityService userSecurityService;
+    @Autowired
+    private LoginSuccessHandle loginSuccessHandle;
 
     @Bean
     //必须配置密码加密类型，这里选择不加密
@@ -27,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //配置登录验证和密码加密类型
         auth.userDetailsService(userSecurityService)
                 .passwordEncoder(passwordEncoder());
+
     }
 
     @Override
@@ -39,9 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .anyRequest().authenticated()  //其他路径需要登录后才能访问
                 .and()
                     .formLogin()
-                    .loginPage("/login")  //设置默认登录页面
+                    .loginPage("/login")  //设置默认登录页面(这里重定向到登录控制器，实现权限控制)
                     .usernameParameter("name").passwordParameter("password")
-                    .defaultSuccessUrl("/home",true)  //设置登录成功后的跳转页面
+                    .successHandler(loginSuccessHandle)//登录成功处理
                 .and()
                     .logout()
                     .logoutSuccessUrl("/login");  //设置登出后的跳转页面
