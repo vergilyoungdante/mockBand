@@ -9,7 +9,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         //添加页面,这块写了就不用在controller里写没用的方法了。
-        registry.addViewController("/").setViewName("home");
+//        registry.addViewController("/").setViewName("index");
         registry.addViewController("/login");
     }
 

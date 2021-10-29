@@ -38,15 +38,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()//跨域请求防御一定要关闭，否则注册和登录的post根本就提不上来。
                     .authorizeRequests()
-                    .antMatchers("/login","/register","/toLogin","/css/**", "/fonts/**", "/js/**").permitAll()  //这里面的路径可以直接访问。静态文件路径一定要添加，否则网页没有样式
+                    .antMatchers("/css/**","/js/**","/images/**","/lib/**","/static/**","/login").permitAll()  //这里面的路径可以直接访问。静态文件路径一定要添加，否则网页没有样式
                     .anyRequest().authenticated()  //其他路径需要登录后才能访问
                 .and()
                     .formLogin()
                     .loginPage("/login")  //设置默认登录页面(这里重定向到登录控制器，实现权限控制)
-                    .usernameParameter("name").passwordParameter("password")
+                    .usernameParameter("username").passwordParameter("password")//匹配前端的用户名密码参数名称
                     .successHandler(loginSuccessHandle)//登录成功处理
                 .and()
                     .logout()
-                    .logoutSuccessUrl("/login");  //设置登出后的跳转页面
+                    .logoutSuccessUrl("/login")  //设置登出后的跳转页面
+                .and()
+                .headers().frameOptions().sameOrigin();// 允许来自同一来源的H2 控制台的请求
+
     }
 }
