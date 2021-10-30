@@ -23,8 +23,7 @@ public class User implements UserDetails {
     private String password;
     private Date createDate;
 
-    @Transient//这个是让数据库忽略属性的注释
-    private String authority;//回来把表建好了去掉注释
+    private String authority;
     @Transient
     private int type;//回来把表建好了去掉注释
 
