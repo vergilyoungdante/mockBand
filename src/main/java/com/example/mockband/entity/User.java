@@ -24,7 +24,7 @@ public class User implements UserDetails {
     private Date createDate;
 
     private String authority;
-    @Transient
+
     private int type;//回来把表建好了去掉注释
 
     @PrePersist
@@ -34,7 +34,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        return Arrays.asList(new SimpleGrantedAuthority("ADMIN"));
     }
 
     @Override
