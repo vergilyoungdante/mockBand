@@ -31,10 +31,10 @@
         </commentGenerator>
 
         <!--数据库连接信息 -->
-        <jdbcConnection driverClass="${spring.datasource.druid.driver-class-name}"
-                        connectionURL="${spring.datasource.druid.url}"
-                        userId="${spring.datasource.druid.username}"
-                        password="${spring.datasource.druid.password}">
+        <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
+                        connectionURL="${spring.datasource.url}"
+                        userId="${spring.datasource.username}"
+                        password="${spring.datasource.password}">
         </jdbcConnection>
 
 
@@ -57,8 +57,10 @@
         </javaClientGenerator>
 
         <!--生成全部的表-->
-        <table tableName="user">
-            <generatedKey column="id" sqlStatement="Mysql"/>
+        <table tableName="user_info_tbl" domainObjectName="UserInfo"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
         </table>
     </context>
 </generatorConfiguration>

@@ -1,12 +1,21 @@
 package com.example.mockband.controller;
 
+import com.example.mockband.repository.UserInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 @Controller
 public class LoginController {
+
+    @Autowired
+    public UserInfoService userInfoService;
 
     @RequestMapping("/index")
     public String toAdmin(){
@@ -29,5 +38,12 @@ public class LoginController {
         modelAndView.addObject("abc","kkkkksdfsfsf");
 
         return modelAndView;
+    }
+
+    @RequestMapping("/test")
+    public void countUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int num = userInfoService.countUser();
+        response.setStatus(200);
+        response.getWriter().write(String.valueOf(num));
     }
 }
