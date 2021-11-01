@@ -184,8 +184,8 @@
           "target": "_self"
         },
         {
-          "title": "省市县区选择器",
-          "href": "page/area.html",
+          "title": "财务情况",
+          "href": "/cbank/total",
           "icon": "fa fa-rocket",
           "target": "_self"
         }
