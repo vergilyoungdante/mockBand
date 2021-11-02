@@ -18,4 +18,15 @@ public class CBankController {
 
         return modelAndView;
     }
+
+    @RequestMapping("/register")
+    public ModelAndView register(){
+        ModelAndView modelAndView = new ModelAndView("/cbank/register");
+        //TODO:保存注册信息
+        //
+        //我这里把数据加进去给前端用
+        //modelAndView.addObject();
+
+        return modelAndView;
+    }
 }

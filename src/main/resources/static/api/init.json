@@ -178,8 +178,8 @@
           "target": "_self"
         },
         {
-          "title": "富文本编辑器",
-          "href": "page/editor.html",
+          "title": "商业银行开户",
+          "href": "/cbank/register",
           "icon": "fa fa-edit",
           "target": "_self"
         },
