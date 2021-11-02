@@ -46,4 +46,9 @@ public class LoginController {
         response.setStatus(200);
         response.getWriter().write(String.valueOf(num));
     }
+
+    @RequestMapping("/password")
+    public String password(){
+        return "/user-password";
+    }
 }

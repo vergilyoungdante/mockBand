@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .successHandler(loginSuccessHandle)//登录成功处理
                 .and()
                     .logout()
+                    .logoutUrl("/logout")
                     .logoutSuccessUrl("/login")  //设置登出后的跳转页面
                 .and()
                 .headers().frameOptions().sameOrigin();// 允许来自同一来源的H2 控制台的请求
