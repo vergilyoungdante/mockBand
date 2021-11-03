@@ -29,4 +29,9 @@ public class CBankController {
 
         return modelAndView;
     }
+
+    @RequestMapping("/transfer")
+    public String transfer(){
+        return "/cbank/transfer";
+    }
 }

@@ -172,8 +172,8 @@
           "target": "_self"
         },
         {
-          "title": "文件上传",
-          "href": "page/upload.html",
+          "title": "转账功能",
+          "href": "/cbank/transfer",
           "icon": "fa fa-arrow-up",
           "target": "_self"
         },

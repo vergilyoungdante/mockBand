@@ -19,7 +19,7 @@
                 <div class="layui-card-header">成长币财务状况</div>
                 <div class="layui-card-body">
                     <div class="layui-row layui-col-space5">
-                        <div class="layui-col-xs12 layui-col-md9">
+                        <div class="layui-col-xs12 layui-col-md9 layui-inline">
                             整体成长币数额    <a style="color: #1aa094">500000</a><br>
                             对公账户成长币数额 <a style="color: #bd3004">512222</a>
                         </div>
@@ -34,7 +34,7 @@
                 <div class="layui-card-header">可流动债券财务状况</div>
                 <div class="layui-card-body">
                     <div class="layui-row layui-col-space5">
-                        <div class="layui-col-xs12 layui-col-md9 ">
+                        <div class="layui-col-xs12 layui-col-md9">
                             整体可流动债券数额    <a style="color: #1aa094">666666666666666</a><br>
                             对公账户可流动债券数额 <a style="color: #bd3004">66666666666666</a>
                         </div>
@@ -49,12 +49,16 @@
                 <div class="layui-card-header">货币控制</div>
                 <div class="layui-card-body">
                     <div class="layui-row layui-col-space5">
-                        <div class="layui-col-xs12 layui-col-md12">
-                            <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="增发数量" class="layui-input">
-                            <button class="layui-btn">增发货币</button>
+                        <div class="layui-col-xs12 layui-col-md12 layui-inline">
+                            <div class="layui-inline">
+                                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="增发数量" class="layui-input-inline layui-input">
+                            </div>
+                            <button class="layui-btn layui-inline">增发货币</button>
 
-                            <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="销毁数量" class="layui-input">
-                            <button class="layui-btn">销毁货币</button>
+                            <div class="layui-inline">
+                                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="销毁数量" class="layui-input-inline layui-input">
+                            </div>
+                            <button class="layui-btn layui-inline">销毁货币</button>
                         </div>
                     </div>
                 </div>
@@ -68,10 +72,15 @@
                 <div class="layui-card-body">
                     <div class="layui-row layui-col-space5">
                         <div class="layui-col-xs12 layui-col-md12">
-                            <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="增发数量" class="layui-input">
-                            <button class="layui-btn">增发债券</button>
-                            <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="销毁数量" class="layui-input">
-                            <button class="layui-btn">销毁债券</button>
+                            <div class="layui-inline">
+                                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="增发数量" class="layui-input layui-inline">
+                            </div>
+                            <button class="layui-btn layui-inline">增发债券</button>
+
+                            <div class="layui-inline">
+                                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="销毁数量" class="layui-input layui-inline">
+                            </div>
+                            <button class="layui-btn layui-inline">销毁债券</button>
                         </div>
                     </div>
                 </div>
