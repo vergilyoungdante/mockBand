@@ -213,7 +213,7 @@
             },
             {
               "title": "信用积分查看",
-              "href": "page/people/form-people-trust.html",
+              "href": "page/people/form-people-credit.html",
               "icon": "fa fa-meetup",
               "target": "_self"
             }
