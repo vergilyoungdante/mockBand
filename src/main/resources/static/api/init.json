@@ -191,53 +191,101 @@
         }
       ]
     },
+
+
     {
-      "title": "其它管理",
+      "title": "个人用户",
       "icon": "fa fa-slideshare",
       "href": "",
       "target": "_self",
       "child": [
         {
-          "title": "多级菜单",
+          "title": "个人中心",
           "href": "",
           "icon": "fa fa-meetup",
-          "target": "",
+          "target": "_self",
           "child": [
             {
-              "title": "按钮1",
-              "href": "page/button.html?v=1",
+              "title": "身份信息",
+              "href": "page/people/form-people-identity.html",
+              "icon": "fa fa-meetup",
+              "target": "_self"
+            },
+            {
+              "title": "信用积分查看",
+              "href": "page/people/form-people-trust.html",
+              "icon": "fa fa-meetup",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "财务管理",
+          "href": "",
+          "icon": "fa fa-superpowers",
+          "target": "_self",
+          "child": [
+            {
+              "title": "余额查询",
+              "href": "",
               "icon": "fa fa-calendar",
               "target": "_self",
               "child": [
                 {
-                  "title": "按钮2",
-                  "href": "page/button.html?v=2",
-                  "icon": "fa fa-snowflake-o",
-                  "target": "_self",
-                  "child": [
-                    {
-                      "title": "按钮3",
-                      "href": "page/button.html?v=3",
-                      "icon": "fa fa-snowflake-o",
-                      "target": "_self"
-                    },
-                    {
-                      "title": "表单4",
-                      "href": "page/form.html?v=1",
-                      "icon": "fa fa-calendar",
-                      "target": "_self"
-                    }
-                  ]
+                  "title": "成长币余额查询",
+                  "href": "page/button.html?v=1",
+                  "icon": "fa fa-calendar",
+                  "target": "_self"
+                },
+                {
+                  "title": "可流动债券余额查询",
+                  "href": "page/icon.html",
+                  "icon": "fa fa-calendar",
+                  "target": "_self"
+                }
+              ]
+            },
+            {
+              "title": "交易流水",
+              "href": "",
+              "icon": "fa fa-calendar",
+              "target": "_self",
+              "child": [
+                {
+                  "title": "成长币交易流水",
+                  "href": "page/people/table-people-coin.html",
+                  "icon": "fa fa-calendar",
+                  "target": "_self"
+                },
+                {
+                  "title": "可流动债券交易流水",
+                  "href": "page/people/table-people-debt.html",
+                  "icon": "fa fa-calendar",
+                  "target": "_self"
                 }
               ]
             }
           ]
         },
         {
-          "title": "失效菜单",
-          "href": "page/error.html",
+          "title": "转账汇款",
+          "href": "",
           "icon": "fa fa-superpowers",
-          "target": "_self"
+          "target": "_self",
+          "child": [
+            {
+              "title": "向个人用户转账",
+              "href": "page/people/form-step-people-to-people.html",
+              "icon": "fa fa-calendar",
+              "target": "_self"
+            },
+            {
+              "title": "向商业银行转账",
+              "href": "page/people/form-step-people-to-bank.html",
+              "icon": "fa fa-calendar",
+              "target": "_self"
+            }
+          ]
         }
       ]
     }
