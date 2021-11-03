@@ -227,23 +227,9 @@
           "child": [
             {
               "title": "余额查询",
-              "href": "",
+              "href": "page/people/form-people-balance.html",
               "icon": "fa fa-calendar",
-              "target": "_self",
-              "child": [
-                {
-                  "title": "成长币余额查询",
-                  "href": "page/button.html?v=1",
-                  "icon": "fa fa-calendar",
-                  "target": "_self"
-                },
-                {
-                  "title": "可流动债券余额查询",
-                  "href": "page/icon.html",
-                  "icon": "fa fa-calendar",
-                  "target": "_self"
-                }
-              ]
+              "target": "_self"
             },
             {
               "title": "交易流水",
