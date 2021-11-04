@@ -34,4 +34,9 @@ public class CBankController {
     public String transfer(){
         return "/cbank/transfer";
     }
+
+    @RequestMapping("/transfer/log")
+    public String transferLog(){
+        return "/cbank/transfer-log-coin";
+    }
 }

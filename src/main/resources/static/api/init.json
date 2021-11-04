@@ -166,8 +166,8 @@
           "target": "_self"
         },
         {
-          "title": "下拉选择",
-          "href": "page/table-select.html",
+          "title": "转账记录",
+          "href": "/cbank/transfer/log",
           "icon": "fa fa-angle-double-down",
           "target": "_self"
         },
