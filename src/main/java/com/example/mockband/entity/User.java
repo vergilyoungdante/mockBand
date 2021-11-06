@@ -41,7 +41,14 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ADMIN"));
+        if(this.accountType==1){
+            return Arrays.asList(new SimpleGrantedAuthority("CBANK"));
+        }else if (this.accountType==2){
+            return Arrays.asList(new SimpleGrantedAuthority("BANK"));
+        }else {
+            return Arrays.asList(new SimpleGrantedAuthority("PEOPLE"));
+        }
+
     }
 
     @Override
