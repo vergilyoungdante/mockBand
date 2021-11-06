@@ -22,9 +22,9 @@ public class LoginController {
     @Autowired
     public UserInfoService userInfoService;
 
-    @RequestMapping("/cbank")
+    @RequestMapping("/index")
     public String toAdmin(){
-        return "/welcome-1";
+        return "/index";
     }
 
     @RequestMapping("/bank")
@@ -39,15 +39,8 @@ public class LoginController {
 
     @GetMapping("/welcome")
     public ModelAndView welcome() {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ModelAndView modelAndView = null;
-        switch (user.getAccountType())
-        {
-            case 1: modelAndView = new ModelAndView("/index");break;
-            case 2: modelAndView = new ModelAndView("/welcome-2");break;
-            case 3: modelAndView = new ModelAndView("/welcome-3");break;
-        }
-        modelAndView.addObject("abc","kkkkksdfsfsf");
+        ModelAndView modelAndView = new ModelAndView("/welcome-1");
+        modelAndView.addObject("abc","are you ok");
 
         return modelAndView;
     }
