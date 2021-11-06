@@ -1,6 +1,7 @@
 package com.example.mockband.controller;
 
-import com.example.mockband.repository.UserInfoService;
+
+import com.example.mockband.service.UserInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,13 +41,6 @@ public class LoginController {
         modelAndView.addObject("abc","kkkkksdfsfsf");
 
         return modelAndView;
-    }
-
-    @RequestMapping("/test")
-    public void countUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int num = userInfoService.countUser();
-        response.setStatus(200);
-        response.getWriter().write(String.valueOf(num));
     }
 
     @RequestMapping("/password")

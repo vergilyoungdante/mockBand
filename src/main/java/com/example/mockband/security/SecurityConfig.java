@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()//跨域请求防御一定要关闭，否则注册和登录的post根本就提不上来。
                     .authorizeRequests()
-                    .antMatchers("/css/**","/js/**","/images/**","/lib/**","/static/**","/login","/**").permitAll()  //这里面的路径可以直接访问。静态文件路径一定要添加，否则网页没有样式
+                    .antMatchers("/css/**","/js/**","/images/**","/lib/**","/static/**","/login").permitAll()  //这里面的路径可以直接访问。静态文件路径一定要添加，否则网页没有样式
                     .anyRequest().authenticated()  //其他路径需要登录后才能访问
                 .and()
                     .formLogin()

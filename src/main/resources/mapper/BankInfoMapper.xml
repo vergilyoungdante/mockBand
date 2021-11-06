@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mockband.mapper.BankInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.example.mockband.entity.BankInfo" >
+    <id column="bank_id" property="bankId" jdbcType="INTEGER" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+    <result column="bank_head" property="bankHead" jdbcType="VARCHAR" />
+    <result column="bank_type" property="bankType" jdbcType="VARCHAR" />
+    <result column="bank_credits" property="bankCredits" jdbcType="DOUBLE" />
+    <result column="bank_growing_coin" property="bankGrowingCoin" jdbcType="DOUBLE" />
+    <result column="bank_bond" property="bankBond" jdbcType="DOUBLE" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.example.mockband.entity.BankInfo" extends="BaseResultMap" >
+    <result column="bank_licence" property="bankLicence" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bank_id, bank_name, login_name, bank_head, bank_type, bank_credits, bank_growing_coin, 
+    bank_bond, create_time, modify_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    bank_licence
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bank_info_tbl
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bank_info_tbl
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.mockband.entity.BankInfo" >
+    insert into bank_info_tbl (bank_id, bank_name, login_name, 
+      bank_head, bank_type, bank_credits, 
+      bank_growing_coin, bank_bond, create_time, 
+      modify_time, bank_licence)
+    values (#{bankId,jdbcType=INTEGER}, #{bankName,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, 
+      #{bankHead,jdbcType=VARCHAR}, #{bankType,jdbcType=VARCHAR}, #{bankCredits,jdbcType=DOUBLE}, 
+      #{bankGrowingCoin,jdbcType=DOUBLE}, #{bankBond,jdbcType=DOUBLE}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{bankLicence,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.mockband.entity.BankInfo" >
+    insert into bank_info_tbl
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bankId != null" >
+        bank_id,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="loginName != null" >
+        login_name,
+      </if>
+      <if test="bankHead != null" >
+        bank_head,
+      </if>
+      <if test="bankType != null" >
+        bank_type,
+      </if>
+      <if test="bankCredits != null" >
+        bank_credits,
+      </if>
+      <if test="bankGrowingCoin != null" >
+        bank_growing_coin,
+      </if>
+      <if test="bankBond != null" >
+        bank_bond,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="bankLicence != null" >
+        bank_licence,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bankId != null" >
+        #{bankId,jdbcType=INTEGER},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null" >
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankHead != null" >
+        #{bankHead,jdbcType=VARCHAR},
+      </if>
+      <if test="bankType != null" >
+        #{bankType,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCredits != null" >
+        #{bankCredits,jdbcType=DOUBLE},
+      </if>
+      <if test="bankGrowingCoin != null" >
+        #{bankGrowingCoin,jdbcType=DOUBLE},
+      </if>
+      <if test="bankBond != null" >
+        #{bankBond,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankLicence != null" >
+        #{bankLicence,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.mockband.entity.BankInfo" >
+    update bank_info_tbl
+    <set >
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginName != null" >
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankHead != null" >
+        bank_head = #{bankHead,jdbcType=VARCHAR},
+      </if>
+      <if test="bankType != null" >
+        bank_type = #{bankType,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCredits != null" >
+        bank_credits = #{bankCredits,jdbcType=DOUBLE},
+      </if>
+      <if test="bankGrowingCoin != null" >
+        bank_growing_coin = #{bankGrowingCoin,jdbcType=DOUBLE},
+      </if>
+      <if test="bankBond != null" >
+        bank_bond = #{bankBond,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bankLicence != null" >
+        bank_licence = #{bankLicence,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.mockband.entity.BankInfo" >
+    update bank_info_tbl
+    set bank_name = #{bankName,jdbcType=VARCHAR},
+      login_name = #{loginName,jdbcType=VARCHAR},
+      bank_head = #{bankHead,jdbcType=VARCHAR},
+      bank_type = #{bankType,jdbcType=VARCHAR},
+      bank_credits = #{bankCredits,jdbcType=DOUBLE},
+      bank_growing_coin = #{bankGrowingCoin,jdbcType=DOUBLE},
+      bank_bond = #{bankBond,jdbcType=DOUBLE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      bank_licence = #{bankLicence,jdbcType=LONGVARBINARY}
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.mockband.entity.BankInfo" >
+    update bank_info_tbl
+    set bank_name = #{bankName,jdbcType=VARCHAR},
+      login_name = #{loginName,jdbcType=VARCHAR},
+      bank_head = #{bankHead,jdbcType=VARCHAR},
+      bank_type = #{bankType,jdbcType=VARCHAR},
+      bank_credits = #{bankCredits,jdbcType=DOUBLE},
+      bank_growing_coin = #{bankGrowingCoin,jdbcType=DOUBLE},
+      bank_bond = #{bankBond,jdbcType=DOUBLE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where bank_id = #{bankId,jdbcType=INTEGER}
+  </update>
+</mapper>

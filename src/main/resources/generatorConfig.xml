@@ -7,7 +7,7 @@
     <!-- 配置文件路径 -->
     <properties resource="application.properties"/>
     <!--数据库驱动包路径 -->
-    <classPathEntry location="${mybatis.jdbc.jar}"/>
+
 
     <!-- flat表示为每一张表只生成一个实体类。这个实体类包含表中的所有字段-->
     <context id="virtual-control-sql" defaultModelType="flat">
@@ -58,6 +58,26 @@
 
         <!--生成全部的表-->
         <table tableName="user_info_tbl" domainObjectName="UserInfo"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        <table tableName="account_info_tbl" domainObjectName="AccountInfo"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        <table tableName="bank_info_tbl" domainObjectName="BankInfo"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        <table tableName="cbank_info_tbl" domainObjectName="CbankInfo"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+        <table tableName="tran_info_tbl" domainObjectName="TranInfo"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

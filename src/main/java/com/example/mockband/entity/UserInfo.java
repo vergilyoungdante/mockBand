@@ -6,11 +6,11 @@ import java.util.Date;
 public class UserInfo implements Serializable {
     private Integer userId;
 
-    private Integer bankId;
+    private String bankName;
+
+    private String loginName;
 
     private String userName;
-
-    private String userPassword;
 
     private String userDepartment;
 
@@ -21,10 +21,6 @@ public class UserInfo implements Serializable {
     private Double userGrowingCoin;
 
     private Double userBond;
-
-    private String authority;
-
-    private Integer type;
 
     private Date createTime;
 
@@ -40,12 +36,20 @@ public class UserInfo implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getBankId() {
-        return bankId;
+    public String getBankName() {
+        return bankName;
     }
 
-    public void setBankId(Integer bankId) {
-        this.bankId = bankId;
+    public void setBankName(String bankName) {
+        this.bankName = bankName == null ? null : bankName.trim();
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName == null ? null : loginName.trim();
     }
 
     public String getUserName() {
@@ -54,14 +58,6 @@ public class UserInfo implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName == null ? null : userName.trim();
-    }
-
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword == null ? null : userPassword.trim();
     }
 
     public String getUserDepartment() {
@@ -102,22 +98,6 @@ public class UserInfo implements Serializable {
 
     public void setUserBond(Double userBond) {
         this.userBond = userBond;
-    }
-
-    public String getAuthority() {
-        return authority;
-    }
-
-    public void setAuthority(String authority) {
-        this.authority = authority == null ? null : authority.trim();
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
     }
 
     public Date getCreateTime() {

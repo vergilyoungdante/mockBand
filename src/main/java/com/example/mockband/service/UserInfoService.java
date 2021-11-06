@@ -1,9 +1,9 @@
-package com.example.mockband.repository;
+package com.example.mockband.service;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-@Repository
+@Service
 public interface UserInfoService {
-    public int countUser();
+
 }

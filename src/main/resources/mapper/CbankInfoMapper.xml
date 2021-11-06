@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mockband.mapper.CbankInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.example.mockband.entity.CbankInfo" >
+    <id column="cbank_id" property="cbankId" jdbcType="INTEGER" />
+    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+    <result column="total_growing_coin" property="totalGrowingCoin" jdbcType="DOUBLE" />
+    <result column="cbank_growing_coin" property="cbankGrowingCoin" jdbcType="DOUBLE" />
+    <result column="public_growing_coin" property="publicGrowingCoin" jdbcType="DOUBLE" />
+    <result column="total_bond" property="totalBond" jdbcType="DOUBLE" />
+    <result column="cbank_bond" property="cbankBond" jdbcType="DOUBLE" />
+    <result column="public_bond" property="publicBond" jdbcType="DOUBLE" />
+    <result column="init_credits" property="initCredits" jdbcType="DOUBLE" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cbank_id, login_name, total_growing_coin, cbank_growing_coin, public_growing_coin, 
+    total_bond, cbank_bond, public_bond, init_credits, create_time, modify_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cbank_info_tbl
+    where cbank_id = #{cbankId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cbank_info_tbl
+    where cbank_id = #{cbankId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.mockband.entity.CbankInfo" >
+    insert into cbank_info_tbl (cbank_id, login_name, total_growing_coin, 
+      cbank_growing_coin, public_growing_coin, total_bond, 
+      cbank_bond, public_bond, init_credits, 
+      create_time, modify_time)
+    values (#{cbankId,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, #{totalGrowingCoin,jdbcType=DOUBLE}, 
+      #{cbankGrowingCoin,jdbcType=DOUBLE}, #{publicGrowingCoin,jdbcType=DOUBLE}, #{totalBond,jdbcType=DOUBLE}, 
+      #{cbankBond,jdbcType=DOUBLE}, #{publicBond,jdbcType=DOUBLE}, #{initCredits,jdbcType=DOUBLE}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.mockband.entity.CbankInfo" >
+    insert into cbank_info_tbl
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cbankId != null" >
+        cbank_id,
+      </if>
+      <if test="loginName != null" >
+        login_name,
+      </if>
+      <if test="totalGrowingCoin != null" >
+        total_growing_coin,
+      </if>
+      <if test="cbankGrowingCoin != null" >
+        cbank_growing_coin,
+      </if>
+      <if test="publicGrowingCoin != null" >
+        public_growing_coin,
+      </if>
+      <if test="totalBond != null" >
+        total_bond,
+      </if>
+      <if test="cbankBond != null" >
+        cbank_bond,
+      </if>
+      <if test="publicBond != null" >
+        public_bond,
+      </if>
+      <if test="initCredits != null" >
+        init_credits,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cbankId != null" >
+        #{cbankId,jdbcType=INTEGER},
+      </if>
+      <if test="loginName != null" >
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="totalGrowingCoin != null" >
+        #{totalGrowingCoin,jdbcType=DOUBLE},
+      </if>
+      <if test="cbankGrowingCoin != null" >
+        #{cbankGrowingCoin,jdbcType=DOUBLE},
+      </if>
+      <if test="publicGrowingCoin != null" >
+        #{publicGrowingCoin,jdbcType=DOUBLE},
+      </if>
+      <if test="totalBond != null" >
+        #{totalBond,jdbcType=DOUBLE},
+      </if>
+      <if test="cbankBond != null" >
+        #{cbankBond,jdbcType=DOUBLE},
+      </if>
+      <if test="publicBond != null" >
+        #{publicBond,jdbcType=DOUBLE},
+      </if>
+      <if test="initCredits != null" >
+        #{initCredits,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.mockband.entity.CbankInfo" >
+    update cbank_info_tbl
+    <set >
+      <if test="loginName != null" >
+        login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="totalGrowingCoin != null" >
+        total_growing_coin = #{totalGrowingCoin,jdbcType=DOUBLE},
+      </if>
+      <if test="cbankGrowingCoin != null" >
+        cbank_growing_coin = #{cbankGrowingCoin,jdbcType=DOUBLE},
+      </if>
+      <if test="publicGrowingCoin != null" >
+        public_growing_coin = #{publicGrowingCoin,jdbcType=DOUBLE},
+      </if>
+      <if test="totalBond != null" >
+        total_bond = #{totalBond,jdbcType=DOUBLE},
+      </if>
+      <if test="cbankBond != null" >
+        cbank_bond = #{cbankBond,jdbcType=DOUBLE},
+      </if>
+      <if test="publicBond != null" >
+        public_bond = #{publicBond,jdbcType=DOUBLE},
+      </if>
+      <if test="initCredits != null" >
+        init_credits = #{initCredits,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cbank_id = #{cbankId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.mockband.entity.CbankInfo" >
+    update cbank_info_tbl
+    set login_name = #{loginName,jdbcType=VARCHAR},
+      total_growing_coin = #{totalGrowingCoin,jdbcType=DOUBLE},
+      cbank_growing_coin = #{cbankGrowingCoin,jdbcType=DOUBLE},
+      public_growing_coin = #{publicGrowingCoin,jdbcType=DOUBLE},
+      total_bond = #{totalBond,jdbcType=DOUBLE},
+      cbank_bond = #{cbankBond,jdbcType=DOUBLE},
+      public_bond = #{publicBond,jdbcType=DOUBLE},
+      init_credits = #{initCredits,jdbcType=DOUBLE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where cbank_id = #{cbankId,jdbcType=INTEGER}
+  </update>
+</mapper>
