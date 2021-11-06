@@ -207,13 +207,13 @@
           "child": [
             {
               "title": "身份信息",
-              "href": "page/people/form-people-identity.html",
+              "href": "/people/identity",
               "icon": "fa fa-meetup",
               "target": "_self"
             },
             {
               "title": "信用积分查看",
-              "href": "page/people/form-people-credit.html",
+              "href": "query/credit",
               "icon": "fa fa-meetup",
               "target": "_self"
             }
@@ -227,7 +227,7 @@
           "child": [
             {
               "title": "余额查询",
-              "href": "page/people/form-people-balance.html",
+              "href": "query/balance",
               "icon": "fa fa-calendar",
               "target": "_self"
             },
