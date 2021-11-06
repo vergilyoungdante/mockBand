@@ -1,5 +1,6 @@
 package com.example.mockband.controller;
 
+import com.example.mockband.entity.User;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,8 +21,7 @@ public class CBankController {
         //需要所有3个数据
         //我这里把数据加进去给前端用
         //modelAndView.addObject();
-
-
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return modelAndView;
     }
 
