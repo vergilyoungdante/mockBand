@@ -48,7 +48,6 @@ public class User implements UserDetails {
         }else {
             return Arrays.asList(new SimpleGrantedAuthority("PEOPLE"));
         }
-
     }
 
     @Override

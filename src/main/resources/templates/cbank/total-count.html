@@ -20,8 +20,8 @@
                 <div class="layui-card-body">
                     <div class="layui-row layui-col-space5">
                         <div class="layui-col-xs12 layui-col-md9 layui-inline">
-                            整体成长币数额    <a style="color: #1aa094">500000</a><br>
-                            对公账户成长币数额 <a style="color: #bd3004">512222</a>
+                            整体成长币数额    <a id="totalBand" style="color: #1aa094">${totalCoin}</a><br>
+                            对公账户成长币数额 <a style="color: #bd3004">${publicCoin}</a>
                         </div>
                     </div>
                 </div>
@@ -35,8 +35,8 @@
                 <div class="layui-card-body">
                     <div class="layui-row layui-col-space5">
                         <div class="layui-col-xs12 layui-col-md9">
-                            整体可流动债券数额    <a style="color: #1aa094">666666666666666</a><br>
-                            对公账户可流动债券数额 <a style="color: #bd3004">66666666666666</a>
+                            整体可流动债券数额    <a style="color: #1aa094">${totalBond}</a><br>
+                            对公账户可流动债券数额 <a style="color: #bd3004">${publicBond}</a>
                         </div>
                     </div>
                 </div>
@@ -51,14 +51,14 @@
                     <div class="layui-row layui-col-space5">
                         <div class="layui-col-xs12 layui-col-md12 layui-inline">
                             <div class="layui-inline">
-                                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="增发数量" class="layui-input-inline layui-input">
+                                <input id="coinAdd"   type="text" name="title" lay-verify="number" autocomplete="off" placeholder="增发数量" class="layui-input-inline layui-input">
                             </div>
-                            <button class="layui-btn layui-inline">增发货币</button>
-
+                            <button class="layui-btn layui-inline" lay-submit data-type="addCoin">增发货币</button><br>
+                            <hr class="layui-bg-gray">
                             <div class="layui-inline">
-                                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="销毁数量" class="layui-input-inline layui-input">
+                                <input id="coinDestory" type="text" name="title" lay-verify="number" autocomplete="off" placeholder="销毁数量" class="layui-input-inline layui-input">
                             </div>
-                            <button class="layui-btn layui-inline">销毁货币</button>
+                            <button class="layui-btn layui-inline" lay-submit data-type="destoryCoin">销毁货币</button>
                         </div>
                     </div>
                 </div>
@@ -73,14 +73,14 @@
                     <div class="layui-row layui-col-space5">
                         <div class="layui-col-xs12 layui-col-md12">
                             <div class="layui-inline">
-                                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="增发数量" class="layui-input layui-inline">
+                                <input id="bandAdd" type="text" name="title" lay-verify="number" autocomplete="off" placeholder="增发数量" class="layui-input layui-inline">
                             </div>
-                            <button class="layui-btn layui-inline">增发债券</button>
-
+                            <button class="layui-btn layui-inline" lay-submit data-type="addBond">增发债券</button><br>
+                            <hr class="layui-bg-gray">
                             <div class="layui-inline">
-                                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="销毁数量" class="layui-input layui-inline">
+                                <input id="bandDestory" type="text" name="title" lay-verify="number" autocomplete="off" placeholder="销毁数量" class="layui-input layui-inline">
                             </div>
-                            <button class="layui-btn layui-inline">销毁债券</button>
+                            <button class="layui-btn layui-inline" lay-submit data-type="destoryBond">销毁债券</button>
                         </div>
                     </div>
                 </div>
@@ -126,17 +126,16 @@
             },
             series: [
                 {
-                    name: '访问来源',
+                    name: '额度',
                     type: 'pie',
                     radius: '55%',
                     center: ['50%', '60%'],
                     roseType: 'radius',
                     data: [
-                        {value: 335, name: '直接访问'},
-                        {value: 310, name: '邮件营销'},
-                        {value: 234, name: '联盟广告'},
-                        {value: 135, name: '视频广告'},
-                        {value: 368, name: '搜索引擎'}
+                        {value: ${cbankCoin}, name: '央行剩余成长币'},
+                        {value: ${publicCoin}, name: '对公成长币数额'},
+                        {value: ${cbankBond}, name: '央行剩余可流动债券'},
+                        {value: ${publicBond}, name: '对公可流动债券数额'}
                     ],
                     emphasis: {
                         itemStyle: {
@@ -150,19 +149,116 @@
         };
         echartsPies.setOption(optionPies);
 
-
-
-
-
-
-
-
-
-
-
         // echarts 窗口缩放自适应
         window.onresize = function () {
-            echartsRecords.resize();
+            echartsPies.resize();
+        }
+
+
+        $('.layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            switch (type){
+                case "addCoin":
+                    toAddCoin();
+                    break;
+                case "destoryCoin":
+                    toDestoryCoin();
+                    break;
+                case "addBond":
+                    toAddBond();
+                    break;
+                case "destoryBond":
+                    toDestoryBond();
+                    break;
+            }
+        });
+
+        function toAddCoin(){
+
+            obj = {};
+            obj.change=$('#coinAdd').val();
+
+            $.ajax({
+                type:"POST",
+                //后端接口
+                url:"/cbank/change/coin",
+                //数据
+                data:JSON.stringify(obj),
+                contentType: 'application/json',
+                success:function(){
+                    layer.alert("修改成功");
+                    console.log(obj);
+                },
+                error: function(){
+                    layer.alert("修改失败");
+                }
+            });
+        }
+
+        function toDestoryCoin(){
+
+            obj = {};
+            obj.change=-$('#coinDestory').val();
+
+            $.ajax({
+                type:"POST",
+                //后端接口
+                url:"/cbank/change/coin",
+                //数据
+                data:JSON.stringify(obj),
+                contentType: 'application/json',
+                success:function(){
+                    layer.alert("修改成功");
+                    console.log(obj);
+                },
+                error: function(){
+                    layer.alert("修改失败");
+                }
+            });
+        }
+
+        function toAddBond(){
+
+            obj = {};
+            obj.change=$('#bandAdd').val();
+
+            $.ajax({
+                type:"POST",
+                //后端接口
+                url:"/cbank/change/bond",
+                //数据
+                data:JSON.stringify(obj),
+                contentType: 'application/json',
+                success:function(){
+                    layer.alert("修改成功");
+                    console.log(obj);
+                },
+                error: function(){
+                    layer.alert("修改失败");
+                }
+            });
+        }
+
+        function toDestoryBond(){
+
+            obj = {};
+            obj.change=-$('#bandDestory').val();
+
+            $.ajax({
+                type:"POST",
+                //后端接口
+                url:"/cbank/change/bond",
+                //数据
+                data:JSON.stringify(JSON.stringify(obj)),
+                contentType: 'application/json',
+                success:function(){
+                    layer.alert("修改成功");
+                    console.log(obj);
+                },
+                error: function(){
+                    layer.alert("修改失败");
+                }
+            });
         }
 
     });

@@ -7,11 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/cbank")
@@ -31,18 +34,22 @@ public class CBankController {
         CbankInfo cbankInfo = cbankInfoService.queryInfo(user.getName());
         modelAndView.addObject("totalCoin", cbankInfo.getTotalGrowingCoin());
         modelAndView.addObject("publicCoin", cbankInfo.getPublicGrowingCoin());
+        modelAndView.addObject("cbankCoin",cbankInfo.getCbankGrowingCoin());
         modelAndView.addObject("totalBond", cbankInfo.getTotalBond());
         modelAndView.addObject("publicBond", cbankInfo.getPublicBond());
+        modelAndView.addObject("cbankBond",cbankInfo.getCbankBond());
         return modelAndView;
     }
 
     @RequestMapping("/change/bond")
-    public void changeBond(HttpServletRequest request, HttpServletResponse response){
-        String change = request.getParameter("change");
+    public void changeBond(@RequestBody Map<String,Object> param,HttpServletRequest request, HttpServletResponse response){
+        String change = param.get("change").toString();
+
+
     }
-    @RequestMapping("/change/coin")
-    public void changeCoin(HttpServletRequest request, HttpServletResponse response){
-        String change = request.getParameter("change");
+    @PostMapping("/change/coin")
+    public void changeCoin(@RequestBody Map<String,Object> param, HttpServletRequest request, HttpServletResponse response){
+        String change = param.get("change").toString();
     }
 
     @RequestMapping("/register")
