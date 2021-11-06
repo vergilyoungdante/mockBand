@@ -12,24 +12,31 @@ import java.util.Collection;
 import java.util.Date;
 @Entity
 @Data
-@Table(name = "user")
+@Table(name = "account_info_tbl")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "account_id")
     private Long id;
+
+    @Column(name = "login_name")
     @NotBlank(message="必须有姓名")
     private String name;
+    @Column(name = "login_password")
     @NotBlank(message = "必须输入密码")
     private String password;
-    private Date createDate;
 
-    private String authority;
+    private Date createTime;
 
-    private int type;//回来把表建好了去掉注释
+    private Date modifyTime;
+
+    private int accountType;
+
+
 
     @PrePersist
     void createdAt(){
-        this.createDate = new Date();
+        this.createTime = new Date();
     }
 
     @Override
