@@ -1,6 +1,9 @@
 package com.example.mockband.controller;
 
+import com.example.mockband.entity.CbankInfo;
 import com.example.mockband.entity.User;
+import com.example.mockband.service.CbankInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/cbank")
 public class CBankController {
 
+    @Autowired
+    CbankInfoService cbankInfoService;
+
     @RequestMapping("/total")
     public ModelAndView totalCount(){
         ModelAndView modelAndView = new ModelAndView("/cbank/total-count");
@@ -22,6 +28,11 @@ public class CBankController {
         //我这里把数据加进去给前端用
         //modelAndView.addObject();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        CbankInfo cbankInfo = cbankInfoService.queryInfo(user.getName());
+        modelAndView.addObject("totalCoin", cbankInfo.getTotalGrowingCoin());
+        modelAndView.addObject("publicCoin", cbankInfo.getPublicGrowingCoin());
+        modelAndView.addObject("totalBond", cbankInfo.getTotalBond());
+        modelAndView.addObject("publicBond", cbankInfo.getPublicBond());
         return modelAndView;
     }
 
