@@ -1,0 +1,45 @@
+{
+  "homeInfo": {
+    "title": "首页",
+    "href": "/cbank/total"
+  },
+  "logoInfo": {
+    "title": "银行管理系统",
+    "image": "images/logo.png",
+    "href": ""
+  },
+  "menuInfo": [
+    {
+      "title": "中央银行管理",
+      "icon": "fa fa-lemon-o",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "转账记录",
+          "href": "/cbank/transfer/log",
+          "icon": "fa fa-angle-double-down",
+          "target": "_self"
+        },
+        {
+          "title": "转账功能",
+          "href": "/cbank/transfer",
+          "icon": "fa fa-arrow-up",
+          "target": "_self"
+        },
+        {
+          "title": "商业银行开户",
+          "href": "/cbank/register",
+          "icon": "fa fa-edit",
+          "target": "_self"
+        },
+        {
+          "title": "财务情况",
+          "href": "/cbank/total",
+          "icon": "fa fa-rocket",
+          "target": "_self"
+        }
+      ]
+    }
+  ]
+}
