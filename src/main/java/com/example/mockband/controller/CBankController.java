@@ -1,5 +1,6 @@
 package com.example.mockband.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.mockband.entity.CbankInfo;
 import com.example.mockband.entity.User;
 import com.example.mockband.service.CbankInfoService;
@@ -10,10 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Map;
 
 @Controller
@@ -60,8 +64,27 @@ public class CBankController {
     }
 
     @RequestMapping("/create/bank")
-    public void createBank(HttpServletRequest request, HttpServletResponse response){
+    public void createBank(HttpServletRequest request, HttpServletResponse response,
+                           @RequestParam("userName") String userName,
+                           @RequestParam("newPassword") String newPassword,
+                           @RequestParam("againPassword") String againPassword,
+                           @RequestParam("bankName") String bankName,
+                           @RequestParam("bankHead") String bankHead,
+                           @RequestParam("credit") String credit,
+                           @RequestParam("file") MultipartFile file) throws IOException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code",200);
 
+        if(file.isEmpty()){
+            jsonObject.put("message","需要上传执照");
+            response.getWriter().write(jsonObject.toString());
+            return;
+        }
+        if(!newPassword.equals(againPassword)){
+            jsonObject.put("message","密码设置不一致");
+            response.getWriter().write(jsonObject.toString());
+            return;
+        }
     }
 
     @RequestMapping("/transfer")
