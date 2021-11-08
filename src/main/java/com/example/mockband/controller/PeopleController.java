@@ -48,7 +48,6 @@ public class PeopleController {
         return modelAndView;
     }
 
-    //TODO: steve改一下路径
     @RequestMapping("/transfer/log")
     public String transferLog(){
         return "/people/table-people-search";

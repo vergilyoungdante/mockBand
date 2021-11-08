@@ -120,11 +120,9 @@ public class CBankController {
 
     @RequestMapping("/query/transfer/log")
     public void queryTransferLog(HttpServletRequest request, HttpServletResponse response){
-        String fromBank = request.getParameter("fromBank");
-        String toBank = request.getParameter("toBank");
-        String type = request.getParameter("type");
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
+        String query = request.getParameter("query");
+
+
 
 
 

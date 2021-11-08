@@ -21,31 +21,29 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">付款账户</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="username" autocomplete="off" class="layui-input">
+                                <input type="text" name="fromAccount" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">收款账户</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="sex" autocomplete="off" class="layui-input">
+                                <input type="text" name="toAccount" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">交易种类</label>
+                            <label class="layui-form-label">选择框</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="city" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">交易金额</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="city" autocomplete="off" class="layui-input">
+                                <select name="type" >
+                                    <option value=""></option>
+                                    <option value="0">成长币</option>
+                                    <option value="1">债券</option>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">交易时间</label>
                             <div class="layui-input-inline">
-                                <input type="text" class="layui-input" id="data" placeholder=" - ">
+                                <input type="text" name="date" class="layui-input" id="data" placeholder=" - ">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -78,7 +76,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '/cbank/log',
+            url: '/cbank/query/transfer/log',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports'],
             cols: [[
@@ -106,21 +104,16 @@
         // 监听搜索操作
         form.on('submit(data-search-btn)', function (data) {
             var result = JSON.stringify(data.field);
-            layer.alert(result, {
-                title: '最终的搜索信息'
-            });
 
-            //执行搜索重载
             table.reload('currentTableId', {
                 page: {
                     curr: 1
                 }
                 , where: {
-                    searchParams: result
+                    query:result
                 }
             }, 'data');
-
-            return false;
+            console.log(obj);
         });
     });
 </script>
