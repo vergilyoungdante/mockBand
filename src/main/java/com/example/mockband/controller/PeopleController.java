@@ -51,7 +51,7 @@ public class PeopleController {
     //TODO: steve改一下路径
     @RequestMapping("/transfer/log")
     public String transferLog(){
-        return "/cbank/transfer-log-coin";
+        return "/people/table-people-search";
     }
 
     @RequestMapping("/query/transfer/log")
@@ -68,7 +68,7 @@ public class PeopleController {
 
     @RequestMapping("/transfer")
     public String transfer(){
-        return "/cbank/transfer";
+        return "/people/form-step-people-transfer";
     }
 
     @RequestMapping("/check/count")
