@@ -24,7 +24,7 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">收款账户:</label>
                                         <div class="layui-input-block">
-                                            <input type="text" name="account" placeholder="请填写收款账户" class="layui-input" lay-verify="number" required />
+                                            <input type="text" id="account" placeholder="请填写收款账户" class="layui-input" lay-verify="number" required />
 
                                         </div>
                                     </div>
@@ -32,7 +32,7 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">入款类型:</label>
                                         <div class="layui-input-block">
-                                            <select lay-verify="required" name="type">
+                                            <select lay-verify="required" id="type">
                                                 <option value="1" selected>成长币</option>
                                                 <option value="2">债券</option>
                                             </select>
@@ -41,7 +41,7 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">汇款金额:</label>
                                         <div class="layui-input-block">
-                                            <input type="number" name="number" placeholder="请填写汇款金额" value="" class="layui-input" lay-verify="number" required>
+                                            <input type="number" id="number" placeholder="请填写汇款金额" value="" class="layui-input" lay-verify="number" required>
                                         </div>
                                     </div>
 <!--                                    <div class="layui-form-item">-->
@@ -58,7 +58,7 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">备注说明:</label>
                                         <div class="layui-input-block">
-                                            <textarea placeholder="入款备注" name="commit" value="" class="layui-textarea"></textarea>
+                                            <textarea placeholder="入款备注" id="commit" value="" class="layui-textarea"></textarea>
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
@@ -76,27 +76,25 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">收款账户:</label>
                                         <div class="layui-input-block">
-                                            <div class="layui-form-mid layui-word-aux" name="account2">639537</div>
+                                            <div class="layui-form-mid layui-word-aux" id="account2"></div>
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">账户余额:</label>
                                         <div class="layui-input-block">
-                                            <div class="layui-form-mid layui-word-aux" name="rest">3000 元（保险箱：1000，现金：2000）</div>
+                                            <div class="layui-form-mid layui-word-aux" id="rest">3000</div>
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">转账类型:</label>
                                         <div class="layui-input-block">
-                                            <div class="layui-form-mid layui-word-aux" name="type2">3000 元（保险箱：1000，现金：2000）</div>
+                                            <div class="layui-form-mid layui-word-aux" id="type2"></div>
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
-                                        <label class="layui-form-label">汇款金额:</label>
+                                        <label class="layui-form-label">转账金额:</label>
                                         <div class="layui-input-block">
-                                            <div class="layui-form-mid layui-word-aux" name="number2">
-                                                <span style="font-size: 18px;color: #333;">1800 元</span>
-                                            </div>
+                                            <div class="layui-form-mid layui-word-aux" id="number2"></div>
                                         </div>
                                     </div>
 <!--                                    <div class="layui-form-item">-->
@@ -114,7 +112,7 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">备注说明:</label>
                                         <div class="layui-input-block">
-                                            <div class="layui-form-mid layui-word-aux" name="commit">备注说明</div>
+                                            <div class="layui-form-mid layui-word-aux" id="commit2"></div>
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
@@ -183,6 +181,21 @@
 
 
         form.on('submit(formStep)', function (data) {
+            var bank=$("#account").val();
+            $("#account2").html(bank);
+            var type =$("#type").val();
+            if(type==1){
+                $("#type2").html("成长币")
+            }else {
+                $("#type2").html("债券")
+            }
+            var rest = 0;//TODO: 后台获得账户余额
+
+            var count =$("#number").val();
+            $("#number2").html(count);
+
+            var commit =$("#comment").val();
+            $("#comment2").val(commit);
             step.next('#stepForm');
             return false;
         });
