@@ -16,4 +16,30 @@ public class CbankInfoServiceImpl implements CbankInfoService{
         CbankInfo cbankInfo = cbankInfoMapper.selectByLoginName(loginName);
         return cbankInfo;
     }
+
+    @Override
+    public boolean changeBond(String loginName, double changeAmount) {
+        CbankInfo cbankInfo = queryInfo(loginName);
+        double sumAmount = cbankInfo.getCbankBond() + changeAmount;
+        if (sumAmount < 0)
+        {
+            return false;
+        }
+        cbankInfo.setCbankBond(sumAmount);
+        cbankInfoMapper.updateByLoginName(cbankInfo);
+        return true;
+    }
+
+    @Override
+    public boolean changeCoin(String loginName, double changeAmount) {
+        CbankInfo cbankInfo = queryInfo(loginName);
+        double sumAmount = cbankInfo.getCbankGrowingCoin() + changeAmount;
+        if (sumAmount < 0)
+        {
+            return false;
+        }
+        cbankInfo.setCbankGrowingCoin(sumAmount);
+        cbankInfoMapper.updateByLoginName(cbankInfo);
+        return true;
+    }
 }

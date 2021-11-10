@@ -46,14 +46,18 @@ public class CBankController {
     }
 
     @RequestMapping("/change/bond")
-    public void changeBond(@RequestBody Map<String,Object> param,HttpServletRequest request, HttpServletResponse response){
+    public boolean changeBond(@RequestBody Map<String,Object> param,HttpServletRequest request, HttpServletResponse response){
         String change = param.get("change").toString();
-
-
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        boolean isSuccess = cbankInfoService.changeBond(user.getName(), Double.parseDouble(change));
+        return isSuccess;
     }
     @PostMapping("/change/coin")
-    public void changeCoin(@RequestBody Map<String,Object> param, HttpServletRequest request, HttpServletResponse response){
+    public boolean changeCoin(@RequestBody Map<String,Object> param, HttpServletRequest request, HttpServletResponse response){
         String change = param.get("change").toString();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        boolean isSuccess = cbankInfoService.changeCoin(user.getName(), Double.parseDouble(change));
+        return isSuccess;
     }
 
     @RequestMapping("/register")
