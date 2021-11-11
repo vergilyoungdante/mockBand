@@ -1,7 +1,9 @@
 package com.example.mockband.mapper;
 
 import com.example.mockband.entity.AccountInfo;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface AccountInfoMapper {
     int deleteByPrimaryKey(Integer accountId);
 
@@ -14,4 +16,6 @@ public interface AccountInfoMapper {
     int updateByPrimaryKeySelective(AccountInfo record);
 
     int updateByPrimaryKey(AccountInfo record);
+
+    AccountInfo selectByLoginName(String loginName);
 }

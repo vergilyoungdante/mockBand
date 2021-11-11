@@ -1,6 +1,9 @@
 package com.example.mockband.service;
 
+import com.example.mockband.entity.BankInfo;
 import com.example.mockband.entity.CbankInfo;
+import com.example.mockband.mapper.AccountInfoMapper;
+import com.example.mockband.mapper.BankInfoMapper;
 import com.example.mockband.mapper.CbankInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +13,12 @@ public class CbankInfoServiceImpl implements CbankInfoService{
 
     @Autowired
     CbankInfoMapper cbankInfoMapper;
+
+    @Autowired
+    BankInfoMapper bankInfoMapper;
+
+    @Autowired
+    AccountInfoMapper accountInfoMapper;
 
     @Override
     public CbankInfo queryInfo(String loginName) {

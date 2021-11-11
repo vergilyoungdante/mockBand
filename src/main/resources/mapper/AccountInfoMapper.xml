@@ -12,6 +12,14 @@
   <sql id="Base_Column_List" >
     account_id, login_name, login_password, account_type, create_time, modify_time
   </sql>
+
+  <select id="selectByLoginName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from account_info_tbl
+    where login_name = #{loginName,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

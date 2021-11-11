@@ -23,6 +23,14 @@
   <sql id="Blob_Column_List" >
     bank_licence
   </sql>
+
+  <select id="selectByLoginName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from bank_info_tbl
+    where login_name = #{loginName,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

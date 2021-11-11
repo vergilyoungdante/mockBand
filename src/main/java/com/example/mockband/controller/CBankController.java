@@ -1,8 +1,12 @@
 package com.example.mockband.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.mockband.entity.AccountInfo;
+import com.example.mockband.entity.BankInfo;
 import com.example.mockband.entity.CbankInfo;
 import com.example.mockband.entity.User;
+import com.example.mockband.service.AccountInfoService;
+import com.example.mockband.service.BankInfoService;
 import com.example.mockband.service.CbankInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -26,6 +30,12 @@ public class CBankController {
 
     @Autowired
     CbankInfoService cbankInfoService;
+
+    @Autowired
+    BankInfoService bankInfoService;
+
+    @Autowired
+    AccountInfoService accountInfoService;
 
     @RequestMapping("/total")
     public ModelAndView totalCount(){
@@ -89,6 +99,20 @@ public class CBankController {
             response.getWriter().write(jsonObject.toString());
             return;
         }
+
+        BankInfo bankInfo = new BankInfo();
+        bankInfo.setLoginName(userName);
+        bankInfo.setBankName(bankName);
+        bankInfo.setBankHead(bankHead);
+        bankInfo.setBankCredits(Double.parseDouble(credit));
+
+        AccountInfo accountInfo = new AccountInfo();
+        accountInfo.setLoginName(userName);
+        accountInfo.setLoginPassword(newPassword);
+        accountInfo.setAccountType(2);
+
+        bankInfoService.createBank(bankInfo);
+        accountInfoService.createAccount(accountInfo);
     }
 
     @RequestMapping("/transfer")
