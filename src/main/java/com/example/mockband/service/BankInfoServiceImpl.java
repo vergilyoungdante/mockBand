@@ -10,7 +10,7 @@ public class BankInfoServiceImpl implements BankInfoService{
 
     @Override
     public boolean createBank(BankInfo bankInfo) {
-        if (bankInfoMapper.selectByLoginName(bankInfo.getLoginName()) != null)
+        if (bankInfoMapper.selectByBankName(bankInfo.getBankName()) != null)
         {
             return false;
         }

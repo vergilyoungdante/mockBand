@@ -88,9 +88,4 @@ public class PeopleController {
         String toBank = request.getParameter("toBank");//对方银行账号
 
     }
-
-
-
-
-
 }

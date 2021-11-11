@@ -59,6 +59,7 @@ public class CBankController {
     public boolean changeBond(@RequestBody Map<String,Object> param,HttpServletRequest request, HttpServletResponse response){
         String change = param.get("change").toString();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //todo:如果销毁金额大于现有金额，该如何返回
         boolean isSuccess = cbankInfoService.changeBond(user.getName(), Double.parseDouble(change));
         return isSuccess;
     }
@@ -66,6 +67,7 @@ public class CBankController {
     public boolean changeCoin(@RequestBody Map<String,Object> param, HttpServletRequest request, HttpServletResponse response){
         String change = param.get("change").toString();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //todo:如果销毁金额大于现有金额，该如何返回
         boolean isSuccess = cbankInfoService.changeCoin(user.getName(), Double.parseDouble(change));
         return isSuccess;
     }
@@ -111,6 +113,7 @@ public class CBankController {
         accountInfo.setLoginPassword(newPassword);
         accountInfo.setAccountType(2);
 
+        //todo:如果要创建的银行已经存在，该如何返回
         bankInfoService.createBank(bankInfo);
         accountInfoService.createAccount(accountInfo);
     }
@@ -122,21 +125,24 @@ public class CBankController {
 
     @RequestMapping("/check/count")
     public void checkCount(HttpServletRequest request, HttpServletResponse response){
-        //User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String change = request.getParameter("count");//转出金额
-        String type = request.getParameter("type");//交易类型，成长币还是债券
+        String type = request.getParameter("type");//交易类型，1成长币,2债券
         String content = request.getParameter("content");//交易备注
 
+        //todo:如果转出金额大于余额，该如何返回
+        cbankInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
     }
 
     @RequestMapping("/commit/change")
     public void commitChange(HttpServletRequest request, HttpServletResponse response){
-        //User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String change = request.getParameter("count");//转出金额
-        String type = request.getParameter("type");//交易类型，成长币还是债券
+        String type = request.getParameter("type");//交易类型，1成长币,2债券
         String content = request.getParameter("content");//交易备注
         String toBank = request.getParameter("toBank");//对方银行账号
 
+        cbankInfoService.transfer(user.getName(), Double.parseDouble(change), type, toBank);
     }
 
 
@@ -149,13 +155,6 @@ public class CBankController {
     @RequestMapping("/query/transfer/log")
     public void queryTransferLog(HttpServletRequest request, HttpServletResponse response){
         String query = request.getParameter("query");
-
-
-
-
-
-
-
 
 
     }

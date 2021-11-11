@@ -24,11 +24,11 @@
     bank_licence
   </sql>
 
-  <select id="selectByLoginName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByBankName" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
     from bank_info_tbl
-    where login_name = #{loginName,jdbcType=VARCHAR}
+    where bank_name = #{bankName,jdbcType=VARCHAR}
   </select>
 
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
@@ -188,5 +188,12 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where bank_id = #{bankId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByLoginName" parameterType="com.example.mockband.entity.BankInfo" >
+    update bank_info_tbl
+    set bank_bond = #{bankBond,jdbcType=DOUBLE},
+        bank_growing_coin = #{bankGrowingCoin,jdbcType=DOUBLE}
+    where login_name = #{loginName,jdbcType=VARCHAR}
   </update>
 </mapper>

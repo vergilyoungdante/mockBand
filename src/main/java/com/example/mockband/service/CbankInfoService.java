@@ -8,4 +8,6 @@ public interface CbankInfoService {
     public CbankInfo queryInfo(String loginName);
     boolean changeBond(String loginName, double changeAmount);
     boolean changeCoin(String loginName, double changeAmount);
+    boolean checkAmount(String loginName, double tranAmount, String curType);
+    void transfer(String loginName, double tranAmount, String curType, String bankName);
 }

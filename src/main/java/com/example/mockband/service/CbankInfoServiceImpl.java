@@ -51,4 +51,50 @@ public class CbankInfoServiceImpl implements CbankInfoService{
         cbankInfoMapper.updateByLoginName(cbankInfo);
         return true;
     }
+
+    @Override
+    public boolean checkAmount(String loginName, double tranAmount, String curType) {
+        CbankInfo cbankInfo = cbankInfoMapper.selectByLoginName(loginName);
+
+        //1成长币
+        if (curType.equals("1"))
+        {
+            if (tranAmount > cbankInfo.getCbankGrowingCoin())
+            {
+                return false;
+            }
+        }
+
+        //2债券
+        if (curType.equals("2"))
+        {
+            if (tranAmount > cbankInfo.getCbankBond())
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void transfer(String loginName, double tranAmount, String curType, String bankName) {
+        CbankInfo cbankInfo = cbankInfoMapper.selectByLoginName(loginName);
+        BankInfo bankInfo = bankInfoMapper.selectByBankName(bankName);
+
+        //1成长币
+        if (curType.equals("1"))
+        {
+            cbankInfo.setCbankGrowingCoin(cbankInfo.getCbankGrowingCoin() - tranAmount);
+            bankInfo.setBankGrowingCoin(bankInfo.getBankGrowingCoin() + tranAmount);
+        }
+
+        //2债券
+        if (curType.equals("2"))
+        {
+            cbankInfo.setCbankBond(cbankInfo.getCbankBond() - tranAmount);
+            bankInfo.setBankBond(bankInfo.getBankBond() + tranAmount);
+        }
+        cbankInfoMapper.updateByLoginName(cbankInfo);
+        bankInfoMapper.updateByLoginName(bankInfo);
+    }
 }

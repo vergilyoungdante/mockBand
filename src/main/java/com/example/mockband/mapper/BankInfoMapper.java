@@ -1,6 +1,7 @@
 package com.example.mockband.mapper;
 
 import com.example.mockband.entity.BankInfo;
+import com.example.mockband.entity.CbankInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
@@ -19,5 +20,7 @@ public interface BankInfoMapper {
 
     int updateByPrimaryKey(BankInfo record);
 
-    BankInfo selectByLoginName(String loginName);
+    BankInfo selectByBankName(String loginName);
+
+    int updateByLoginName(BankInfo bankInfo);
 }
