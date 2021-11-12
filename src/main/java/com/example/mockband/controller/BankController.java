@@ -5,6 +5,10 @@ import com.example.mockband.entity.AccountInfo;
 import com.example.mockband.entity.BankInfo;
 import com.example.mockband.entity.User;
 import com.example.mockband.entity.UserInfo;
+import com.example.mockband.mapper.BankInfoMapper;
+import com.example.mockband.service.AccountInfoService;
+import com.example.mockband.service.BankInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,30 +24,30 @@ import java.io.IOException;
 @RequestMapping("/bank")
 public class BankController {
 
+    @Autowired
+    BankInfoService bankInfoService;
+
     @RequestMapping("/info")
     public ModelAndView identity(){
         ModelAndView modelAndView = new ModelAndView("/bank/form-bank-info");
         //查询
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        UserInfo userInfo = userInfoService.queryInfo(user.getName());
-//        modelAndView.addObject("userName", userInfo.getUserName());
-//        modelAndView.addObject("userMobile", userInfo.getUserMobile());
-//        modelAndView.addObject("userDepartment",userInfo.getUserDepartment());
+        BankInfo bankInfo = bankInfoService.queryInfo(user.getName());
+        modelAndView.addObject("bankName", bankInfo.getBankName());
+        modelAndView.addObject("bankHead", bankInfo.getBankHead());
+        //todo: 如何获取bankLicense
+        modelAndView.addObject("bankType",bankInfo.getBankType());
         return modelAndView;
     }
 
     @RequestMapping("/modify/info")
     public void modifyIdentity(HttpServletRequest request, HttpServletResponse response){
-        String name = request.getParameter("name");
-        String sex  = request.getParameter("sex");
-        String password = request.getParameter("password");
-        String phone = request.getParameter("phone");
-        String email = request.getParameter("email");
-        String department = request.getParameter("department");
+        String bankName = request.getParameter("bankName");
+        String bankHead = request.getParameter("bankHead");
+        String bankType = request.getParameter("bankType");
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        userInfoService.modifyInfo(user.getName(), phone, department);
-//        accountInfoService.modifyInfo(user.getName(), password);
+        bankInfoService.modifyInfo(user.getName(), bankName, bankHead, bankType);
     }
 
     @RequestMapping("/query/bank/credit")
@@ -51,8 +55,8 @@ public class BankController {
         ModelAndView modelAndView = new ModelAndView("/bank/form-bank-credit");
         //这里查一下信用分
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        UserInfo userInfo = userInfoService.queryInfo(user.getName());
-//        modelAndView.addObject("userCredit", userInfo.getUserCredits());
+        BankInfo bankInfo = bankInfoService.queryInfo(user.getName());
+        modelAndView.addObject("bankCredit", bankInfo.getBankCredits());
         return modelAndView;
     }
 
@@ -61,9 +65,9 @@ public class BankController {
         ModelAndView modelAndView = new ModelAndView("/bank/form-bank-balance");
         //这里查一下两种余额
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        UserInfo userInfo = userInfoService.queryInfo(user.getName());
-//        modelAndView.addObject("userCoin", userInfo.getUserGrowingCoin());
-//        modelAndView.addObject("userBond", userInfo.getUserBond());
+        BankInfo bankInfo = bankInfoService.queryInfo(user.getName());
+        modelAndView.addObject("bankCoin", bankInfo.getBankGrowingCoin());
+        modelAndView.addObject("bankBond", bankInfo.getBankBond());
         return modelAndView;
     }
 

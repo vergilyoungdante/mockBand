@@ -20,7 +20,7 @@ public interface BankInfoMapper {
 
     int updateByPrimaryKey(BankInfo record);
 
-    BankInfo selectByBankName(String loginName);
+    BankInfo selectByLoginName(String loginName);
 
     int updateByLoginName(BankInfo bankInfo);
 }

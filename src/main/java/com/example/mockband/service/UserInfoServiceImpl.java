@@ -72,7 +72,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         //个人 -> 商业银行
         if (target == "2")
         {
-            BankInfo bankInfo = bankInfoMapper.selectByBankName(toAccount);
+            BankInfo bankInfo = bankInfoMapper.selectByLoginName(toAccount);
             //1成长币
             if (curType.equals("1"))
             {

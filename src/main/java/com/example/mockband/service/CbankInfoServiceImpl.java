@@ -86,7 +86,7 @@ public class CbankInfoServiceImpl implements CbankInfoService{
     @Override
     public void transfer(String loginName, double tranAmount, String curType, String toAccount) {
         CbankInfo cbankInfo = cbankInfoMapper.selectByLoginName(loginName);
-        BankInfo bankInfo = bankInfoMapper.selectByBankName(toAccount);
+        BankInfo bankInfo = bankInfoMapper.selectByLoginName(toAccount);
 
         //1成长币
         if (curType.equals("1"))
