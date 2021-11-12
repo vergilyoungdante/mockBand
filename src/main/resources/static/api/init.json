@@ -192,6 +192,58 @@
       ]
     },
 
+    {
+      "title": "商业银行",
+      "icon": "fa fa-slideshare",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "私人账户开户业务",
+          "href": "page/form-bank-create-people.html",
+          "icon": "fa fa-rocket",
+          "target": "_self"
+        },
+        {
+          "title": "转账业务",
+          "href": "page/form-step-bank-transfer.html",
+          "icon": "fa fa-rocket",
+          "target": "_self"
+        },
+        {
+          "title": "银行管理",
+          "href": "",
+          "icon": "fa fa-rocket",
+          "target": "_self",
+          "child": [
+            {
+              "title": "银行基本信息",
+              "href": "page/form-bank-info.html",
+              "icon": "fa fa-rocket",
+              "target": "_self"
+            },
+            {
+              "title": "信用积分查看",
+              "href": "page/form-bank-credit.html",
+              "icon": "fa fa-rocket",
+              "target": "_self"
+            },
+            {
+              "title": "财务信息",
+              "href": "page/form-bank-balance.html",
+              "icon": "fa fa-rocket",
+              "target": "_self"
+            },
+            {
+              "title": "转账记录",
+              "href": "page/table-bank-search.html",
+              "icon": "fa fa-rocket",
+              "target": "_self"
+            }
+          ]
+        }
+      ]
+    },
 
     {
       "title": "个人用户",

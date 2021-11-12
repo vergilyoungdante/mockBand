@@ -6,9 +6,9 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="../../lib/layui-v2.6.3/css/layui.css" media="all">
-    <link rel="stylesheet" href="../../css/public.css" media="all">
-    <link rel="stylesheet" href="../../js/lay-module/step-lay/step.css" media="all">
+    <link rel="stylesheet" href="../lib/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/public.css" media="all">
+    <link rel="stylesheet" href="../js/lay-module/step-lay/step.css" media="all">
 </head>
 <body>
 <div class="layuimini-container">
@@ -22,27 +22,38 @@
                             <div>
                                 <form class="layui-form" style="margin: 0 auto;max-width: 460px;padding-top: 40px;">
                                     <div class="layui-form-item">
-                                        <label class="layui-form-label">收款银行账户:</label>
+                                        <label class="layui-form-label">收款账户类型:</label>
                                         <div class="layui-input-block">
-                                            <input type="text" placeholder="请填写收款银行账户" class="layui-input" lay-verify="number" required />
+                                            <select lay-verify="required" id="aim">
+                                                <option value="1" selected>央行</option>
+                                                <option value="2">个人</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">收款账户:</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" id="account" placeholder="请填写收款账户" class="layui-input" lay-verify="number" required />
+
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">入款类型:</label>
+                                        <div class="layui-input-block">
+                                            <select lay-verify="required" id="type">
+                                                <option value="1" selected>成长币</option>
+                                                <option value="2">债券</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">汇款金额:</label>
                                         <div class="layui-input-block">
-                                            <input type="number" placeholder="请填写汇款金额" value="" class="layui-input" lay-verify="number" required>
+                                            <input type="number" id="number" placeholder="请填写汇款金额" value="" class="layui-input" lay-verify="number" required>
                                         </div>
                                     </div>
-<!--                                    <div class="layui-form-item">-->
-<!--                                        <label class="layui-form-label">入款类型:</label>-->
-<!--                                        <div class="layui-input-block">-->
-<!--                                            <select lay-verify="required">-->
-<!--                                                <option value="1" selected>保险箱</option>-->
-<!--                                                <option value="2">现金</option>-->
-<!--                                            </select>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
 <!--                                    <div class="layui-form-item">-->
 <!--                                        <label class="layui-form-label">入款方式:</label>-->
 <!--                                        <div class="layui-input-block">-->
@@ -57,7 +68,7 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">备注说明:</label>
                                         <div class="layui-input-block">
-                                            <textarea placeholder="入款备注" value="" class="layui-textarea"></textarea>
+                                            <textarea placeholder="入款备注" id="commit" value="" class="layui-textarea"></textarea>
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
@@ -73,23 +84,33 @@
                             <div>
                                 <form class="layui-form" style="margin: 0 auto;max-width: 460px;padding-top: 40px;">
                                     <div class="layui-form-item">
-                                        <label class="layui-form-label">收款银行账户:</label>
+                                        <label class="layui-form-label">收款账户类型:</label>
                                         <div class="layui-input-block">
-                                            <div class="layui-form-mid layui-word-aux">639537</div>
+                                            <div class="layui-form-mid layui-word-aux" id="aim2"></div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">收款账户:</label>
+                                        <div class="layui-input-block">
+                                            <div class="layui-form-mid layui-word-aux" id="account2"></div>
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">账户余额:</label>
                                         <div class="layui-input-block">
-                                            <div class="layui-form-mid layui-word-aux">3000 元（保险箱：1000，现金：2000）</div>
+                                            <div class="layui-form-mid layui-word-aux" id="rest">3000</div>
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
-                                        <label class="layui-form-label">汇款金额:</label>
+                                        <label class="layui-form-label">转账类型:</label>
                                         <div class="layui-input-block">
-                                            <div class="layui-form-mid layui-word-aux">
-                                                <span style="font-size: 18px;color: #333;">1800 元</span>
-                                            </div>
+                                            <div class="layui-form-mid layui-word-aux" id="type2"></div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">转账金额:</label>
+                                        <div class="layui-input-block">
+                                            <div class="layui-form-mid layui-word-aux" id="number2"></div>
                                         </div>
                                     </div>
 <!--                                    <div class="layui-form-item">-->
@@ -107,7 +128,7 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">备注说明:</label>
                                         <div class="layui-input-block">
-                                            <div class="layui-form-mid layui-word-aux">备注说明</div>
+                                            <div class="layui-form-mid layui-word-aux" id="commit2"></div>
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
@@ -151,8 +172,8 @@
 
     </div>
 </div>
-<script src="../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
-<script src="../../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
+<script src="../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script src="../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
 <script>
     layui.use([ 'form', 'step'], function () {
         var $ = layui.$,
@@ -176,6 +197,27 @@
 
 
         form.on('submit(formStep)', function (data) {
+            var aim = $("#aim").val()
+            if (aim == 1) {
+                $("#aim2").html("央行")
+            } else {
+                $("#aim2").html("个人账户")
+            }
+            var bank=$("#account").val();
+            $("#account2").html(bank);
+            var type =$("#type").val();
+            if(type==1){
+                $("#type2").html("成长币")
+            }else {
+                $("#type2").html("债券")
+            }
+            var rest = 0;//TODO: 后台获得账户余额
+
+            var count =$("#number").val();
+            $("#number2").html(count);
+
+            var commit =$("#comment").val();
+            $("#comment2").val(commit);
             step.next('#stepForm');
             return false;
         });
