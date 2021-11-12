@@ -1,6 +1,13 @@
 package com.example.mockband.controller;
 
 
+import com.example.mockband.entity.CbankInfo;
+import com.example.mockband.entity.User;
+import com.example.mockband.entity.UserInfo;
+import com.example.mockband.service.AccountInfoService;
+import com.example.mockband.service.UserInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,11 +19,21 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/people")
 public class PeopleController {
 
+    @Autowired
+    UserInfoService userInfoService;
+
+    @Autowired
+    AccountInfoService accountInfoService;
+
     @RequestMapping("/identity")
     public ModelAndView identity(){
         ModelAndView modelAndView = new ModelAndView("/people/form-people-identity");
         //查询
-
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserInfo userInfo = userInfoService.queryInfo(user.getName());
+        modelAndView.addObject("userName", userInfo.getUserName());
+        modelAndView.addObject("userMobile", userInfo.getUserMobile());
+        modelAndView.addObject("userDepartment",userInfo.getUserDepartment());
         return modelAndView;
     }
 
@@ -29,7 +46,9 @@ public class PeopleController {
         String email = request.getParameter("email");
         String department = request.getParameter("department");
 
-
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        userInfoService.modifyInfo(phone, department);
+        accountInfoService.modifyInfo(user.getName(), password);
     }
 
     @RequestMapping("/query/credit")

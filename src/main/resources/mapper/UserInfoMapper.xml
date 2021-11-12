@@ -18,6 +18,14 @@
     user_id, bank_name, login_name, user_name, user_department, user_mobile, user_credits, 
     user_growing_coin, user_bond, create_time, modify_time
   </sql>
+
+  <select id="selectByLoginName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user_info_tbl
+    where login_name = #{loginName,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -160,5 +168,12 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByLoginName" parameterType="com.example.mockband.entity.UserInfo" >
+    update user_info_tbl
+    set user_department = #{userDepartment,jdbcType=VARCHAR},
+        user_mobile = #{userMobile,jdbcType=VARCHAR}
+    where login_name = #{loginName,jdbcType=VARCHAR}
   </update>
 </mapper>

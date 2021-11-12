@@ -111,4 +111,10 @@
       modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where account_id = #{accountId,jdbcType=INTEGER}
   </update>
+
+  <update id="updateByLoginName" parameterType="com.example.mockband.entity.AccountInfo" >
+    update account_info_tbl
+    set login_password = #{loginPassword,jdbcType=VARCHAR}
+    where login_name = #{loginName,jdbcType=VARCHAR}
+  </update>
 </mapper>

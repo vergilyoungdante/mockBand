@@ -18,4 +18,6 @@ public interface AccountInfoMapper {
     int updateByPrimaryKey(AccountInfo record);
 
     AccountInfo selectByLoginName(String loginName);
+
+    int updateByLoginName(AccountInfo record);
 }

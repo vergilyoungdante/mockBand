@@ -20,4 +20,11 @@ public class AccountInfoServiceImpl implements AccountInfoService{
         accountInfoMapper.insert(accountInfo);
         return true;
     }
+
+    @Override
+    public void modifyInfo(String loginName, String password) {
+        AccountInfo accountInfo = accountInfoMapper.selectByLoginName(loginName);
+        accountInfo.setLoginPassword(password);
+        accountInfoMapper.updateByLoginName(accountInfo);
+    }
 }
