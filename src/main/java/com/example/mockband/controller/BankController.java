@@ -6,6 +6,8 @@ import com.example.mockband.entity.BankInfo;
 import com.example.mockband.entity.User;
 import com.example.mockband.entity.UserInfo;
 import com.example.mockband.mapper.BankInfoMapper;
+import com.example.mockband.model.ResultMsg;
+import com.example.mockband.model.ResultMsgBuilder;
 import com.example.mockband.service.AccountInfoService;
 import com.example.mockband.service.BankInfoService;
 import com.example.mockband.service.UserInfoService;
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.Result;
 import java.io.IOException;
 
 @Controller
@@ -95,12 +98,12 @@ public class BankController {
     }
 
     @RequestMapping("/create/people")
-    public void createPeople(HttpServletRequest request, HttpServletResponse response,
-                           @RequestParam("userName") String userName,
-                           @RequestParam("bankName") String bankName,
-                           @RequestParam("newPassword") String newPassword,
-                           @RequestParam("againPassword") String againPassword,
-                           @RequestParam("loginName") String loginName) throws IOException {
+    public ResultMsg<String> createPeople(HttpServletRequest request, HttpServletResponse response,
+                                  @RequestParam("userName") String userName,
+                                  @RequestParam("bankName") String bankName,
+                                  @RequestParam("newPassword") String newPassword,
+                                  @RequestParam("againPassword") String againPassword,
+                                  @RequestParam("loginName") String loginName) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code",200);
 
@@ -112,7 +115,7 @@ public class BankController {
         if(!newPassword.equals(againPassword)){
             jsonObject.put("message","密码设置不一致");
             response.getWriter().write(jsonObject.toString());
-            return;
+            return ResultMsgBuilder.success("test");
         }
 
         UserInfo userInfo = new UserInfo();
@@ -128,6 +131,7 @@ public class BankController {
         //todo:如果要创建的银行已经存在，该如何返回
         userInfoService.createUser(userInfo);
         accountInfoService.createAccount(accountInfo);
+        //ResultMsgBuilder.success("test")
     }
 
     @RequestMapping("/check/count")
