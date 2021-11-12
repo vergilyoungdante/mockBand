@@ -55,7 +55,9 @@ public class PeopleController {
     public ModelAndView queryCredit(){
         ModelAndView modelAndView = new ModelAndView("/people/form-people-credit");
         //这里查一下信用分
-
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserInfo userInfo = userInfoService.queryInfo(user.getName());
+        modelAndView.addObject("userCredit", userInfo.getUserCredits());
         return modelAndView;
     }
 
@@ -63,7 +65,10 @@ public class PeopleController {
     public ModelAndView queryBalance(){
         ModelAndView modelAndView = new ModelAndView("/people/form-people-balance");
         //这里查一下两种余额
-
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserInfo userInfo = userInfoService.queryInfo(user.getName());
+        modelAndView.addObject("userCoin", userInfo.getUserGrowingCoin());
+        modelAndView.addObject("userBond", userInfo.getUserBond());
         return modelAndView;
     }
 
