@@ -3,7 +3,9 @@ package com.example.mockband.service;
 import com.example.mockband.entity.AccountInfo;
 import com.example.mockband.mapper.AccountInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AccountInfoServiceImpl implements AccountInfoService{
     @Autowired
     AccountInfoMapper accountInfoMapper;

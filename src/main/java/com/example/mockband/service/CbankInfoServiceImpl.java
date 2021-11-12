@@ -2,11 +2,15 @@ package com.example.mockband.service;
 
 import com.example.mockband.entity.BankInfo;
 import com.example.mockband.entity.CbankInfo;
+import com.example.mockband.entity.TranInfo;
 import com.example.mockband.mapper.AccountInfoMapper;
 import com.example.mockband.mapper.BankInfoMapper;
 import com.example.mockband.mapper.CbankInfoMapper;
+import com.example.mockband.mapper.TranInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class CbankInfoServiceImpl implements CbankInfoService{
@@ -19,6 +23,9 @@ public class CbankInfoServiceImpl implements CbankInfoService{
 
     @Autowired
     AccountInfoMapper accountInfoMapper;
+
+    @Autowired
+    TranInfoMapper tranInfoMapper;
 
     @Override
     public CbankInfo queryInfo(String loginName) {
@@ -96,5 +103,13 @@ public class CbankInfoServiceImpl implements CbankInfoService{
         }
         cbankInfoMapper.updateByLoginName(cbankInfo);
         bankInfoMapper.updateByLoginName(bankInfo);
+
+        TranInfo tranInfo = new TranInfo();
+        tranInfo.setFromAccount(cbankInfo.getLoginName());
+        tranInfo.setToAccount(bankInfo.getLoginName());
+        tranInfo.setCurrencyType(Integer.parseInt(curType));
+        tranInfo.setTranAmount(tranAmount);
+        tranInfo.setTranTime(new Date());
+        tranInfoMapper.insert(tranInfo);
     }
 }

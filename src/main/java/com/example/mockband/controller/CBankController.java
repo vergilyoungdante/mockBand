@@ -145,8 +145,6 @@ public class CBankController {
         cbankInfoService.transfer(user.getName(), Double.parseDouble(change), type, toBank);
     }
 
-
-
     @RequestMapping("/transfer/log")
     public String transferLog(){
         return "/cbank/transfer-log-coin";
@@ -156,7 +154,10 @@ public class CBankController {
     public void queryTransferLog(HttpServletRequest request, HttpServletResponse response){
         String query = request.getParameter("query");
 
-
+        //todo:如何返回查询结果
+        String fromAccount = "";
+        String toAccount = "";
+        String curType = "";
     }
 
 }
