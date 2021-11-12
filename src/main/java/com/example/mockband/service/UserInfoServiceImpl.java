@@ -67,8 +67,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public void transfer(String loginName, double tranAmount, String curType, String target, String toAccount) {
-        UserInfo fromUserInfo = userInfoMapper.selectByLoginName(loginName);
 
+        UserInfo fromUserInfo = userInfoMapper.selectByLoginName(loginName);
         //个人 -> 商业银行
         if (target == "2")
         {
