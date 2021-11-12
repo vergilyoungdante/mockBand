@@ -8,6 +8,7 @@ import com.example.mockband.entity.UserInfo;
 import com.example.mockband.mapper.BankInfoMapper;
 import com.example.mockband.service.AccountInfoService;
 import com.example.mockband.service.BankInfoService;
+import com.example.mockband.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,12 @@ public class BankController {
 
     @Autowired
     BankInfoService bankInfoService;
+
+    @Autowired
+    UserInfoService userInfoService;
+
+    @Autowired
+    AccountInfoService accountInfoService;
 
     @RequestMapping("/info")
     public ModelAndView identity(){
@@ -90,6 +97,7 @@ public class BankController {
     @RequestMapping("/create/people")
     public void createPeople(HttpServletRequest request, HttpServletResponse response,
                            @RequestParam("userName") String userName,
+                           @RequestParam("bankName") String bankName,
                            @RequestParam("newPassword") String newPassword,
                            @RequestParam("againPassword") String againPassword,
                            @RequestParam("loginName") String loginName) throws IOException {
@@ -107,20 +115,19 @@ public class BankController {
             return;
         }
 
-//        BankInfo bankInfo = new BankInfo();
-//        bankInfo.setLoginName(userName);
-//        bankInfo.setBankName(bankName);
-//        bankInfo.setBankHead(bankHead);
-//        bankInfo.setBankCredits(Double.parseDouble(credit));
-//
-//        AccountInfo accountInfo = new AccountInfo();
-//        accountInfo.setLoginName(userName);
-//        accountInfo.setLoginPassword(newPassword);
-//        accountInfo.setAccountType(2);
-//
-//        //todo:如果要创建的银行已经存在，该如何返回
-//        bankInfoService.createBank(bankInfo);
-//        accountInfoService.createAccount(accountInfo);
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserName(userName);
+        userInfo.setLoginName(loginName);
+        userInfo.setBankName(bankName);
+
+        AccountInfo accountInfo = new AccountInfo();
+        accountInfo.setLoginName(loginName);
+        accountInfo.setLoginPassword(newPassword);
+        accountInfo.setAccountType(3);
+
+        //todo:如果要创建的银行已经存在，该如何返回
+        userInfoService.createUser(userInfo);
+        accountInfoService.createAccount(accountInfo);
     }
 
     @RequestMapping("/check/count")

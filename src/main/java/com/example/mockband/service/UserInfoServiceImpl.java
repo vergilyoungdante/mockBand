@@ -119,4 +119,14 @@ public class UserInfoServiceImpl implements UserInfoService {
         tranInfo.setTranTime(new Date());
         tranInfoMapper.insert(tranInfo);
     }
+
+    @Override
+    public boolean createUser(UserInfo userInfo) {
+        if (userInfoMapper.selectByLoginName(userInfo.getLoginName()) != null)
+        {
+            return false;
+        }
+        userInfoMapper.insert(userInfo);
+        return true;
+    }
 }
