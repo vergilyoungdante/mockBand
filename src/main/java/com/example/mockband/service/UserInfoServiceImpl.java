@@ -22,7 +22,15 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public void modifyInfo(String mobile, String department) {
+    public void modifyInfo(String loginName, String mobile, String department) {
+        UserInfo userInfo = userInfoMapper.selectByLoginName(loginName);
+        userInfo.setUserMobile(mobile);
+        userInfo.setUserDepartment(department);
+        userInfoMapper.updateByLoginName(userInfo);
+    }
 
+    @Override
+    public boolean checkAmount(String loginName, double tranAmount, String curType) {
+        return false;
     }
 }

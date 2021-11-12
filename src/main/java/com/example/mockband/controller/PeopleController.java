@@ -47,7 +47,7 @@ public class PeopleController {
         String department = request.getParameter("department");
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        userInfoService.modifyInfo(phone, department);
+        userInfoService.modifyInfo(user.getName(), phone, department);
         accountInfoService.modifyInfo(user.getName(), password);
     }
 

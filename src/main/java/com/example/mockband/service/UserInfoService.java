@@ -7,5 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UserInfoService {
     UserInfo queryInfo(String loginName);
-    void modifyInfo(String mobile, String department);
+    void modifyInfo(String loginName, String mobile, String department);
+    boolean checkAmount(String loginName, double tranAmount, String curType);
 }
