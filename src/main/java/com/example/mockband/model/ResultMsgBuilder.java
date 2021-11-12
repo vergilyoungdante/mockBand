@@ -12,4 +12,10 @@ public class ResultMsgBuilder {
         ResultMsg<T> result = new ResultMsg<>(EnumMsgCode.UNKONWN_ERROR,data);
         return result;
     }
+
+    public static <T> ResultMsg<T> commonError(EnumMsgCode code,T data)
+    {
+        ResultMsg<T> result = new ResultMsg<>(code,data);
+        return result;
+    }
 }
