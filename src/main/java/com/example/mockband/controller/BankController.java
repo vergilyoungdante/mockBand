@@ -132,6 +132,7 @@ public class BankController {
         userInfoService.createUser(userInfo);
         accountInfoService.createAccount(accountInfo);
         //ResultMsgBuilder.success("test")
+        return ResultMsgBuilder.success("test");
     }
 
     @RequestMapping("/check/count")
