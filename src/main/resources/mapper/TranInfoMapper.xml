@@ -12,6 +12,28 @@
   <sql id="Base_Column_List" >
     tran_id, from_account, to_account, currency_type, tran_amount, tran_time
   </sql>
+
+  <select id="select" resultMap="BaseResultMap" parameterType="com.example.mockband.entity.TranInfo" >
+    select * from tran_info_tbl
+    <where>
+      <if test="from_account != null and from_account != ''">
+        and from_account like concat('%', #{fromAccount}, '%')
+      </if>
+      <if test="to_account != null and to_account != ''">
+        and to_account like concat('%', #{toAccount}, '%')
+      </if>
+      <if test="currency_type != null and currency_type != ''">
+        and currency_type = #{currencyType,jdbcType=INTEGER}
+      </if>
+      <if test="from_date != null and from_date != ''">
+        and from_date >= #{fromDate,jdbcType=DATE}
+      </if>
+      <if test="to_date != null and to_date != ''">
+        and to_date &lt;= #{toDate,jdbcType=DATE}
+      </if>
+    </where>
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

@@ -1,13 +1,11 @@
 package com.example.mockband.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.mockband.entity.AccountInfo;
-import com.example.mockband.entity.BankInfo;
-import com.example.mockband.entity.CbankInfo;
-import com.example.mockband.entity.User;
+import com.example.mockband.entity.*;
 import com.example.mockband.service.AccountInfoService;
 import com.example.mockband.service.BankInfoService;
 import com.example.mockband.service.CbankInfoService;
+import com.example.mockband.service.TranInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 
 @Controller
@@ -36,6 +35,9 @@ public class CBankController {
 
     @Autowired
     AccountInfoService accountInfoService;
+
+    @Autowired
+    TranInfoService tranInfoService;
 
     @RequestMapping("/total")
     public ModelAndView totalCount(){
@@ -158,6 +160,10 @@ public class CBankController {
         String fromAccount = "";
         String toAccount = "";
         String curType = "";
+        Date fromDate = new Date();
+        Date toDate = new Date();
+
+        tranInfoService.query(fromAccount, toAccount, Integer.parseInt(curType), fromDate, toDate);
     }
 
 }
