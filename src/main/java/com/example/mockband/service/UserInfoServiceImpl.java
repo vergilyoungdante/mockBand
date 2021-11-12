@@ -1,11 +1,17 @@
 package com.example.mockband.service;
 
+import com.example.mockband.entity.BankInfo;
+import com.example.mockband.entity.CbankInfo;
+import com.example.mockband.entity.TranInfo;
 import com.example.mockband.entity.UserInfo;
 import com.example.mockband.mapper.AccountInfoMapper;
+import com.example.mockband.mapper.BankInfoMapper;
 import com.example.mockband.mapper.TranInfoMapper;
 import com.example.mockband.mapper.UserInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
@@ -15,6 +21,12 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Autowired
     AccountInfoMapper accountInfoMapper;
+
+    @Autowired
+    BankInfoMapper bankInfoMapper;
+
+    @Autowired
+    TranInfoMapper tranInfoMapper;
 
     @Override
     public UserInfo queryInfo(String loginName) {
@@ -31,6 +43,80 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public boolean checkAmount(String loginName, double tranAmount, String curType) {
-        return false;
+        UserInfo userInfo = userInfoMapper.selectByLoginName(loginName);
+
+        //1成长币
+        if (curType.equals("1"))
+        {
+            if (tranAmount > userInfo.getUserGrowingCoin())
+            {
+                return false;
+            }
+        }
+
+        //2债券
+        if (curType.equals("2"))
+        {
+            if (tranAmount > userInfo.getUserBond())
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void transfer(String loginName, double tranAmount, String curType, String target, String toAccount) {
+        UserInfo fromUserInfo = userInfoMapper.selectByLoginName(loginName);
+
+        //个人 -> 商业银行
+        if (target == "2")
+        {
+            BankInfo bankInfo = bankInfoMapper.selectByBankName(toAccount);
+            //1成长币
+            if (curType.equals("1"))
+            {
+                fromUserInfo.setUserGrowingCoin(fromUserInfo.getUserGrowingCoin() - tranAmount);
+                bankInfo.setBankGrowingCoin(bankInfo.getBankGrowingCoin() + tranAmount);
+            }
+
+            //2债券
+            if (curType.equals("2"))
+            {
+                fromUserInfo.setUserBond(fromUserInfo.getUserBond() - tranAmount);
+                bankInfo.setBankBond(bankInfo.getBankBond() + tranAmount);
+            }
+            userInfoMapper.updateByLoginName(fromUserInfo);
+            bankInfoMapper.updateByLoginName(bankInfo);
+        }
+
+        //个人 -> 个人
+        if (target == "3")
+        {
+            UserInfo toUserInfo = userInfoMapper.selectByLoginName(toAccount);
+            //1成长币
+            if (curType.equals("1"))
+            {
+                fromUserInfo.setUserGrowingCoin(fromUserInfo.getUserGrowingCoin() - tranAmount);
+                toUserInfo.setUserGrowingCoin(toUserInfo.getUserGrowingCoin() + tranAmount);
+            }
+
+            //2债券
+            if (curType.equals("2"))
+            {
+                fromUserInfo.setUserBond(fromUserInfo.getUserBond() - tranAmount);
+                toUserInfo.setUserBond(toUserInfo.getUserBond() + tranAmount);
+            }
+            userInfoMapper.updateByLoginName(fromUserInfo);
+            userInfoMapper.updateByLoginName(toUserInfo);
+        }
+
+        TranInfo tranInfo = new TranInfo();
+        tranInfo.setFromAccount(fromUserInfo.getLoginName());
+        tranInfo.setToAccount(toAccount);
+        tranInfo.setCurrencyType(Integer.parseInt(curType));
+        tranInfo.setTranAmount(tranAmount);
+        tranInfo.setTranTime(new Date());
+        tranInfoMapper.insert(tranInfo);
     }
 }

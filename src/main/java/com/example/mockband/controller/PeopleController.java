@@ -96,21 +96,23 @@ public class PeopleController {
 
     @RequestMapping("/check/count")
     public void checkCount(HttpServletRequest request, HttpServletResponse response){
-        //User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String change = request.getParameter("count");//转出金额
         String type = request.getParameter("type");//交易类型，1成长币，2债券
         String content = request.getParameter("content");//交易备注
 
+        userInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
     }
 
     @RequestMapping("/commit/change")
     public void commitChange(HttpServletRequest request, HttpServletResponse response){
-        //User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String change = request.getParameter("count");//转出金额
-        String target = request.getParameter("target");//交易类型，1央行，2商业银行，3个人
         String type = request.getParameter("type");//交易类型，1成长币，2债券
+        String target = request.getParameter("target");//交易类型，1央行，2商业银行，3个人
         String content = request.getParameter("content");//交易备注
-        String toBank = request.getParameter("toBank");//对方银行账号
+        String toAccount = request.getParameter("toAccount");//对方账号
 
+        userInfoService.transfer(user.getName(), Double.parseDouble(change), type, target, toAccount);
     }
 }

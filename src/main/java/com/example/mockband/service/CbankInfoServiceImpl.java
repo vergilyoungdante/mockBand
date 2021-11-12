@@ -84,9 +84,9 @@ public class CbankInfoServiceImpl implements CbankInfoService{
     }
 
     @Override
-    public void transfer(String loginName, double tranAmount, String curType, String bankName) {
+    public void transfer(String loginName, double tranAmount, String curType, String toAccount) {
         CbankInfo cbankInfo = cbankInfoMapper.selectByLoginName(loginName);
-        BankInfo bankInfo = bankInfoMapper.selectByBankName(bankName);
+        BankInfo bankInfo = bankInfoMapper.selectByBankName(toAccount);
 
         //1成长币
         if (curType.equals("1"))
@@ -106,7 +106,7 @@ public class CbankInfoServiceImpl implements CbankInfoService{
 
         TranInfo tranInfo = new TranInfo();
         tranInfo.setFromAccount(cbankInfo.getLoginName());
-        tranInfo.setToAccount(bankInfo.getLoginName());
+        tranInfo.setToAccount(toAccount);
         tranInfo.setCurrencyType(Integer.parseInt(curType));
         tranInfo.setTranAmount(tranAmount);
         tranInfo.setTranTime(new Date());

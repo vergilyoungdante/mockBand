@@ -9,4 +9,5 @@ public interface UserInfoService {
     UserInfo queryInfo(String loginName);
     void modifyInfo(String loginName, String mobile, String department);
     boolean checkAmount(String loginName, double tranAmount, String curType);
+    void transfer(String loginName, double tranAmount, String curType, String target, String toAccount);
 }

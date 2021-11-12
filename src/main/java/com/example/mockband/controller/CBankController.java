@@ -142,9 +142,9 @@ public class CBankController {
         String change = request.getParameter("count");//转出金额
         String type = request.getParameter("type");//交易类型，1成长币,2债券
         String content = request.getParameter("content");//交易备注
-        String toBank = request.getParameter("toBank");//对方银行账号
+        String toAccount = request.getParameter("toAccount");//对方账号
 
-        cbankInfoService.transfer(user.getName(), Double.parseDouble(change), type, toBank);
+        cbankInfoService.transfer(user.getName(), Double.parseDouble(change), type, toAccount);
     }
 
     @RequestMapping("/transfer/log")
