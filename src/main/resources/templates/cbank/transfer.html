@@ -154,12 +154,72 @@
 
             var commit =$("#transferComment").val();
             $("#transferComment2").val(commit);
-            step.next('#stepForm');
+            $.ajax({
+                type: "GET"
+                ,url: "/cbank/check/count"
+                ,data:{
+                    count: function (){
+                        return layui.$('#bankId').val();
+                    },
+                    type: function (){
+                        return layui.$('#transferType').val();
+                    },
+                    content: function () {
+                        return layui.$('#transferComment').val();
+                    },
+                    commit: function(){
+                        return 0;
+                    }
+                }
+                ,contentType: 'application/json'
+                ,success:function(data){
+                    if(data.resultCode==200){
+                        step.next('#stepForm');
+                    }else {
+                        layer.msg(data.data);
+                    }
+
+                },
+                error: function(){
+                    layer.msg("通信失败")
+                }
+
+            })
             return false;
         });
 
         form.on('submit(formStep2)', function (data) {
-            step.next('#stepForm');
+            $.ajax({
+                type: "GET"
+                ,url: "/cbank/check/count"
+                ,data:{
+                    count: function (){
+                        return layui.$('#bankId').val();
+                    },
+                    type: function (){
+                        return layui.$('#transferType').val();
+                    },
+                    content: function () {
+                        return layui.$('#transferComment').val();
+                    },
+                    commit: function(){
+                        return 1
+                    }
+                }
+                ,contentType: 'application/json'
+                ,success:function(data){
+                    if(data.resultCode==200){
+                        step.next('#stepForm');
+                    }else {
+                        layer.msg(data.data);
+                    }
+
+                },
+                error: function(){
+                    layer.msg("通信失败")
+                }
+
+            })
             return false;
         });
 
