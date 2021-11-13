@@ -122,13 +122,10 @@
 
             }
             ,done: function(res,index,upload){
-                debugger
-                alert(res);
-                layer.msg(res.message);
+                layer.msg(res.data);
             }
             ,error: function (res,index,upload){
-                debugger
-                layer.msg(res.message);
+                layer.msg(res.data);
             }
         });
     });

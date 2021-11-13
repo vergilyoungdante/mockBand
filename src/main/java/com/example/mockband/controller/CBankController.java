@@ -106,7 +106,7 @@ public class CBankController {
             return;
         }
         if(!newPassword.equals(againPassword)){
-            ResultMsgBuilder.commonError(EnumMsgCode.NO_PHOTO_ERROR,"需要上传营业执照",response);
+            ResultMsgBuilder.commonError(EnumMsgCode.PASSWORD_INCONSISTENT_ERROR,"密码不一致",response);
             return;
         }
 
