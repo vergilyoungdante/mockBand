@@ -37,11 +37,13 @@ public class CbankInfoServiceImpl implements CbankInfoService{
     public boolean changeBond(String loginName, double changeAmount) {
         CbankInfo cbankInfo = queryInfo(loginName);
         double sumAmount = cbankInfo.getCbankBond() + changeAmount;
+        double sumTotal = cbankInfo.getTotalBond() + changeAmount;
         if (sumAmount < 0)
         {
             return false;
         }
         cbankInfo.setCbankBond(sumAmount);
+        cbankInfo.setTotalBond(sumTotal);
         cbankInfoMapper.updateByLoginName(cbankInfo);
 
         return true;
@@ -51,11 +53,13 @@ public class CbankInfoServiceImpl implements CbankInfoService{
     public boolean changeCoin(String loginName, double changeAmount) {
         CbankInfo cbankInfo = queryInfo(loginName);
         double sumAmount = cbankInfo.getCbankGrowingCoin() + changeAmount;
+        double sumTotal = cbankInfo.getTotalGrowingCoin() + changeAmount;
         if (sumAmount < 0)
         {
             return false;
         }
         cbankInfo.setCbankGrowingCoin(sumAmount);
+        cbankInfo.setTotalGrowingCoin(sumTotal);
         cbankInfoMapper.updateByLoginName(cbankInfo);
         return true;
     }

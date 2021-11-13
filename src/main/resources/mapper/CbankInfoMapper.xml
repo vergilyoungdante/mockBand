@@ -173,7 +173,9 @@
   <update id="updateByLoginName" parameterType="com.example.mockband.entity.CbankInfo" >
     update cbank_info_tbl
     set cbank_bond = #{cbankBond,jdbcType=DOUBLE},
-        cbank_growing_coin = #{cbankGrowingCoin,jdbcType=DOUBLE}
+        total_bond = #{totalBond,jdbcType=DOUBLE},
+        cbank_growing_coin = #{cbankGrowingCoin,jdbcType=DOUBLE},
+        total_growing_coin = #{totalGrowingCoin,jdbcType=DOUBLE}
     where login_name = #{loginName,jdbcType=VARCHAR}
   </update>
 
