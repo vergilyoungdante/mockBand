@@ -177,12 +177,11 @@ public class CBankController {
 
     @RequestMapping("/query/transfer/log")
     public void queryTransferLog(HttpServletRequest request, HttpServletResponse response){
-        String query = request.getParameter("query");
-
-        //todo:如何返回查询结果
-        String fromAccount = "";
-        String toAccount = "";
-        String curType = "";
+        String fromAccount = request.getParameter("fromAccount");
+        String toAccount = request.getParameter("toAccount");
+        String curType = request.getParameter("type");
+        String date = request.getParameter("date");//date:2021-11-13 - 2021-12-13  split(" - ")
+        
         Date fromDate = new Date();
         Date toDate = new Date();
 

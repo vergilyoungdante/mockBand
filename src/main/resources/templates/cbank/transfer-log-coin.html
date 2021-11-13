@@ -109,7 +109,10 @@
                     curr: 1
                 }
                 , where: {
-                    query:data.field
+                    fromAccount:data.field.fromAccount,
+                    toAccount:data.field.toAccount,
+                    type:data.field.type,
+                    date:data.field.date,
                 }
             }, 'data');
             console.log(data.field);
