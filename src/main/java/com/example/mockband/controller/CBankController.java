@@ -25,9 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 @Controller
@@ -197,15 +195,8 @@ public class CBankController {
 
     @RequestMapping("/query/transfer/log")
     public void queryTransferLog(HttpServletRequest request, HttpServletResponse response){
-        String fromAccount = request.getParameter("fromAccount");
-        String toAccount = request.getParameter("toAccount");
-        String curType = request.getParameter("type");
-        String date = request.getParameter("date");//date:2021-11-13 - 2021-12-13  split(" - ")
-        
-        Date fromDate = new Date();
-        Date toDate = new Date();
-
-        tranInfoService.query(fromAccount, toAccount, Integer.parseInt(curType), fromDate, toDate);
+        List<TranInfo> list = tranInfoService.query(request);
+        ResultMsgBuilder.success(list, response);
     }
 
 }

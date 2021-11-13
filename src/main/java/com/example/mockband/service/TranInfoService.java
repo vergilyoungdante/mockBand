@@ -3,9 +3,11 @@ package com.example.mockband.service;
 import com.example.mockband.entity.TranInfo;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public interface TranInfoService {
-    TranInfo query(String fromAccount, String toAccount, int curType, Date fromDate, Date toDate);
+    List<TranInfo> query(HttpServletRequest request);
 }

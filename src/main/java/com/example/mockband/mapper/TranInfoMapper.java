@@ -3,6 +3,9 @@ package com.example.mockband.mapper;
 import com.example.mockband.entity.TranInfo;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.HashMap;
+import java.util.List;
+
 @Mapper
 public interface TranInfoMapper {
     int deleteByPrimaryKey(Integer tranId);
@@ -17,5 +20,5 @@ public interface TranInfoMapper {
 
     int updateByPrimaryKey(TranInfo record);
 
-    TranInfo select(TranInfo record);
+    List<TranInfo> selectSelective(HashMap<String, Object> hashMap);
 }

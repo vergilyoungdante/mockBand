@@ -13,23 +13,23 @@
     tran_id, from_account, to_account, currency_type, tran_amount, tran_time
   </sql>
 
-  <select id="select" resultMap="BaseResultMap" parameterType="com.example.mockband.entity.TranInfo" >
+  <select id="selectSelective" resultMap="BaseResultMap" parameterType="java.util.Map">
     select * from tran_info_tbl
     <where>
-      <if test="from_account != null and from_account != ''">
+      <if test="fromAccount != null and fromAccount != ''">
         and from_account like concat('%', #{fromAccount}, '%')
       </if>
-      <if test="to_account != null and to_account != ''">
+      <if test="toAccount != null and toAccount != ''">
         and to_account like concat('%', #{toAccount}, '%')
       </if>
-      <if test="currency_type != null and currency_type != ''">
+      <if test="currencyType != null and currencyType != ''">
         and currency_type = #{currencyType,jdbcType=INTEGER}
       </if>
-      <if test="from_date != null and from_date != ''">
-        and from_date >= #{fromDate,jdbcType=DATE}
+      <if test="fromDate != null and fromDate != ''">
+        and tran_time &gt;= #{fromDate,jdbcType=DATE}
       </if>
-      <if test="to_date != null and to_date != ''">
-        and to_date &lt;= #{toDate,jdbcType=DATE}
+      <if test="toDate != null and toDate != ''">
+        and tran_time &lt;= #{toDate,jdbcType=DATE}
       </if>
     </where>
   </select>
