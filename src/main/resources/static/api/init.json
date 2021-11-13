@@ -200,13 +200,13 @@
       "child": [
         {
           "title": "私人账户开户业务",
-          "href": "page/form-bank-create-people.html",
+          "href": "/bank/people",
           "icon": "fa fa-rocket",
           "target": "_self"
         },
         {
           "title": "转账业务",
-          "href": "page/form-step-bank-transfer.html",
+          "href": "/bank/transfer",
           "icon": "fa fa-rocket",
           "target": "_self"
         },
@@ -218,25 +218,25 @@
           "child": [
             {
               "title": "银行基本信息",
-              "href": "page/form-bank-info.html",
+              "href": "/bank/info",
               "icon": "fa fa-rocket",
               "target": "_self"
             },
             {
               "title": "信用积分查看",
-              "href": "page/form-bank-credit.html",
+              "href": "/bank/query/bank/credit",
               "icon": "fa fa-rocket",
               "target": "_self"
             },
             {
               "title": "财务信息",
-              "href": "page/form-bank-balance.html",
+              "href": "/bank/query/bank/balance",
               "icon": "fa fa-rocket",
               "target": "_self"
             },
             {
               "title": "转账记录",
-              "href": "page/table-bank-search.html",
+              "href": "/bank/transfer/bank/log",
               "icon": "fa fa-rocket",
               "target": "_self"
             }

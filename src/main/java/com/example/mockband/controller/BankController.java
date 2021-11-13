@@ -80,9 +80,14 @@ public class BankController {
         return modelAndView;
     }
 
+    @RequestMapping("/transfer")
+    public String transfer(){
+        return "/bank/form-step-bank-transfer";
+    }
+
     @RequestMapping("/transfer/bank/log")
     public String transferLog(){
-        return "/people/table-people-search";
+        return "/bank/table-bank-search";
     }
 
     @RequestMapping("/query/transfer/bank/log")
@@ -94,6 +99,13 @@ public class BankController {
         String endDate = request.getParameter("endDate");
 
 
+    }
+
+    @RequestMapping("/people")
+    public ModelAndView toRegister(){
+        ModelAndView modelAndView = new ModelAndView("/bank/form-bank-create-people");
+
+        return modelAndView;
     }
 
     @RequestMapping("/create/people")
