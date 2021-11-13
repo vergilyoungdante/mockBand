@@ -10,6 +10,7 @@ public class ResultMsgBuilder {
         ResultMsg<T> result = new ResultMsg<>(EnumMsgCode.SUCCESS,data);
         try{
             if(response!=null){
+                response.setContentType("application/json;charset=UTF-8");
                 response.getWriter().write(new Gson().toJson(result));
             }
         }catch (Exception e){

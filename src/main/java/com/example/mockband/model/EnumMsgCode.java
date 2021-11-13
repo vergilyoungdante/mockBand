@@ -1,7 +1,13 @@
 package com.example.mockband.model;
 
-public enum EnumMsgCode {
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
+public enum EnumMsgCode implements Serializable {
+    @SerializedName("200")
     SUCCESS(200),
+    @SerializedName("-1")
     UNKONWN_ERROR(-1),
 
     ;
@@ -15,5 +21,10 @@ public enum EnumMsgCode {
     public String toString()
     {
         return String.valueOf(this.code);
+    }
+
+    public int getValue()
+    {
+        return code;
     }
 }

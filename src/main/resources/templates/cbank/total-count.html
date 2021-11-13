@@ -231,8 +231,14 @@
                 data:JSON.stringify(obj),
                 contentType: 'application/json',
                 success:function(data){
-                    debugger
-                    layer.alert("修改成功");
+                    if(data['resultCode'] === 200)
+                    {
+                        layer.alert("修改成功");
+                    }
+                    else
+                    {
+                        layer.alert("修改失败："+data['data']);
+                    }
                     console.log(data);
                 },
                 error: function(){
