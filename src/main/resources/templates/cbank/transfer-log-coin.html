@@ -79,6 +79,14 @@
             url: '/cbank/query/transfer/log',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports'],
+            parseData: function (res) {  //与后端数据交互，需要传固定格式，转换为下面所示
+                return {
+                    "code": 0, //数据状态
+                    "msg": "",  //状态信息
+                    "count": 100, //数据总数
+                    "data": res.data, //后端的详细数据
+                }
+            },
             cols: [[
                 {field: 'tranId', minWidth: 80, title: '单号'},
                 {field: 'fromAccount', minWidth: 80, title: '付款账户'},
