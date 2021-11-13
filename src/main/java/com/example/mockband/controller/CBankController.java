@@ -65,7 +65,7 @@ public class CBankController {
     public void changeBond(@RequestBody Map<String,Object> param,HttpServletRequest request, HttpServletResponse response){
         String change = param.get("change").toString();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //todo:如果销毁金额大于现有金额，该如何返回
+        //如果销毁金额大于现有金额
         boolean isSuccess = cbankInfoService.changeBond(user.getName(), Double.parseDouble(change));
         if(isSuccess){
             ResultMsgBuilder.success(new HashMap<>(),response);
@@ -78,14 +78,13 @@ public class CBankController {
     public void changeCoin(@RequestBody Map<String,Object> param, HttpServletRequest request, HttpServletResponse response){
         String change = param.get("change").toString();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //todo:如果销毁金额大于现有金额，该如何返回
+        //如果销毁金额大于现有金额
         boolean isSuccess = cbankInfoService.changeCoin(user.getName(), Double.parseDouble(change));
         if(isSuccess){
             ResultMsgBuilder.success(new HashMap<>(),response);
         }else {
             ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"余额不足",response);
         }
-
     }
 
     @RequestMapping("/register")
@@ -155,8 +154,13 @@ public class CBankController {
         String type = request.getParameter("type");//交易类型，1成长币,2债券
         String content = request.getParameter("content");//交易备注
 
-        //todo:如果转出金额大于余额，该如何返回
-        cbankInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
+        //如果转出金额大于余额
+        boolean isSuccess = cbankInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
+        if(isSuccess){
+            ResultMsgBuilder.success(new HashMap<>(),response);
+        }else {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"余额不足",response);
+        }
     }
 
     @RequestMapping("/commit/change")
