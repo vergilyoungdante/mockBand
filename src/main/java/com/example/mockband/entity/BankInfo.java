@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class BankInfo implements Serializable {
+
     private Integer bankId;
 
     private String bankName;
@@ -16,9 +17,9 @@ public class BankInfo implements Serializable {
 
     private Double bankCredits;
 
-    private Double bankGrowingCoin;
+    private Double bankGrowingCoin = 0.0;
 
-    private Double bankBond;
+    private Double bankBond = 0.0;
 
     private Date createTime;
 
