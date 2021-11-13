@@ -126,25 +126,21 @@ public class CBankController {
         accountInfo.setAccountType(2);
 
         //todo:如果要创建的银行已经存在，该如何返回
-        boolean res1 = bankInfoService.createBank(bankInfo);
-        boolean res2 = accountInfoService.createAccount(accountInfo);
-        if(res1 && res2)
-        {
-            //保存图片
-            File outputFile =  CommonUtil.transferToFile(file,userName);
+        boolean res = accountInfoService.createAccount(accountInfo);
 
-
-            ResultMsgBuilder.commonError(EnumMsgCode.SUCCESS,"开户成功",response);
-
-            return;
-        }
-        else
+        if(!res)
         {
             ResultMsgBuilder.commonError(EnumMsgCode.REPEAT_ACCOUNT_ERROR,"账户已存在",response);
             return;
         }
-
-
+        else
+        {
+            //保存图片
+            File outputFile =  CommonUtil.transferToFile(file,userName);
+            bankInfoService.createBank(bankInfo);
+            ResultMsgBuilder.commonError(EnumMsgCode.SUCCESS,"开户成功",response);
+            return;
+        }
     }
 
     @RequestMapping("/transfer")
