@@ -7,6 +7,7 @@ import com.example.mockband.service.AccountInfoService;
 import com.example.mockband.service.BankInfoService;
 import com.example.mockband.service.CbankInfoService;
 import com.example.mockband.service.TranInfoService;
+import com.example.mockband.util.CommonUtil;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -21,10 +22,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 
 @Controller
 @RequestMapping("/cbank")
@@ -126,7 +130,12 @@ public class CBankController {
         boolean res2 = accountInfoService.createAccount(accountInfo);
         if(res1 && res2)
         {
+            //保存图片
+            File outputFile =  CommonUtil.transferToFile(file,userName);
+
+
             ResultMsgBuilder.commonError(EnumMsgCode.SUCCESS,"开户成功",response);
+
             return;
         }
         else
