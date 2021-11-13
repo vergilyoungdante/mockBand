@@ -65,7 +65,7 @@ public class CBankController {
         if(isSuccess){
             ResultMsgBuilder.success(new HashMap<>(),response);
         }else {
-            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"",response);
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"余额不足",response);
         }
 
     }
@@ -75,7 +75,11 @@ public class CBankController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         //todo:如果销毁金额大于现有金额，该如何返回
         boolean isSuccess = cbankInfoService.changeCoin(user.getName(), Double.parseDouble(change));
-
+        if(isSuccess){
+            ResultMsgBuilder.success(new HashMap<>(),response);
+        }else {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"余额不足",response);
+        }
 
     }
 

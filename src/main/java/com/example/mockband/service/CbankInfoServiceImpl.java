@@ -43,6 +43,7 @@ public class CbankInfoServiceImpl implements CbankInfoService{
         }
         cbankInfo.setCbankBond(sumAmount);
         cbankInfoMapper.updateByLoginName(cbankInfo);
+
         return true;
     }
 

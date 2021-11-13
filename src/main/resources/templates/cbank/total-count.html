@@ -185,10 +185,17 @@
                 //数据
                 data:JSON.stringify(obj),
                 contentType: 'application/json',
-                success:function(){
+                success:function(data){
 
-                    layer.alert("修改成功");
-                    console.log(obj);
+                    if(data['resultCode'] === "200")
+                    {
+                        layer.alert("修改成功");
+                    }
+                    else
+                    {
+                        layer.alert("修改失败："+data['data']);
+                    }
+                    console.log(data);
                 },
                 error: function(){
                     layer.alert("修改失败");
@@ -208,9 +215,16 @@
                 //数据
                 data:JSON.stringify(obj),
                 contentType: 'application/json',
-                success:function(){
-                    layer.alert("修改成功");
-                    console.log(obj);
+                success:function(data){
+                    if(data['resultCode'] === "200")
+                    {
+                        layer.alert("修改成功");
+                    }
+                    else
+                    {
+                        layer.alert("修改失败："+data['data']);
+                    }
+                    console.log(data);
                 },
                 error: function(){
                     layer.alert("修改失败");
@@ -231,7 +245,7 @@
                 data:JSON.stringify(obj),
                 contentType: 'application/json',
                 success:function(data){
-                    if(data['resultCode'] === 200)
+                    if(data['resultCode'] === "200")
                     {
                         layer.alert("修改成功");
                     }
@@ -257,11 +271,18 @@
                 //后端接口
                 url:"/cbank/change/bond",
                 //数据
-                data:JSON.stringify(JSON.stringify(obj)),
+                data:JSON.stringify(obj),
                 contentType: 'application/json',
-                success:function(){
-                    layer.alert("修改成功");
-                    console.log(obj);
+                success:function(data){
+                    if(data['resultCode'] === "200")
+                    {
+                        layer.alert("修改成功");
+                    }
+                    else
+                    {
+                        layer.alert("修改失败："+data['data']);
+                    }
+                    console.log(data);
                 },
                 error: function(){
                     layer.alert("修改失败");

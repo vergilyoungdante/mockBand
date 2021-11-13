@@ -8,12 +8,10 @@ import java.io.IOException;
 public class ResultMsgBuilder {
     public static <T> ResultMsg<T> success(T data, HttpServletResponse response){
         ResultMsg<T> result = new ResultMsg<>(EnumMsgCode.SUCCESS,data);
-        try{
-            if(response!=null){
-                response.setContentType("application/json;charset=UTF-8");
-                response.getWriter().write(new Gson().toJson(result));
-            }
-        }catch (Exception e){
+        buildResponseHeader(  response);
+        try {
+            response.getWriter().write(new Gson().toJson(result));
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -29,13 +27,25 @@ public class ResultMsgBuilder {
     public static <T> ResultMsg<T> commonError(EnumMsgCode code,T data, HttpServletResponse response)
     {
         ResultMsg<T> result = new ResultMsg<>(code,data);
+        buildResponseHeader( response);
+        try {
+            response.getWriter().write(new Gson().toJson(result));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    private static HttpServletResponse buildResponseHeader(HttpServletResponse response)
+    {
         try{
             if(response!=null){
-                response.getWriter().write(new Gson().toJson(result));
+                response.setContentType("application/json;charset=UTF-8");
             }
         }catch (Exception e){
             e.printStackTrace();
         }
-        return result;
+        return response;
     }
 }
