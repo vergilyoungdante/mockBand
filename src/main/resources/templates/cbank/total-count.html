@@ -189,7 +189,10 @@
 
                     if(data['resultCode'] === "200")
                     {
-                        layer.alert("修改成功");
+                        layer.alert('修改成功', { icon: 1, closeBtn: 0 }, function (index) {
+                            layer.close(index);
+                            window.location.reload();
+                        });
                     }
                     else
                     {
@@ -218,8 +221,10 @@
                 success:function(data){
                     if(data['resultCode'] === "200")
                     {
-                        layer.alert("修改成功");
-                    }
+                        layer.alert('修改成功', { icon: 1, closeBtn: 0 }, function (index) {
+                            layer.close(index);
+                            window.location.reload();
+                        });                    }
                     else
                     {
                         layer.alert("修改失败："+data['data']);
@@ -247,8 +252,10 @@
                 success:function(data){
                     if(data['resultCode'] === "200")
                     {
-                        layer.alert("修改成功");
-                    }
+                        layer.alert('修改成功', { icon: 1, closeBtn: 0 }, function (index) {
+                            layer.close(index);
+                            window.location.reload();
+                        });                    }
                     else
                     {
                         layer.alert("修改失败："+data['data']);
@@ -276,8 +283,10 @@
                 success:function(data){
                     if(data['resultCode'] === "200")
                     {
-                        layer.alert("修改成功");
-                    }
+                        layer.alert('修改成功', { icon: 1, closeBtn: 0 }, function (index) {
+                            layer.close(index);
+                            window.location.reload();
+                        });                    }
                     else
                     {
                         layer.alert("修改失败："+data['data']);

@@ -9,12 +9,23 @@ public enum EnumMsgCode implements Serializable {
     SUCCESS(200),
     @SerializedName("-1")
     UNKONWN_ERROR(-1),
+    @SerializedName("-2")
+    PASSWORD_INCONSISTENT_ERROR,
+    @SerializedName("-3")
+    NO_PHOTO_ERROR,
+    @SerializedName("-4")
+    REPEAT_ACCOUNT_ERROR,
+
 
     ;
     private int code;
 
     EnumMsgCode(int code) {
         this.code = code;
+    }
+
+    EnumMsgCode() {
+
     }
 
     @Override

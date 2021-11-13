@@ -7,6 +7,7 @@ import com.example.mockband.service.AccountInfoService;
 import com.example.mockband.service.BankInfoService;
 import com.example.mockband.service.CbankInfoService;
 import com.example.mockband.service.TranInfoService;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -99,19 +100,15 @@ public class CBankController {
                            @RequestParam("bankHead") String bankHead,
                            @RequestParam("credit") String credit,
                            @RequestParam("file") MultipartFile file) throws IOException {
-//        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("code",200);
-//
-//        if(file.isEmpty()){
-//            jsonObject.put("message","需要上传执照");
-//            response.getWriter().write(jsonObject.toString());
-//            return;
-//        }
-//        if(!newPassword.equals(againPassword)){
-//            jsonObject.put("message","密码设置不一致");
-//            response.getWriter().write(jsonObject.toString());
-//            return;
-//        }
+
+        if(file.isEmpty()){
+            response.getWriter().write(new Gson().toJson(ResultMsgBuilder.commonError(EnumMsgCode.NO_PHOTO_ERROR,"需要上传营业执照",response)));
+            return;
+        }
+        if(!newPassword.equals(againPassword)){
+            response.getWriter().write(new Gson().toJson(ResultMsgBuilder.commonError(EnumMsgCode.PASSWORD_INCONSISTENT_ERROR,"两次输入密码不一致",response)));
+            return;
+        }
 
         BankInfo bankInfo = new BankInfo();
         bankInfo.setLoginName(userName);
@@ -125,8 +122,18 @@ public class CBankController {
         accountInfo.setAccountType(2);
 
         //todo:如果要创建的银行已经存在，该如何返回
-        bankInfoService.createBank(bankInfo);
-        accountInfoService.createAccount(accountInfo);
+        boolean res1 = bankInfoService.createBank(bankInfo);
+        boolean res2 = accountInfoService.createAccount(accountInfo);
+        if(res1 && res2)
+        {
+            response.getWriter().write(new Gson().toJson(ResultMsgBuilder.commonError(EnumMsgCode.SUCCESS,"开户成功",response)));
+        }
+        else
+        {
+            response.getWriter().write(new Gson().toJson(ResultMsgBuilder.commonError(EnumMsgCode.REPEAT_ACCOUNT_ERROR,"账户已存在",response)));
+        }
+
+
     }
 
     @RequestMapping("/transfer")
