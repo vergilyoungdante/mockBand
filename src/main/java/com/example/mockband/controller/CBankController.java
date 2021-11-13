@@ -102,11 +102,11 @@ public class CBankController {
                            @RequestParam("file") MultipartFile file) throws IOException {
 
         if(file.isEmpty()){
-            response.getWriter().write(new Gson().toJson(ResultMsgBuilder.commonError(EnumMsgCode.NO_PHOTO_ERROR,"需要上传营业执照",response)));
+            ResultMsgBuilder.commonError(EnumMsgCode.NO_PHOTO_ERROR,"需要上传营业执照",response);
             return;
         }
         if(!newPassword.equals(againPassword)){
-            response.getWriter().write(new Gson().toJson(ResultMsgBuilder.commonError(EnumMsgCode.PASSWORD_INCONSISTENT_ERROR,"两次输入密码不一致",response)));
+            ResultMsgBuilder.commonError(EnumMsgCode.NO_PHOTO_ERROR,"需要上传营业执照",response);
             return;
         }
 
@@ -126,11 +126,13 @@ public class CBankController {
         boolean res2 = accountInfoService.createAccount(accountInfo);
         if(res1 && res2)
         {
-            response.getWriter().write(new Gson().toJson(ResultMsgBuilder.commonError(EnumMsgCode.SUCCESS,"开户成功",response)));
+            ResultMsgBuilder.commonError(EnumMsgCode.SUCCESS,"开户成功",response);
+            return;
         }
         else
         {
-            response.getWriter().write(new Gson().toJson(ResultMsgBuilder.commonError(EnumMsgCode.REPEAT_ACCOUNT_ERROR,"账户已存在",response)));
+            ResultMsgBuilder.commonError(EnumMsgCode.REPEAT_ACCOUNT_ERROR,"账户已存在",response);
+            return;
         }
 
 
