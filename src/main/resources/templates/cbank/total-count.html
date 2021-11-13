@@ -186,6 +186,7 @@
                 data:JSON.stringify(obj),
                 contentType: 'application/json',
                 success:function(){
+
                     layer.alert("修改成功");
                     console.log(obj);
                 },
@@ -229,9 +230,10 @@
                 //数据
                 data:JSON.stringify(obj),
                 contentType: 'application/json',
-                success:function(){
+                success:function(data){
+                    debugger
                     layer.alert("修改成功");
-                    console.log(obj);
+                    console.log(data);
                 },
                 error: function(){
                     layer.alert("修改失败");

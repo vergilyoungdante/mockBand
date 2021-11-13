@@ -1,7 +1,8 @@
 package com.example.mockband.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.example.mockband.entity.*;
+import com.example.mockband.model.EnumMsgCode;
+import com.example.mockband.model.ResultMsgBuilder;
 import com.example.mockband.service.AccountInfoService;
 import com.example.mockband.service.BankInfoService;
 import com.example.mockband.service.CbankInfoService;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -42,36 +44,39 @@ public class CBankController {
     @RequestMapping("/total")
     public ModelAndView totalCount(){
         ModelAndView modelAndView = new ModelAndView("/cbank/total-count");
-        //TODO:获得所有中央银行数据
-        //需要所有3个数据
-        //我这里把数据加进去给前端用
-        //modelAndView.addObject();
+
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         CbankInfo cbankInfo = cbankInfoService.queryInfo(user.getName());
-        modelAndView.addObject("totalCoin", cbankInfo.getTotalGrowingCoin());
-        modelAndView.addObject("publicCoin", cbankInfo.getPublicGrowingCoin());
-        modelAndView.addObject("cbankCoin",cbankInfo.getCbankGrowingCoin());
-        modelAndView.addObject("totalBond", cbankInfo.getTotalBond());
-        modelAndView.addObject("publicBond", cbankInfo.getPublicBond());
-        modelAndView.addObject("cbankBond",cbankInfo.getCbankBond());
+        modelAndView.addObject("totalCoin", String.valueOf(cbankInfo.getTotalGrowingCoin()));
+        modelAndView.addObject("publicCoin", String.valueOf(cbankInfo.getPublicGrowingCoin()));
+        modelAndView.addObject("cbankCoin",String.valueOf(cbankInfo.getCbankGrowingCoin()));
+        modelAndView.addObject("totalBond", String.valueOf(cbankInfo.getTotalBond()));
+        modelAndView.addObject("publicBond", String.valueOf(cbankInfo.getPublicBond()));
+        modelAndView.addObject("cbankBond",String.valueOf(cbankInfo.getCbankBond()));
         return modelAndView;
     }
 
     @RequestMapping("/change/bond")
-    public boolean changeBond(@RequestBody Map<String,Object> param,HttpServletRequest request, HttpServletResponse response){
+    public void changeBond(@RequestBody Map<String,Object> param,HttpServletRequest request, HttpServletResponse response){
         String change = param.get("change").toString();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         //todo:如果销毁金额大于现有金额，该如何返回
         boolean isSuccess = cbankInfoService.changeBond(user.getName(), Double.parseDouble(change));
-        return isSuccess;
+        if(isSuccess){
+            ResultMsgBuilder.success(new HashMap<>(),response);
+        }else {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"",response);
+        }
+
     }
     @PostMapping("/change/coin")
-    public boolean changeCoin(@RequestBody Map<String,Object> param, HttpServletRequest request, HttpServletResponse response){
+    public void changeCoin(@RequestBody Map<String,Object> param, HttpServletRequest request, HttpServletResponse response){
         String change = param.get("change").toString();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         //todo:如果销毁金额大于现有金额，该如何返回
         boolean isSuccess = cbankInfoService.changeCoin(user.getName(), Double.parseDouble(change));
-        return isSuccess;
+
+
     }
 
     @RequestMapping("/register")
@@ -90,19 +95,19 @@ public class CBankController {
                            @RequestParam("bankHead") String bankHead,
                            @RequestParam("credit") String credit,
                            @RequestParam("file") MultipartFile file) throws IOException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("code",200);
-
-        if(file.isEmpty()){
-            jsonObject.put("message","需要上传执照");
-            response.getWriter().write(jsonObject.toString());
-            return;
-        }
-        if(!newPassword.equals(againPassword)){
-            jsonObject.put("message","密码设置不一致");
-            response.getWriter().write(jsonObject.toString());
-            return;
-        }
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("code",200);
+//
+//        if(file.isEmpty()){
+//            jsonObject.put("message","需要上传执照");
+//            response.getWriter().write(jsonObject.toString());
+//            return;
+//        }
+//        if(!newPassword.equals(againPassword)){
+//            jsonObject.put("message","密码设置不一致");
+//            response.getWriter().write(jsonObject.toString());
+//            return;
+//        }
 
         BankInfo bankInfo = new BankInfo();
         bankInfo.setLoginName(userName);

@@ -1,6 +1,5 @@
 package com.example.mockband.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.example.mockband.entity.AccountInfo;
 import com.example.mockband.entity.BankInfo;
 import com.example.mockband.entity.User;
@@ -104,8 +103,7 @@ public class BankController {
                                   @RequestParam("newPassword") String newPassword,
                                   @RequestParam("againPassword") String againPassword,
                                   @RequestParam("loginName") String loginName) throws IOException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("code",200);
+
 
 //        if(file.isEmpty()){
 //            jsonObject.put("message","需要上传执照");
@@ -113,9 +111,7 @@ public class BankController {
 //            return;
 //        }
         if(!newPassword.equals(againPassword)){
-            jsonObject.put("message","密码设置不一致");
-            response.getWriter().write(jsonObject.toString());
-            return ResultMsgBuilder.success("test");
+            return ResultMsgBuilder.success("test",null);
         }
 
         UserInfo userInfo = new UserInfo();
@@ -132,7 +128,7 @@ public class BankController {
         userInfoService.createUser(userInfo);
         accountInfoService.createAccount(accountInfo);
         //ResultMsgBuilder.success("test")
-        return ResultMsgBuilder.success("test");
+        return ResultMsgBuilder.success("test",null);
     }
 
     @RequestMapping("/check/count")
