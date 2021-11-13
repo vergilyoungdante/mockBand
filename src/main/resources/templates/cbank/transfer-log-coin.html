@@ -86,7 +86,6 @@
                 {field: 'currency_type', minWidth: 80, title: '交易种类'},
                 {field: 'tran_amount', title: '交易金额', minWidth: 150},
                 {field: 'tran_time', minWidth: 80, title: '交易时间'},
-
             ]],
             limits: [5,10, 15, 20],
             limit: 15,
@@ -103,17 +102,17 @@
 
         // 监听搜索操作
         form.on('submit(data-search-btn)', function (data) {
-            var result = JSON.stringify(data.field);
+
 
             table.reload('currentTableId', {
                 page: {
                     curr: 1
                 }
                 , where: {
-                    query:result
+                    query:data.field
                 }
             }, 'data');
-            console.log(obj);
+            console.log(data.field);
         });
     });
 </script>
