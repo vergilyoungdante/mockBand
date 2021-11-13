@@ -153,6 +153,15 @@ public class CBankController {
         String change = request.getParameter("change");//转出金额
         String type = request.getParameter("type");//交易类型，1成长币,2债券
         String content = request.getParameter("content");//交易备注
+        String toAccount = request.getParameter("count");//对方账号
+
+        //检查账户是否存在
+        CbankInfo cbankInfo = cbankInfoService.queryInfo(toAccount);
+        if (cbankInfo == null)
+        {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"账户不存在",response);
+            return;
+        }
 
         //如果转出金额大于余额
         boolean isSuccess = cbankInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
@@ -171,7 +180,14 @@ public class CBankController {
         String content = request.getParameter("content");//交易备注
         String toAccount = request.getParameter("count");//对方账号
 
-        cbankInfoService.transfer(user.getName(), Double.parseDouble(change), type, toAccount);
+        //如果转出金额大于余额
+        boolean isSuccess = cbankInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
+        if(isSuccess){
+            cbankInfoService.transfer(user.getName(), Double.parseDouble(change), type, toAccount);
+            ResultMsgBuilder.success(new HashMap<>(),response);
+        }else {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"余额不足",response);
+        }
     }
 
     @RequestMapping("/transfer/log")
