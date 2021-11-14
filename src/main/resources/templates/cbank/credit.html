@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>成长币交易log</title>
+    <title>信用积分浏览</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -41,12 +41,6 @@
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">交易时间</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="date" class="layui-input" id="data" placeholder=" - ">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
                             <input type=button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</input>
                         </div>
                     </div>
@@ -76,7 +70,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '/cbank/query/transfer/log',
+            url: '',//换个新的
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports'],
             parseData: function (res) {  //与后端数据交互，需要传固定格式，转换为下面所示
@@ -90,16 +84,10 @@
                 }
             },
             cols: [[
-                {field: 'tranId', minWidth: 80, title: '单号'},
-                {field: 'fromAccount', minWidth: 80, title: '付款账户'},
-                {field: 'toAccount', minWidth: 80, title: '收款账户'},
-                {field: 'currencyType', minWidth: 80, title: '交易种类',templet:function (d){
-                        if(d.currencyType==1){
-                            return "成长币";
-                        }else {
-                            return "债券";
-                        }
-                    }},
+                {field: 'tranId', minWidth: 80, title: '账号'},
+                {field: 'fromAccount', minWidth: 80, title: '所属银行'},
+                {field: 'toAccount', minWidth: 80, title: '用户名称'},
+                {field: 'currencyType', minWidth: 80, title: '信用',edit:'text'},
                 {field: 'tranAmount', title: '交易金额', minWidth: 150},
                 {field: 'tranTime', minWidth: 80, title: '交易时间'},
             ]],
