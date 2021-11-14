@@ -1,14 +1,13 @@
 package com.example.mockband.controller;
 
-import com.example.mockband.entity.AccountInfo;
-import com.example.mockband.entity.BankInfo;
-import com.example.mockband.entity.User;
-import com.example.mockband.entity.UserInfo;
+import com.example.mockband.entity.*;
 import com.example.mockband.mapper.BankInfoMapper;
+import com.example.mockband.model.EnumMsgCode;
 import com.example.mockband.model.ResultMsg;
 import com.example.mockband.model.ResultMsgBuilder;
 import com.example.mockband.service.AccountInfoService;
 import com.example.mockband.service.BankInfoService;
+import com.example.mockband.service.CbankInfoService;
 import com.example.mockband.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.Result;
 import java.io.IOException;
+import java.util.HashMap;
 
 @Controller
 @RequestMapping("/bank")
@@ -35,6 +35,9 @@ public class BankController {
 
     @Autowired
     AccountInfoService accountInfoService;
+
+    @Autowired
+    CbankInfoService cbankInfoService;
 
     @RequestMapping("/info")
     public ModelAndView identity(){
@@ -149,9 +152,32 @@ public class BankController {
         String change = request.getParameter("change");//转出金额
         String type = request.getParameter("type");//交易类型，1成长币,2债券
         String content = request.getParameter("content");//交易备注
+        String toAccount = request.getParameter("toAccount");//对方账号
 
-        //todo:如果转出金额大于余额，该如何返回
-        bankInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
+        //检查账户是否存在
+        boolean isAccount = accountInfoService.queryInfo(toAccount);
+        if (!isAccount)
+        {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"账户不存在",response);
+            return;
+        }
+
+        //检查账户是否为央行或个人
+        BankInfo bankInfo = bankInfoService.queryInfo(toAccount);
+        CbankInfo cbankInfo = cbankInfoService.queryInfo(toAccount);
+        if (bankInfo == null && cbankInfo == null)
+        {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"该账户不是央行或个人",response);
+            return;
+        }
+
+        //如果转出金额大于余额
+        boolean isSuccess = bankInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
+        if(isSuccess){
+            ResultMsgBuilder.success(new HashMap<>(),response);
+        }else {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"余额不足",response);
+        }
     }
 
     @RequestMapping("/commit/change")
@@ -163,6 +189,13 @@ public class BankController {
         String content = request.getParameter("content");//交易备注
         String toAccount = request.getParameter("toAccount");//对方账号
 
-        bankInfoService.transfer(user.getName(), Double.parseDouble(change), type, target, toAccount);
+        //如果转出金额大于余额
+        boolean isSuccess = bankInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
+        if(isSuccess){
+            bankInfoService.transfer(user.getName(), Double.parseDouble(change), type, target, toAccount, content);
+            ResultMsgBuilder.success(new HashMap<>(),response);
+        }else {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"余额不足",response);
+        }
     }
 }

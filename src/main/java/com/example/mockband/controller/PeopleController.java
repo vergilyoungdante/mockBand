@@ -1,12 +1,14 @@
 package com.example.mockband.controller;
 
 
+import com.example.mockband.entity.BankInfo;
 import com.example.mockband.entity.CbankInfo;
 import com.example.mockband.entity.User;
 import com.example.mockband.entity.UserInfo;
 import com.example.mockband.model.EnumMsgCode;
 import com.example.mockband.model.ResultMsgBuilder;
 import com.example.mockband.service.AccountInfoService;
+import com.example.mockband.service.BankInfoService;
 import com.example.mockband.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,6 +29,9 @@ public class PeopleController {
 
     @Autowired
     AccountInfoService accountInfoService;
+
+    @Autowired
+    BankInfoService bankInfoService;
 
     @RequestMapping("/identity")
     public ModelAndView identity(){
@@ -112,6 +117,15 @@ public class PeopleController {
             return;
         }
 
+        //检查账户是否为商业银行或个人
+        BankInfo bankInfo = bankInfoService.queryInfo(toAccount);
+        UserInfo userInfo = userInfoService.queryInfo(toAccount);
+        if (bankInfo == null && userInfo == null)
+        {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"该账户不是商业银行或个人",response);
+            return;
+        }
+
         //如果转出金额大于余额
         boolean isSuccess = userInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
         if(isSuccess){
@@ -133,7 +147,7 @@ public class PeopleController {
         //如果转出金额大于余额
         boolean isSuccess = userInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
         if(isSuccess){
-            userInfoService.transfer(user.getName(), Double.parseDouble(change), type, target, toAccount);
+            userInfoService.transfer(user.getName(), Double.parseDouble(change), type, target, toAccount, content);
             ResultMsgBuilder.success(new HashMap<>(),response);
         }else {
             ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"余额不足",response);
