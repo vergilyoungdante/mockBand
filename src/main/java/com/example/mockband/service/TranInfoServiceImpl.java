@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +36,16 @@ public class TranInfoServiceImpl implements TranInfoService{
             String[] dateArr = date.split(" - ");
             fromDate = dateArr[0];
             toDate = dateArr[1];
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date date1 = dateFormat.parse(toDate);
+                Calendar c = Calendar.getInstance();
+                c.setTime(date1);
+                c.add(Calendar.DAY_OF_MONTH, 1);
+                toDate = dateFormat.format(c.getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 
         HashMap<String, Object> hashMap = new HashMap<>();
