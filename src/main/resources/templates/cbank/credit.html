@@ -40,7 +40,16 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">账户</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="fromAccount" autocomplete="off" class="layui-input">
+                                <input type="text" name="account" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">账号类型</label>
+                            <div class="layui-input-inline">
+                                <select name="type" >
+                                    <option value="2">商业银行</option>
+                                    <option value="3">个人账户</option>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -145,6 +154,7 @@
                 }
                 , where: {
                     account:data.field.account,
+                    type:data.field.type,
                 }
             }, 'data');
         });
