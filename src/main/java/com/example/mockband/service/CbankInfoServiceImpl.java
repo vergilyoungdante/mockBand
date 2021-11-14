@@ -134,6 +134,6 @@ public class CbankInfoServiceImpl implements CbankInfoService{
         CbankInfo cbankInfo = cbankInfoMapper.selectByLoginName(loginName);
         cbankInfo.setInitCredits(Double.parseDouble(initCredit));
         cbankInfoMapper.updateByLoginName(cbankInfo);
-        return false;
+        return true;
     }
 }
