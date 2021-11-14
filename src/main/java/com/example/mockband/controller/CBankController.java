@@ -122,9 +122,7 @@ public class CBankController {
         accountInfo.setLoginPassword(newPassword);
         accountInfo.setAccountType(2);
 
-        //todo:如果要创建的银行已经存在，该如何返回
         boolean res = accountInfoService.createAccount(accountInfo);
-
         if(!res)
         {
             ResultMsgBuilder.commonError(EnumMsgCode.REPEAT_ACCOUNT_ERROR,"账户已存在",response);
@@ -154,8 +152,8 @@ public class CBankController {
         String toAccount = request.getParameter("count");//对方账号
 
         //检查账户是否存在
-        CbankInfo cbankInfo = cbankInfoService.queryInfo(toAccount);
-        if (cbankInfo == null)
+        boolean isAccount = accountInfoService.queryInfo(toAccount);
+        if (!isAccount)
         {
             ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"账户不存在",response);
             return;

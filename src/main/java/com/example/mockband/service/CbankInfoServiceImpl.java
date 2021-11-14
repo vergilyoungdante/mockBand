@@ -98,6 +98,7 @@ public class CbankInfoServiceImpl implements CbankInfoService{
         {
             cbankInfo.setCbankGrowingCoin(cbankInfo.getCbankGrowingCoin() - tranAmount);
             bankInfo.setBankGrowingCoin(bankInfo.getBankGrowingCoin() + tranAmount);
+            cbankInfo.setPublicGrowingCoin(cbankInfo.getPublicGrowingCoin() + tranAmount);
         }
 
         //2债券
@@ -105,6 +106,7 @@ public class CbankInfoServiceImpl implements CbankInfoService{
         {
             cbankInfo.setCbankBond(cbankInfo.getCbankBond() - tranAmount);
             bankInfo.setBankBond(bankInfo.getBankBond() + tranAmount);
+            cbankInfo.setPublicBond(cbankInfo.getPublicBond() + tranAmount);
         }
         cbankInfoMapper.updateByLoginName(cbankInfo);
         bankInfoMapper.updateByLoginName(bankInfo);

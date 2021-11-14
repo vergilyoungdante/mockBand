@@ -27,4 +27,14 @@ public class AccountInfoServiceImpl implements AccountInfoService{
         accountInfo.setLoginPassword(password);
         accountInfoMapper.updateByLoginName(accountInfo);
     }
+
+    @Override
+    public boolean queryInfo(String loginName) {
+        AccountInfo accountInfo = accountInfoMapper.selectByLoginName(loginName);
+        if (accountInfo == null)
+        {
+            return false;
+        }
+        return true;
+    }
 }
