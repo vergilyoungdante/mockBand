@@ -124,10 +124,10 @@
                                     </div>
                                     <div style="font-size: 14px;color: #666;margin-top: 20px;">预计两小时到账</div>
                                 </div>
-                                <div style="text-align: center;margin-top: 50px;">
-                                    <button class="layui-btn next">再汇一笔</button>
-                                    <button class="layui-btn layui-btn-primary">返回主页</button>
-                                </div>
+<!--                                <div style="text-align: center;margin-top: 50px;">-->
+<!--                                    <button class="layui-btn next">再汇一笔</button>-->
+<!--                                    <button class="layui-btn layui-btn-primary">返回主页</button>-->
+<!--                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -182,8 +182,8 @@
             var count =$("#number").val();
             $("#number2").html(count);
 
-            var commit =$("#comment").val();
-            $("#comment2").val(commit);
+            var commit =$("#commit").val();
+            $("#commit2").html(commit);
 
             $.ajax({
                 type: "GET"
@@ -233,6 +233,9 @@
                     },
                     target: function () {
                         return layui.$('#aim').val();
+                    },
+                    content: function() {
+                        return layui.$('#commit').val();
                     }
                 }
                 ,contentType: 'application/json'
