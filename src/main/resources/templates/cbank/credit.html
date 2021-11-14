@@ -14,7 +14,7 @@
     <div class="layuimini-main">
 
         <fieldset class="table-search-fieldset">
-            <legend>信用分设置</legend>
+            <legend>信用分初始值设置</legend>
             <div style="margin: 10px 10px 10px 10px">
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
@@ -153,9 +153,9 @@
             $.ajax({
                 type:"POST",
                 //后端接口
-                url:"",
+                url:"/cbank/credit/modify",
                 //数据
-                data:credit,
+                data:credit.field,
                 contentType: 'application/json',
                 success:function(data){
                     if(data['resultCode'] === "200")
