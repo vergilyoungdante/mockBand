@@ -148,18 +148,6 @@
       "target": "_self",
       "child": [
         {
-          "title": "图标列表",
-          "href": "page/icon.html",
-          "icon": "fa fa-dot-circle-o",
-          "target": "_self"
-        },
-        {
-          "title": "图标选择",
-          "href": "page/icon-picker.html",
-          "icon": "fa fa-adn",
-          "target": "_self"
-        },
-        {
           "title": "信用管理",
           "href": "/cbank/credit",
           "icon": "fa fa-dashboard",
