@@ -66,13 +66,16 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public void transfer(String loginName, double tranAmount, String curType, String target, String toAccount) {
+    public void transfer(String loginName, double tranAmount, String curType, String target, String toAccount, String remark) {
 
         UserInfo fromUserInfo = userInfoMapper.selectByLoginName(loginName);
+        TranInfo tranInfo = new TranInfo();
         //个人 -> 商业银行
         if (target.equals("2"))
         {
             BankInfo bankInfo = bankInfoMapper.selectByLoginName(toAccount);
+            //4. 个人 -> 商业银行
+            tranInfo.setTranType(4);
             //1成长币
             if (curType.equals("1"))
             {
@@ -94,6 +97,8 @@ public class UserInfoServiceImpl implements UserInfoService {
         if (target.equals("3"))
         {
             UserInfo toUserInfo = userInfoMapper.selectByLoginName(toAccount);
+            //5. 个人 -> 个人
+            tranInfo.setTranType(5);
             //1成长币
             if (curType.equals("1"))
             {
@@ -111,12 +116,13 @@ public class UserInfoServiceImpl implements UserInfoService {
             userInfoMapper.updateByLoginName(toUserInfo);
         }
 
-        TranInfo tranInfo = new TranInfo();
+
         tranInfo.setFromAccount(fromUserInfo.getLoginName());
         tranInfo.setToAccount(toAccount);
         tranInfo.setCurrencyType(Integer.parseInt(curType));
         tranInfo.setTranAmount(tranAmount);
         tranInfo.setTranTime(new Date());
+        tranInfo.setRemark(remark);
         tranInfoMapper.insert(tranInfo);
     }
 
