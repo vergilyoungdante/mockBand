@@ -159,6 +159,14 @@ public class CBankController {
             return;
         }
 
+        //检查账户是否为商业银行
+        BankInfo bankInfo = bankInfoService.queryInfo(toAccount);
+        if (bankInfo == null)
+        {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"该账户不是商业银行",response);
+            return;
+        }
+
         //如果转出金额大于余额
         boolean isSuccess = cbankInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
         if(isSuccess){
@@ -179,7 +187,7 @@ public class CBankController {
         //如果转出金额大于余额
         boolean isSuccess = cbankInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
         if(isSuccess){
-            cbankInfoService.transfer(user.getName(), Double.parseDouble(change), type, toAccount);
+            cbankInfoService.transfer(user.getName(), Double.parseDouble(change), type, toAccount, content);
             ResultMsgBuilder.success(new HashMap<>(),response);
         }else {
             ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"余额不足",response);

@@ -89,7 +89,7 @@ public class CbankInfoServiceImpl implements CbankInfoService{
     }
 
     @Override
-    public void transfer(String loginName, double tranAmount, String curType, String toAccount) {
+    public void transfer(String loginName, double tranAmount, String curType, String toAccount, String remark) {
         CbankInfo cbankInfo = cbankInfoMapper.selectByLoginName(loginName);
         BankInfo bankInfo = bankInfoMapper.selectByLoginName(toAccount);
 
@@ -117,6 +117,7 @@ public class CbankInfoServiceImpl implements CbankInfoService{
         tranInfo.setCurrencyType(Integer.parseInt(curType));
         tranInfo.setTranAmount(tranAmount);
         tranInfo.setTranTime(new Date());
+        tranInfo.setRemark(remark);
         tranInfoMapper.insert(tranInfo);
     }
 }

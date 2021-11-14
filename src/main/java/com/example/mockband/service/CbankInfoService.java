@@ -14,6 +14,6 @@ public interface CbankInfoService {
 
     boolean checkAmount(String loginName, double tranAmount, String curType);
 
-    void transfer(String loginName, double tranAmount, String curType, String toAccount);
+    void transfer(String loginName, double tranAmount, String curType, String toAccount, String remark);
 
 }
