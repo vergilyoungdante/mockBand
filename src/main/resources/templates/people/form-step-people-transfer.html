@@ -80,12 +80,6 @@
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
-                                        <label class="layui-form-label">账户余额:</label>
-                                        <div class="layui-input-block">
-                                            <div class="layui-form-mid layui-word-aux" id="rest">3000</div>
-                                        </div>
-                                    </div>
-                                    <div class="layui-form-item">
                                         <label class="layui-form-label">转账类型:</label>
                                         <div class="layui-input-block">
                                             <div class="layui-form-mid layui-word-aux" id="type2"></div>
@@ -97,18 +91,6 @@
                                             <div class="layui-form-mid layui-word-aux" id="number2"></div>
                                         </div>
                                     </div>
-<!--                                    <div class="layui-form-item">-->
-<!--                                        <label class="layui-form-label">入款类型:</label>-->
-<!--                                        <div class="layui-input-block">-->
-<!--                                            <div class="layui-form-mid layui-word-aux">保险箱</div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="layui-form-item">-->
-<!--                                        <label class="layui-form-label">入款方式:</label>-->
-<!--                                        <div class="layui-input-block">-->
-<!--                                            <div class="layui-form-mid layui-word-aux">人工入款</div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">备注说明:</label>
                                         <div class="layui-input-block">
@@ -121,7 +103,6 @@
                                             <button class="layui-btn" lay-submit lay-filter="formStep2">
                                                 &emsp;确认汇款&emsp;
                                             </button>
-<!--                                            TODO:修改数据库信息-->
                                         </div>
                                     </div>
                                 </form>
@@ -238,10 +219,10 @@
                         return layui.$('#account2').val();
                     },
                     type: function (){
-                        return layui.$('#transferType').val();
+                        return layui.$('#type2').val();
                     },
                     change:function (){
-                        return layui.$('#transferCount').val();
+                        return layui.$('#number2').val();
                     }
                 }
                 ,contentType: 'application/json'
