@@ -215,14 +215,14 @@
                 type: "GET"
                 ,url: "/people/commit/change"
                 ,data:{
-                    count: function (){
-                        return layui.$('#account2').val();
+                    account: function (){
+                        return layui.$('#account').val();
                     },
                     type: function (){
-                        return layui.$('#type2').val();
+                        return layui.$('#type').val();
                     },
                     change:function (){
-                        return layui.$('#number2').val();
+                        return layui.$('#number').val();
                     }
                 }
                 ,contentType: 'application/json'
