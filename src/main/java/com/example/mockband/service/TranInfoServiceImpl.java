@@ -29,7 +29,7 @@ public class TranInfoServiceImpl implements TranInfoService{
 
         String fromDate = "";
         String toDate = "";
-        if(date != null)
+        if(date != null && !date.equals(""))
         {
             String[] dateArr = date.split(" - ");
             fromDate = dateArr[0];
@@ -59,7 +59,7 @@ public class TranInfoServiceImpl implements TranInfoService{
 
         String fromDate = "";
         String toDate = "";
-        if(date != null)
+        if(date != null && !date.equals(""))
         {
             String[] dateArr = date.split(" - ");
             fromDate = dateArr[0];
