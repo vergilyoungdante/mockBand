@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <input type=button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon">搜 索</i>
+                            <input type=button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn" value="搜 索">
                         </div>
                     </div>
                 </form>
@@ -105,7 +105,7 @@
                 {field: 'tranTime', minWidth: 80, title: '交易时间'},
             ]],
             limits: [5,10, 15, 20],
-            limit: 5,
+            limit: 15,
             page: true,
             skin: 'line',
         });
@@ -119,8 +119,6 @@
 
         // 监听搜索操作
         form.on('submit(data-search-btn)', function (data) {
-
-
             table.reload('currentTableId', {
                 page: {
                     curr: 1

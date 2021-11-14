@@ -14,34 +14,37 @@
     <div class="layuimini-main">
 
         <fieldset class="table-search-fieldset">
+            <legend>信用分设置</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">信用分</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="credit" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <input type=button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-submit-btn" value="提交">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+        <fieldset class="table-search-fieldset">
             <legend>搜索信息</legend>
             <div style="margin: 10px 10px 10px 10px">
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">付款账户</label>
+                            <label class="layui-form-label">账户</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="fromAccount" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">收款账户</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="toAccount" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">选择框</label>
-                            <div class="layui-input-inline">
-                                <select name="type" >
-                                    <option value=""></option>
-                                    <option value="0">成长币</option>
-                                    <option value="1">债券</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <input type=button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</input>
+                            <input type=button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn" value="搜 索">
                         </div>
                     </div>
                 </form>
@@ -141,12 +144,36 @@
                     curr: 1
                 }
                 , where: {
-                    fromAccount:data.field.fromAccount,
-                    toAccount:data.field.toAccount,
-                    type:data.field.type,
-                    date:data.field.date,
+                    account:data.field.account,
                 }
             }, 'data');
+        });
+        // 监听搜索操作
+        form.on('submit(data-submit-btn)', function (credit) {
+            $.ajax({
+                type:"POST",
+                //后端接口
+                url:"",
+                //数据
+                data:credit,
+                contentType: 'application/json',
+                success:function(data){
+                    if(data['resultCode'] === "200")
+                    {
+                        layer.alert('修改成功', { icon: 1, closeBtn: 0 }, function (index) {
+                            layer.close(index);
+                            window.location.reload();
+                        });                    }
+                    else
+                    {
+                        layer.alert("修改失败："+data['data']);
+                    }
+                    console.log(data);
+                },
+                error: function(){
+                    layer.alert("修改失败");
+                }
+            });
         });
     });
 </script>
