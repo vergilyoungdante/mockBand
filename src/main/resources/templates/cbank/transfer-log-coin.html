@@ -80,11 +80,13 @@
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports'],
             parseData: function (res) {  //与后端数据交互，需要传固定格式，转换为下面所示
+                console.log(res.data.pageCount);
                 return {
                     "code": 0, //数据状态
                     "msg": "",  //状态信息
-                    "count": 100, //数据总数
-                    "data": res.data, //后端的详细数据
+                    "count": res.data.pageCount, //数据总数
+                    "data": res.data.total, //后端的详细数据
+
                 }
             },
             cols: [[
@@ -96,9 +98,9 @@
                 {field: 'tranTime', minWidth: 80, title: '交易时间'},
             ]],
             limits: [5,10, 15, 20],
-            limit: 15,
+            limit: 5,
             page: true,
-            skin: 'line'
+            skin: 'line',
         });
 
         //日期时间范围选择
