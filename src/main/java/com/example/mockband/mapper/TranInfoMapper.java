@@ -21,4 +21,6 @@ public interface TranInfoMapper {
     int updateByPrimaryKey(TranInfo record);
 
     List<TranInfo> selectSelective(HashMap<String, Object> hashMap);
+
+    int selectSelectiveCount(HashMap<String, Object> hashMap);
 }

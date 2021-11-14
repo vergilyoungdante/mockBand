@@ -9,5 +9,8 @@ import java.util.List;
 
 @Service
 public interface TranInfoService {
+
     List<TranInfo> query(HttpServletRequest request);
+
+    int count(HttpServletRequest request);
 }

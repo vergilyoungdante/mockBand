@@ -194,6 +194,8 @@ public class CBankController {
     @RequestMapping("/query/transfer/log")
     public void queryTransferLog(HttpServletRequest request, HttpServletResponse response){
         List<TranInfo> list = tranInfoService.query(request);
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        int totalPage = (int) Math.ceil(tranInfoService.count(request) / limit);
         ResultMsgBuilder.success(list, response);
     }
 

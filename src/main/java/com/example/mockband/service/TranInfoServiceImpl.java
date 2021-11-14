@@ -24,8 +24,8 @@ public class TranInfoServiceImpl implements TranInfoService{
         String toAccount = request.getParameter("toAccount");
         String curType = request.getParameter("type");
         String date = request.getParameter("date");//date:2021-11-13 - 2021-12-13  split(" - ")
-        String page = request.getParameter("page");
-        String limit = request.getParameter("limit");
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
 
         String fromDate = "";
         String toDate = "";
@@ -42,9 +42,37 @@ public class TranInfoServiceImpl implements TranInfoService{
         hashMap.put("curType", curType);
         hashMap.put("fromDate", fromDate);
         hashMap.put("toDate", toDate);
-        hashMap.put("page", page);
-        hashMap.put("limit", limit);
+
+        int startIndex = (page - 1) * limit;
+        hashMap.put("startIndex", startIndex);
+        hashMap.put("pageSize", limit);
 
         return tranInfoMapper.selectSelective(hashMap);
+    }
+
+    @Override
+    public int count(HttpServletRequest request) {
+        String fromAccount = request.getParameter("fromAccount");
+        String toAccount = request.getParameter("toAccount");
+        String curType = request.getParameter("type");
+        String date = request.getParameter("date");//date:2021-11-13 - 2021-12-13  split(" - ")
+
+        String fromDate = "";
+        String toDate = "";
+        if(date != null)
+        {
+            String[] dateArr = date.split(" - ");
+            fromDate = dateArr[0];
+            toDate = dateArr[1];
+        }
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("fromAccount", fromAccount);
+        hashMap.put("toAccount", toAccount);
+        hashMap.put("curType", curType);
+        hashMap.put("fromDate", fromDate);
+        hashMap.put("toDate", toDate);
+
+        return tranInfoMapper.selectSelectiveCount(hashMap);
     }
 }
