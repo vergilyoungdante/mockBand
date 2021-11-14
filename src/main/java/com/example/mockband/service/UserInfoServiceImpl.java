@@ -70,7 +70,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         UserInfo fromUserInfo = userInfoMapper.selectByLoginName(loginName);
         //个人 -> 商业银行
-        if (target == "2")
+        if (target.equals("2"))
         {
             BankInfo bankInfo = bankInfoMapper.selectByLoginName(toAccount);
             //1成长币
@@ -91,7 +91,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
 
         //个人 -> 个人
-        if (target == "3")
+        if (target.equals("3"))
         {
             UserInfo toUserInfo = userInfoMapper.selectByLoginName(toAccount);
             //1成长币
