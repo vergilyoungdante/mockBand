@@ -1,10 +1,8 @@
 package com.example.mockband.controller;
 
 
-import com.example.mockband.entity.BankInfo;
-import com.example.mockband.entity.CbankInfo;
-import com.example.mockband.entity.User;
-import com.example.mockband.entity.UserInfo;
+import com.example.mockband.entity.*;
+import com.example.mockband.mapper.AccountInfoMapper;
 import com.example.mockband.model.EnumMsgCode;
 import com.example.mockband.model.ResultMsgBuilder;
 import com.example.mockband.service.AccountInfoService;
@@ -33,15 +31,20 @@ public class PeopleController {
     @Autowired
     BankInfoService bankInfoService;
 
+    @Autowired
+    AccountInfoMapper accountInfoMapper;
+
     @RequestMapping("/identity")
     public ModelAndView identity(){
         ModelAndView modelAndView = new ModelAndView("/people/form-people-identity");
         //查询
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserInfo userInfo = userInfoService.queryInfo(user.getName());
+        AccountInfo accountInfo = accountInfoMapper.selectByLoginName(user.getName());
         modelAndView.addObject("userName", userInfo.getUserName());
         modelAndView.addObject("userMobile", userInfo.getUserMobile());
         modelAndView.addObject("userDepartment",userInfo.getUserDepartment());
+        modelAndView.addObject("password", accountInfo.getLoginPassword());
         return modelAndView;
     }
 

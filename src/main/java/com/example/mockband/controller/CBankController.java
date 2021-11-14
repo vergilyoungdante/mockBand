@@ -210,7 +210,14 @@ public class CBankController {
     }
 
     @RequestMapping("/credit")
-    public String credit(){
-        return "/cbank/credit";
+    public ModelAndView credit(){
+
+        ModelAndView modelAndView = new ModelAndView("/cbank/credit");
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        CbankInfo cbankInfo = cbankInfoService.queryInfo(user.getName());
+        modelAndView.addObject("credit", String.valueOf(cbankInfo.getInitCredits()));
+
+        return modelAndView;
     }
 }

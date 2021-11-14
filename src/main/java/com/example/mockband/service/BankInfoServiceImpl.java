@@ -81,7 +81,7 @@ public class BankInfoServiceImpl implements BankInfoService{
         BankInfo fromBankInfo = bankInfoMapper.selectByLoginName(loginName);
         TranInfo tranInfo = new TranInfo();
         //商业银行 -> 央行
-        if (target == "1")
+        if (target.equals("1"))
         {
             CbankInfo cbankInfo = cbankInfoMapper.selectByLoginName(toAccount);
             //2. 商业银行 -> 央行
@@ -104,7 +104,7 @@ public class BankInfoServiceImpl implements BankInfoService{
         }
 
         //商业银行 -> 个人
-        if (target == "3")
+        if (target.equals("3"))
         {
             UserInfo userInfo = userInfoMapper.selectByLoginName(toAccount);
             //3. 商业银行 -> 个人
