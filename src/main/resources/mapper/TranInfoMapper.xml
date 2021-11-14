@@ -60,6 +60,29 @@
     limit #{startIndex}, #{pageSize}
   </select>
 
+  <select id="selectBank" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select * from tran_info_tbl
+    <where>
+      tran_type = 2 or tran_type = 3
+      <if test="fromAccount != null and fromAccount != ''">
+        and from_account like concat('%', #{fromAccount}, '%')
+      </if>
+      <if test="toAccount != null and toAccount != ''">
+        and to_account like concat('%', #{toAccount}, '%')
+      </if>
+      <if test="curType != null and curType != ''">
+        and currency_type = #{curType,jdbcType=INTEGER}
+      </if>
+      <if test="fromDate != null and fromDate != ''">
+        and tran_time &gt;= #{fromDate,jdbcType=DATE}
+      </if>
+      <if test="toDate != null and toDate != ''">
+        and tran_time &lt;= #{toDate,jdbcType=DATE}
+      </if>
+    </where>
+    limit #{startIndex}, #{pageSize}
+  </select>
+
   <select id="selectSelectiveCount" resultType="java.lang.Integer" parameterType="java.util.Map">
     select count(*) from tran_info_tbl
     <where>
@@ -85,6 +108,28 @@
     select count(*) from tran_info_tbl
     <where>
         tran_type = 4 or tran_type = 5
+      <if test="fromAccount != null and fromAccount != ''">
+        and from_account like concat('%', #{fromAccount}, '%')
+      </if>
+      <if test="toAccount != null and toAccount != ''">
+        and to_account like concat('%', #{toAccount}, '%')
+      </if>
+      <if test="currencyType != null and currencyType != ''">
+        and currency_type = #{currencyType,jdbcType=INTEGER}
+      </if>
+      <if test="fromDate != null and fromDate != ''">
+        and tran_time &gt;= #{fromDate,jdbcType=DATE}
+      </if>
+      <if test="toDate != null and toDate != ''">
+        and tran_time &lt;= #{toDate,jdbcType=DATE}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectBankCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*) from tran_info_tbl
+    <where>
+      tran_type = 2 or tran_type = 3
       <if test="fromAccount != null and fromAccount != ''">
         and from_account like concat('%', #{fromAccount}, '%')
       </if>

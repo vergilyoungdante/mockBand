@@ -27,4 +27,8 @@ public interface TranInfoMapper {
     List<TranInfo> selectPeople(HashMap<String, Object> hashMap);
 
     int selectPeopleCount(HashMap<String, Object> hashMap);
+
+    List<TranInfo> selectBank(HashMap<String, Object> hashMap);
+
+    int selectBankCount(HashMap<String, Object> hashMap);
 }
