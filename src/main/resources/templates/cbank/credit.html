@@ -87,7 +87,7 @@
                 {field: 'tranId', minWidth: 80, title: '账号'},
                 {field: 'fromAccount', minWidth: 80, title: '所属银行'},
                 {field: 'toAccount', minWidth: 80, title: '用户名称'},
-                {field: 'currencyType', minWidth: 80, title: '信用',edit:'text'},
+                {field: 'credit', minWidth: 80, title: '信用',edit:'text'},
             ]],
             limits: [5,10, 15, 20],
             limit: 5,
@@ -101,10 +101,13 @@
             ,type: 'date'
             ,range: true
         });
-
+        table.on('edit(credit)', function(obj){ //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
+            console.log(obj.value); //得到修改后的值
+            console.log(obj.field); //当前编辑的字段名
+            console.log(obj.data); //所在行的所有相关数据
+        });
         // 监听搜索操作
         form.on('submit(data-search-btn)', function (data) {
-
 
             table.reload('currentTableId', {
                 page: {
