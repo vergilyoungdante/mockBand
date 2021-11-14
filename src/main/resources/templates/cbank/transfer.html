@@ -199,6 +199,9 @@
                     change:function (){
                         return layui.$('#transferCount').val();
                     }
+                    content:function (){
+                        return layui.$('transferComment').val();
+                    }
                 }
                 ,contentType: 'application/json'
                 ,success:function(data){
