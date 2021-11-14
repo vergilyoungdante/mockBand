@@ -23,12 +23,6 @@
         </fieldset>
 
         <form class="layui-form" action="">
-<!--            <div class="layui-form-item">-->
-<!--                <label class="layui-form-label">用户姓名</label>-->
-<!--                <div class="layui-input-block">-->
-<!--                    <input type="text" name="username" lay-verify="title" autocomplete="off" placeholder="请输入姓名" class="layui-input">-->
-<!--                </div>-->
-<!--            </div>-->
             <div class="layui-form-item">
                 <label class="layui-form-label">用户姓名</label>
                 <div class="layui-input-block">
@@ -50,12 +44,6 @@
                         <input type="tel" value=${userMobile} id="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-<!--                <div class="layui-inline">-->
-<!--                    <label class="layui-form-label">联系邮箱</label>-->
-<!--                    <div class="layui-input-inline">-->
-<!--                        <input type="text" id="email" lay-verify="email" autocomplete="off" class="layui-input">-->
-<!--                    </div>-->
-<!--                </div>-->
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">所在部门</label>
@@ -71,7 +59,6 @@
             <div class="layui-form-item">
                 <div class="layui-input-block">
                     <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
 
@@ -86,7 +73,8 @@
         var form = layui.form
             , layer = layui.layer
             , layedit = layui.layedit
-            , laydate = layui.laydate;
+            , laydate = layui.laydate,
+            $ = layui.jquery;
 
         //日期
         laydate.render({
@@ -125,8 +113,40 @@
 
         //监听提交
         form.on('submit(demo1)', function (data) {
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
+            $.ajax({
+                type: "GET"
+                ,url: "/people/modify/identity"
+                ,data:{
+                    password: function (){
+                        return layui.$('#password').val();
+                    },
+                    phone: function (){
+                        return layui.$('#phone').val();
+                    },
+                    department: function (){
+                        return layui.$('#department').val();
+                    }
+                }
+                ,contentType: 'application/json',
+                success:function(data){
+
+                    if(data['resultCode'] === "200")
+                    {
+                        layer.alert('修改成功', { icon: 1, closeBtn: 0 }, function (index) {
+                            layer.close(index);
+                            window.location.reload();
+                        });
+                    }
+                    else
+                    {
+                        layer.alert("修改失败："+data['data']);
+                    }
+                    console.log(data);
+                },
+                error: function(){
+                    layer.alert("修改失败");
+                }
+
             })
             return false;
         });

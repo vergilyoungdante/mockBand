@@ -152,7 +152,7 @@ public class BankController {
         String change = request.getParameter("change");//转出金额
         String type = request.getParameter("type");//交易类型，1成长币,2债券
         String content = request.getParameter("content");//交易备注
-        String toAccount = request.getParameter("toAccount");//对方账号
+        String toAccount = request.getParameter("account");//对方账号
 
         //检查账户是否存在
         boolean isAccount = accountInfoService.queryInfo(toAccount);
@@ -187,7 +187,7 @@ public class BankController {
         String type = request.getParameter("type");//交易类型，1成长币,2债券
         String target = request.getParameter("target");//交易类型，1央行，2商业银行，3个人
         String content = request.getParameter("content");//交易备注
-        String toAccount = request.getParameter("toAccount");//对方账号
+        String toAccount = request.getParameter("account");//对方账号
 
         //如果转出金额大于余额
         boolean isSuccess = bankInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
