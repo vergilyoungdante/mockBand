@@ -4,6 +4,8 @@ package com.example.mockband.controller;
 import com.example.mockband.entity.CbankInfo;
 import com.example.mockband.entity.User;
 import com.example.mockband.entity.UserInfo;
+import com.example.mockband.model.EnumMsgCode;
+import com.example.mockband.model.ResultMsgBuilder;
 import com.example.mockband.service.AccountInfoService;
 import com.example.mockband.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 
 @Controller
 @RequestMapping("/people")
@@ -39,16 +42,15 @@ public class PeopleController {
 
     @RequestMapping("/modify/identity")
     public void modifyIdentity(HttpServletRequest request, HttpServletResponse response){
-        String name = request.getParameter("name");
-        String sex  = request.getParameter("sex");
         String password = request.getParameter("password");
         String phone = request.getParameter("phone");
-        String email = request.getParameter("email");
         String department = request.getParameter("department");
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userInfoService.modifyInfo(user.getName(), phone, department);
         accountInfoService.modifyInfo(user.getName(), password);
+
+        ResultMsgBuilder.success(new HashMap<>(),response);
     }
 
     @RequestMapping("/query/credit")
@@ -100,8 +102,23 @@ public class PeopleController {
         String change = request.getParameter("count");//转出金额
         String type = request.getParameter("type");//交易类型，1成长币，2债券
         String content = request.getParameter("content");//交易备注
+        String toAccount = request.getParameter("count");//对方账号
 
-        userInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
+        //检查账户是否存在
+        boolean isAccount = accountInfoService.queryInfo(toAccount);
+        if (!isAccount)
+        {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"账户不存在",response);
+            return;
+        }
+
+        //如果转出金额大于余额
+        boolean isSuccess = userInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
+        if(isSuccess){
+            ResultMsgBuilder.success(new HashMap<>(),response);
+        }else {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"余额不足",response);
+        }
     }
 
     @RequestMapping("/commit/change")
@@ -113,6 +130,13 @@ public class PeopleController {
         String content = request.getParameter("content");//交易备注
         String toAccount = request.getParameter("toAccount");//对方账号
 
-        userInfoService.transfer(user.getName(), Double.parseDouble(change), type, target, toAccount);
+        //如果转出金额大于余额
+        boolean isSuccess = userInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
+        if(isSuccess){
+            userInfoService.transfer(user.getName(), Double.parseDouble(change), type, target, toAccount);
+            ResultMsgBuilder.success(new HashMap<>(),response);
+        }else {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"余额不足",response);
+        }
     }
 }
