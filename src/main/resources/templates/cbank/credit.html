@@ -82,7 +82,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '',//换个新的
+            url: '/cbank/credit/all/user',//换个新的
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports'],
             parseData: function (res) {  //与后端数据交互，需要传固定格式，转换为下面所示
@@ -96,9 +96,12 @@
                 }
             },
             cols: [[
-                {field: 'tranId', minWidth: 80, title: '账号'},
+                {field: 'account', minWidth: 80, title: '账号'},
                 {field: 'bank', minWidth: 80, title: '所属银行'},
-                {field: 'account', minWidth: 80, title: '用户名称'},
+                {field: 'name', minWidth: 80, title: '用户名称'},
+                {field: 'bond', minWidth: 80, title: '债券'},
+                {field: 'coin', minWidth: 80, title: '成长币'},
+                {field: 'type', minWidth: 80, title: '账户类型'},
                 {field: 'credit', minWidth: 80, title: '信用',edit:'text'},
             ]],
             limits: [5,10, 15, 20],
@@ -114,19 +117,17 @@
             ,range: true
         });
         table.on('edit(currentTableFilter)', function(obj){ //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
-            console.log(obj.value); //得到修改后的值
-            console.log(obj.field); //当前编辑的字段名
-            console.log(obj.data); //所在行的所有相关数据
 
-            send = {};
-            send.credit = obj.value;
-            send.tranId = obj.data.tranId;
             $.ajax({
                 type:"get",
                 //后端接口
-                url:"",
+                url:"/cbank/credit/edit/user",
                 //数据
-                data: JSON.stringify(send),
+                data: {
+                    credit:obj.val,
+                    account:obj.data.account,
+                    type:obj.data.type,
+                },
                 contentType: 'application/json',
                 success:function(data){
                     if(data['resultCode'] === "200")

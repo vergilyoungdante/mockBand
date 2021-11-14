@@ -232,4 +232,26 @@ public class CBankController {
             ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"设置失败",response);
         }
     }
+    @RequestMapping("/credit/all/user")
+    public void allCredit(HttpServletRequest request, HttpServletResponse response){
+        //TODO:用户信用列表,下面是你的List里要带的属性，你要是查不全我前端就去了，尽量查全了。属性可以换成你要的名字，前端改起来非常省事，优先保证你那边的复用
+        //                {field: 'account', title: '账号'},
+        //                {field: 'bank', title: '所属银行'},
+        //                {field: 'name', title: '用户名称'},
+        //                {field: 'bond', title: '债券'},
+        //                {field: 'coin', title: '成长币'},
+        //                {field: 'type', title: '账户类型'},
+        //                {field: 'credit', title: '信用'},
+        String account = request.getParameter("account");//账户
+        String type = request.getParameter("type");//账户种类，2商业银行，3个人银行
+
+    }
+    @RequestMapping("/credit/edit/user")
+    public void editCredit(HttpServletRequest request, HttpServletResponse response){
+        //TODO:更改对应的账户的信用分
+        String credit = request.getParameter("credit");//新的信用分
+        String account = request.getParameter("account");//账户号
+        String type = request.getParameter("type");//账户类型，根据你传回来的值定的种类（/credit/all/user接口）
+
+    }
 }
