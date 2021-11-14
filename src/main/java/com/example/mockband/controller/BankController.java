@@ -146,7 +146,7 @@ public class BankController {
     @RequestMapping("/check/count")
     public void checkCount(HttpServletRequest request, HttpServletResponse response){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String change = request.getParameter("count");//转出金额
+        String change = request.getParameter("change");//转出金额
         String type = request.getParameter("type");//交易类型，1成长币,2债券
         String content = request.getParameter("content");//交易备注
 
@@ -157,7 +157,7 @@ public class BankController {
     @RequestMapping("/commit/change")
     public void commitChange(HttpServletRequest request, HttpServletResponse response){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String change = request.getParameter("count");//转出金额
+        String change = request.getParameter("change");//转出金额
         String type = request.getParameter("type");//交易类型，1成长币,2债券
         String target = request.getParameter("target");//交易类型，1央行，2商业银行，3个人
         String content = request.getParameter("content");//交易备注

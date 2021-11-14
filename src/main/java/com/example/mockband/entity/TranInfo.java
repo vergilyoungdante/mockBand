@@ -16,6 +16,26 @@ public class TranInfo implements Serializable {
 
     private Date tranTime;
 
+    private Integer tranType;
+
+    public Integer getTranType() {
+        return tranType;
+    }
+
+    public void setTranType(Integer tranType) {
+        this.tranType = tranType;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    private String remark;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getTranId() {

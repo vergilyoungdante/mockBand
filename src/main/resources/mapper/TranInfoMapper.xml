@@ -8,9 +8,11 @@
     <result column="currency_type" property="currencyType" jdbcType="INTEGER" />
     <result column="tran_amount" property="tranAmount" jdbcType="DOUBLE" />
     <result column="tran_time" property="tranTime" jdbcType="TIMESTAMP" />
+    <result column="tran_type" property="tranType" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    tran_id, from_account, to_account, currency_type, tran_amount, tran_time
+    tran_id, from_account, to_account, currency_type, tran_amount, tran_time, tran_type, remark
   </sql>
 
   <select id="selectSelective" resultMap="BaseResultMap" parameterType="java.util.Map">
@@ -68,10 +70,11 @@
   </delete>
   <insert id="insert" parameterType="com.example.mockband.entity.TranInfo" >
     insert into tran_info_tbl (tran_id, from_account, to_account, 
-      currency_type, tran_amount, tran_time
+      currency_type, tran_amount, tran_time, tran_type, remark
       )
     values (#{tranId,jdbcType=INTEGER}, #{fromAccount,jdbcType=VARCHAR}, #{toAccount,jdbcType=VARCHAR}, 
-      #{currencyType,jdbcType=INTEGER}, #{tranAmount,jdbcType=DOUBLE}, #{tranTime,jdbcType=TIMESTAMP}
+      #{currencyType,jdbcType=INTEGER}, #{tranAmount,jdbcType=DOUBLE}, #{tranTime,jdbcType=TIMESTAMP},
+      #{tranType,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.example.mockband.entity.TranInfo" >
@@ -95,6 +98,12 @@
       <if test="tranTime != null" >
         tran_time,
       </if>
+      <if test="tranType != null" >
+        tran_type,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="tranId != null" >
@@ -114,6 +123,12 @@
       </if>
       <if test="tranTime != null" >
         #{tranTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tranType != null" >
+        #{tranType,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -135,6 +150,12 @@
       <if test="tranTime != null" >
         tran_time = #{tranTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="tranType != null" >
+        tran_type = #{tranType,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
     </set>
     where tran_id = #{tranId,jdbcType=INTEGER}
   </update>
@@ -144,7 +165,9 @@
       to_account = #{toAccount,jdbcType=VARCHAR},
       currency_type = #{currencyType,jdbcType=INTEGER},
       tran_amount = #{tranAmount,jdbcType=DOUBLE},
-      tran_time = #{tranTime,jdbcType=TIMESTAMP}
+      tran_time = #{tranTime,jdbcType=TIMESTAMP},
+      tran_type = #{tranType,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
     where tran_id = #{tranId,jdbcType=INTEGER}
   </update>
 </mapper>
