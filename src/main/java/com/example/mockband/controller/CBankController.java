@@ -202,7 +202,7 @@ public class CBankController {
     @RequestMapping("/query/transfer/log")
     public void queryTransferLog(HttpServletRequest request, HttpServletResponse response){
         List<TranInfo> list = tranInfoService.query(request);
-        int totalCount = (int) Math.ceil(tranInfoService.count(request));//数据总数
+        int totalCount = tranInfoService.count(request);//数据总数
         AllPage  allPage = new AllPage();
         allPage.setPageCount(totalCount);
         allPage.setTotal(list);
