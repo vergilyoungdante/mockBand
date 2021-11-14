@@ -26,7 +26,8 @@
                                         <div class="layui-input-block">
                                             <select lay-verify="required" id="aim">
                                                 <option value="1" selected>央行</option>
-                                                <option value="2">个人</option>
+                                                <option value="2">商业银行</option>
+                                                <option value="3">个人</option>
                                             </select>
                                         </div>
                                     </div>
@@ -200,6 +201,8 @@
             var aim = $("#aim").val()
             if (aim == 1) {
                 $("#aim2").html("央行")
+            } else if(aim == 2) {
+                $("#aim2").html("商业银行")
             } else {
                 $("#aim2").html("个人账户")
             }
@@ -218,7 +221,36 @@
 
             var commit =$("#comment").val();
             $("#comment2").val(commit);
-            step.next('#stepForm');
+
+            $.ajax({
+                type: "GET"
+                ,url: "/bank/check/count"
+                ,data:{
+                    account: function (){
+                        return layui.$('#account').val();
+                    },
+                    type: function (){
+                        return layui.$('#type').val();
+                    },
+                    change:function (){
+                        return layui.$('#number').val();
+                    }
+                }
+                ,contentType: 'application/json'
+                ,success:function(data){
+                    if(data.resultCode==200){
+                        step.next('#stepForm');
+                    }else {
+                        layer.msg(data.data);
+                    }
+
+                },
+                error: function(){
+                    layer.msg("通信失败")
+                }
+
+            })
+
             return false;
         });
 
