@@ -96,7 +96,8 @@ public class BankController {
 
     @RequestMapping("/query/transfer/bank/log")
     public void queryTransferLog(HttpServletRequest request, HttpServletResponse response){
-
+        //TODO:新增了账户类型，accountType，1为跟个人的交易，0为跟央行的交易
+        //TODO:User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();这个是当前用户登录信息，确保你能拿到自己有关的交易记录
         List<TranInfo> list = tranInfoService.queryBank(request);
         int totalCount = tranInfoService.countBank(request);//数据总数
         AllPage  allPage = new AllPage();
