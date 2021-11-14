@@ -142,7 +142,7 @@
       ]
     },
     {
-      "title": "组件管理",
+      "title": "中央银行",
       "icon": "fa fa-lemon-o",
       "href": "",
       "target": "_self",
@@ -160,8 +160,8 @@
           "target": "_self"
         },
         {
-          "title": "颜色选择",
-          "href": "page/color-select.html",
+          "title": "信用管理",
+          "href": "/cbank/credit",
           "icon": "fa fa-dashboard",
           "target": "_self"
         },

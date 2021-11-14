@@ -209,4 +209,8 @@ public class CBankController {
         ResultMsgBuilder.success(allPage, response);
     }
 
+    @RequestMapping("/credit")
+    public String credit(){
+        return "/cbank/credit";
+    }
 }
