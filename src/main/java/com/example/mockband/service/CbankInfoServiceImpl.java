@@ -128,4 +128,12 @@ public class CbankInfoServiceImpl implements CbankInfoService{
         tranInfo.setRemark(remark);
         tranInfoMapper.insert(tranInfo);
     }
+
+    @Override
+    public boolean setCredit(String loginName, String initCredit) {
+        CbankInfo cbankInfo = cbankInfoMapper.selectByLoginName(loginName);
+        cbankInfo.setInitCredits(Double.parseDouble(initCredit));
+        cbankInfoMapper.updateByLoginName(cbankInfo);
+        return false;
+    }
 }

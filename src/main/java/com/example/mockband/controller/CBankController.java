@@ -220,4 +220,16 @@ public class CBankController {
 
         return modelAndView;
     }
+
+    @RequestMapping("/credit/modify")
+    public void credit(HttpServletRequest request, HttpServletResponse response){
+        String initCredit = request.getParameter("credit");
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        boolean isSet = cbankInfoService.setCredit(user.getName(), initCredit);
+        if(isSet){
+            ResultMsgBuilder.commonError(EnumMsgCode.SUCCESS,"设置成功",response);
+        }else {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"设置失败",response);
+        }
+    }
 }
