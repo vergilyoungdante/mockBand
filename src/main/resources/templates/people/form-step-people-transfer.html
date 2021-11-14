@@ -196,12 +196,67 @@
 
             var commit =$("#comment").val();
             $("#comment2").val(commit);
-            step.next('#stepForm');
+
+            $.ajax({
+                type: "GET"
+                ,url: "/people/check/count"
+                ,data:{
+                    account: function (){
+                        return layui.$('#account').val();
+                    },
+                    type: function (){
+                        return layui.$('#type').val();
+                    },
+                    change:function (){
+                        return layui.$('#number').val();
+                    }
+                }
+                ,contentType: 'application/json'
+                ,success:function(data){
+                    if(data.resultCode==200){
+                        step.next('#stepForm');
+                    }else {
+                        layer.msg(data.data);
+                    }
+
+                },
+                error: function(){
+                    layer.msg("通信失败")
+                }
+
+            })
+
             return false;
         });
 
         form.on('submit(formStep2)', function (data) {
-            step.next('#stepForm');
+            $.ajax({
+                type: "GET"
+                ,url: "/people/commit/change"
+                ,data:{
+                    count: function (){
+                        return layui.$('#account2').val();
+                    },
+                    type: function (){
+                        return layui.$('#transferType').val();
+                    },
+                    change:function (){
+                        return layui.$('#transferCount').val();
+                    }
+                }
+                ,contentType: 'application/json'
+                ,success:function(data){
+                    if(data.resultCode==200){
+                        step.next('#stepForm');
+                    }else {
+                        layer.msg(data.data);
+                    }
+                },
+                error: function(){
+                    layer.msg("通信失败")
+                }
+
+            })
             return false;
         });
 
