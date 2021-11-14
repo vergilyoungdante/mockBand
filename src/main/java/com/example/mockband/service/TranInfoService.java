@@ -13,4 +13,8 @@ public interface TranInfoService {
     List<TranInfo> query(HttpServletRequest request);
 
     int count(HttpServletRequest request);
+
+    List<TranInfo> queryPeople(HttpServletRequest request);
+
+    int countPeople(HttpServletRequest request);
 }

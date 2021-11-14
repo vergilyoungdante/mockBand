@@ -87,4 +87,72 @@ public class TranInfoServiceImpl implements TranInfoService{
 
         return tranInfoMapper.selectSelectiveCount(hashMap);
     }
+
+    @Override
+    public List<TranInfo> queryPeople(HttpServletRequest request) {
+        String fromAccount = request.getParameter("fromAccount");
+        String toAccount = request.getParameter("toAccount");
+        String curType = request.getParameter("type");
+        String date = request.getParameter("date");//date:2021-11-13 - 2021-12-13  split(" - ")
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+
+        String fromDate = "";
+        String toDate = "";
+        if(date != null && !date.equals(""))
+        {
+            String[] dateArr = date.split(" - ");
+            fromDate = dateArr[0];
+            toDate = dateArr[1];
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date date1 = dateFormat.parse(toDate);
+                Calendar c = Calendar.getInstance();
+                c.setTime(date1);
+                c.add(Calendar.DAY_OF_MONTH, 1);
+                toDate = dateFormat.format(c.getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("fromAccount", fromAccount);
+        hashMap.put("toAccount", toAccount);
+        hashMap.put("curType", curType);
+        hashMap.put("fromDate", fromDate);
+        hashMap.put("toDate", toDate);
+
+        int startIndex = (page - 1) * limit;
+        hashMap.put("startIndex", startIndex);
+        hashMap.put("pageSize", limit);
+
+        return tranInfoMapper.selectPeople(hashMap);
+    }
+
+    @Override
+    public int countPeople(HttpServletRequest request) {
+        String fromAccount = request.getParameter("fromAccount");
+        String toAccount = request.getParameter("toAccount");
+        String curType = request.getParameter("type");
+        String date = request.getParameter("date");//date:2021-11-13 - 2021-12-13  split(" - ")
+
+        String fromDate = "";
+        String toDate = "";
+        if(date != null && !date.equals(""))
+        {
+            String[] dateArr = date.split(" - ");
+            fromDate = dateArr[0];
+            toDate = dateArr[1];
+        }
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("fromAccount", fromAccount);
+        hashMap.put("toAccount", toAccount);
+        hashMap.put("curType", curType);
+        hashMap.put("fromDate", fromDate);
+        hashMap.put("toDate", toDate);
+
+        return tranInfoMapper.selectPeopleCount(hashMap);
+    }
 }

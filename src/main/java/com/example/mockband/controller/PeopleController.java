@@ -7,6 +7,7 @@ import com.example.mockband.model.EnumMsgCode;
 import com.example.mockband.model.ResultMsgBuilder;
 import com.example.mockband.service.AccountInfoService;
 import com.example.mockband.service.BankInfoService;
+import com.example.mockband.service.TranInfoService;
 import com.example.mockband.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/people")
@@ -33,6 +35,9 @@ public class PeopleController {
 
     @Autowired
     AccountInfoMapper accountInfoMapper;
+
+    @Autowired
+    TranInfoService tranInfoService;
 
     @RequestMapping("/identity")
     public ModelAndView identity(){
@@ -89,13 +94,13 @@ public class PeopleController {
 
     @RequestMapping("/query/transfer/log")
     public void queryTransferLog(HttpServletRequest request, HttpServletResponse response){
-        String fromBank = request.getParameter("fromBank");
-        String toBank = request.getParameter("toBank");
-        String type = request.getParameter("type");
-        String startDate = request.getParameter("startDate");
-        String endDate = request.getParameter("endDate");
 
-
+        List<TranInfo> list = tranInfoService.queryPeople(request);
+        int totalCount = tranInfoService.countPeople(request);//数据总数
+        AllPage  allPage = new AllPage();
+        allPage.setPageCount(totalCount);
+        allPage.setTotal(list);
+        ResultMsgBuilder.success(allPage, response);
     }
 
 
