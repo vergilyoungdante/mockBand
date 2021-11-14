@@ -1,7 +1,7 @@
 {
   "homeInfo": {
     "title": "首页",
-    "href": "/cbank/total"
+    "href": "/welcome"
   },
   "logoInfo": {
     "title": "银行管理系统",
@@ -10,11 +10,17 @@
   },
   "menuInfo": [
     {
-      "title": "中央银行管理",
+      "title": "中央银行",
       "icon": "fa fa-lemon-o",
       "href": "",
       "target": "_self",
       "child": [
+        {
+          "title": "信用管理",
+          "href": "/cbank/credit",
+          "icon": "fa fa-dashboard",
+          "target": "_self"
+        },
         {
           "title": "转账记录",
           "href": "/cbank/transfer/log",
