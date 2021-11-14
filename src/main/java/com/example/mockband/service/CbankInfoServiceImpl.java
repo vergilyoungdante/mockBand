@@ -117,6 +117,14 @@ public class CbankInfoServiceImpl implements CbankInfoService{
         tranInfo.setCurrencyType(Integer.parseInt(curType));
         tranInfo.setTranAmount(tranAmount);
         tranInfo.setTranTime(new Date());
+
+        //共5种，分别用1，2，3，4，5表示：
+        //1. 央行 -> 商业银行
+        //2. 商业银行 -> 央行
+        //3. 商业银行 -> 个人
+        //4. 个人 -> 商业银行
+        //5. 个人 -> 个人
+        tranInfo.setTranType(1);
         tranInfo.setRemark(remark);
         tranInfoMapper.insert(tranInfo);
     }
