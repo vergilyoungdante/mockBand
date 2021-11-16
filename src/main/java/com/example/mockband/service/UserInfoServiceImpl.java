@@ -42,6 +42,13 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
+    public void modifyCredit(String loginName, String credit) {
+        UserInfo userInfo = userInfoMapper.selectByLoginName(loginName);
+        userInfo.setUserCredits(Double.parseDouble(credit));
+        userInfoMapper.updateByLoginName(userInfo);
+    }
+
+    @Override
     public boolean checkAmount(String loginName, double tranAmount, String curType) {
         UserInfo userInfo = userInfoMapper.selectByLoginName(loginName);
 

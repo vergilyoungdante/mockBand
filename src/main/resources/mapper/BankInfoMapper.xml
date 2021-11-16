@@ -196,7 +196,8 @@
         bank_head = #{bankHead,jdbcType=VARCHAR},
         bank_type = #{bankType,jdbcType=VARCHAR},
         bank_bond = #{bankBond,jdbcType=DOUBLE},
-        bank_growing_coin = #{bankGrowingCoin,jdbcType=DOUBLE}
+        bank_growing_coin = #{bankGrowingCoin,jdbcType=DOUBLE},
+        bank_credits = #{bankCredits,jdbcType=DOUBLE}
     where login_name = #{loginName,jdbcType=VARCHAR}
   </update>
 </mapper>

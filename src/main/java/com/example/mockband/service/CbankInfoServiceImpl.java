@@ -3,10 +3,7 @@ package com.example.mockband.service;
 import com.example.mockband.entity.BankInfo;
 import com.example.mockband.entity.CbankInfo;
 import com.example.mockband.entity.TranInfo;
-import com.example.mockband.mapper.AccountInfoMapper;
-import com.example.mockband.mapper.BankInfoMapper;
-import com.example.mockband.mapper.CbankInfoMapper;
-import com.example.mockband.mapper.TranInfoMapper;
+import com.example.mockband.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

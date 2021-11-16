@@ -17,4 +17,5 @@ public interface CbankInfoService {
     void transfer(String loginName, double tranAmount, String curType, String toAccount, String remark);
 
     boolean setCredit(String loginName, String initCredit);
+
 }

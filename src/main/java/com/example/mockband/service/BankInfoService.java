@@ -17,4 +17,5 @@ public interface BankInfoService {
 
     void transfer(String loginName, double tranAmount, String curType, String target, String toAccount, String remark);
 
+    void modifyCredit(String loginName, String credit);
 }

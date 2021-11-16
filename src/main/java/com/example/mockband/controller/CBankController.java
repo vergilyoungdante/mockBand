@@ -3,10 +3,7 @@ package com.example.mockband.controller;
 import com.example.mockband.entity.*;
 import com.example.mockband.model.EnumMsgCode;
 import com.example.mockband.model.ResultMsgBuilder;
-import com.example.mockband.service.AccountInfoService;
-import com.example.mockband.service.BankInfoService;
-import com.example.mockband.service.CbankInfoService;
-import com.example.mockband.service.TranInfoService;
+import com.example.mockband.service.*;
 import com.example.mockband.util.CommonUtil;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +40,9 @@ public class CBankController {
 
     @Autowired
     TranInfoService tranInfoService;
+
+    @Autowired
+    UserInfoService userInfoService;
 
     @RequestMapping("/total")
     public ModelAndView totalCount(){
@@ -240,18 +240,34 @@ public class CBankController {
         //                {field: 'name', title: '用户名称'},
         //                {field: 'bond', title: '债券'},
         //                {field: 'coin', title: '成长币'},
-        //                {field: 'type', title: '账户类型'},
+        //                {field: 'accountType', title: '账户类型'},
         //                {field: 'credit', title: '信用'},
         String account = request.getParameter("account");//账户
-        String type = request.getParameter("type");//账户种类，2商业银行，3个人银行
+        String accountType = request.getParameter("type");//账户种类，2商业银行，3个人银行
+        if (accountType.equals("2"))
+        {
+            bankInfoService.queryInfo(account);
+        }
+        if (accountType.equals("3"))
+        {
+            userInfoService.queryInfo(account);
+        }
 
+        //todo:分页查询，返回结果
     }
     @RequestMapping("/credit/edit/user")
     public void editCredit(HttpServletRequest request, HttpServletResponse response){
         //TODO:更改对应的账户的信用分
         String credit = request.getParameter("credit");//新的信用分
         String account = request.getParameter("account");//账户号
-        String type = request.getParameter("type");//账户类型，根据你传回来的值定的种类（/credit/all/user接口）
-
+        String accountType = request.getParameter("type");//账户类型，根据你传回来的值定的种类（/credit/all/user接口）
+        if (accountType.equals("2"))
+        {
+            bankInfoService.modifyCredit(account, credit);
+        }
+        if (accountType.equals("3"))
+        {
+            userInfoService.modifyCredit(account, credit);
+        }
     }
 }

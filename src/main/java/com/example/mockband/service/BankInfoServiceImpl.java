@@ -52,6 +52,13 @@ public class BankInfoServiceImpl implements BankInfoService{
     }
 
     @Override
+    public void modifyCredit(String loginName, String credit) {
+        BankInfo bankInfo = bankInfoMapper.selectByLoginName(loginName);
+        bankInfo.setBankCredits(Double.parseDouble(credit));
+        bankInfoMapper.updateByLoginName(bankInfo);
+    }
+
+    @Override
     public boolean checkAmount(String loginName, double tranAmount, String curType) {
         BankInfo bankInfo = bankInfoMapper.selectByLoginName(loginName);
 

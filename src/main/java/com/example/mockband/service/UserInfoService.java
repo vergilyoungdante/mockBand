@@ -17,4 +17,6 @@ public interface UserInfoService {
     void transfer(String loginName, double tranAmount, String curType, String target, String toAccount, String remark);
 
     boolean createUser(UserInfo userInfo);
+
+    void modifyCredit(String loginName, String credit);
 }

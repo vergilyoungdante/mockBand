@@ -175,7 +175,8 @@
     set user_department = #{userDepartment,jdbcType=VARCHAR},
         user_mobile = #{userMobile,jdbcType=VARCHAR},
         user_bond = #{userBond,jdbcType=DOUBLE},
-        user_growing_coin = #{userGrowingCoin,jdbcType=DOUBLE}
+        user_growing_coin = #{userGrowingCoin,jdbcType=DOUBLE},
+        user_credits = #{userCredits,jdbcType=DOUBLE}
     where login_name = #{loginName,jdbcType=VARCHAR}
   </update>
 </mapper>
