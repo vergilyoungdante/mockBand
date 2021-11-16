@@ -94,8 +94,9 @@ public class PeopleController {
 
     @RequestMapping("/query/transfer/log")
     public void queryTransferLog(HttpServletRequest request, HttpServletResponse response){
-
-        List<TranInfo> list = tranInfoService.queryPeople(request);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String loginName = user.getName();
+        List<TranInfo> list = tranInfoService.queryPeople(request, loginName);
         int totalCount = tranInfoService.countPeople(request);//数据总数
         AllPage  allPage = new AllPage();
         allPage.setPageCount(totalCount);

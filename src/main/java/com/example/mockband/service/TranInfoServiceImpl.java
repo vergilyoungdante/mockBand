@@ -89,7 +89,7 @@ public class TranInfoServiceImpl implements TranInfoService{
     }
 
     @Override
-    public List<TranInfo> queryPeople(HttpServletRequest request) {
+    public List<TranInfo> queryPeople(HttpServletRequest request, String loginName) {
         String fromAccount = request.getParameter("fromAccount");
         String toAccount = request.getParameter("toAccount");
         String curType = request.getParameter("type");
@@ -122,6 +122,7 @@ public class TranInfoServiceImpl implements TranInfoService{
         hashMap.put("curType", curType);
         hashMap.put("fromDate", fromDate);
         hashMap.put("toDate", toDate);
+        hashMap.put("loginName", loginName);
 
         int startIndex = (page - 1) * limit;
         hashMap.put("startIndex", startIndex);
