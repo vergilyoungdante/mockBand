@@ -96,6 +96,7 @@ public class BankController {
 
     @RequestMapping("/query/transfer/bank/log")
     public void queryTransferLog(HttpServletRequest request, HttpServletResponse response){
+        //TODO:这个还有问题，搜索功能失效
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<TranInfo> list = tranInfoService.queryBank(request, user.getName());
         int totalCount = tranInfoService.countBank(request, user.getName());//数据总数

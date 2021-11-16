@@ -244,6 +244,10 @@ public class CBankController {
         //                {field: 'credit', title: '信用'},
         String account = request.getParameter("account");//账户
         String accountType = request.getParameter("type");//账户种类，2商业银行，3个人银行
+        //默认是商业银行
+        if(accountType==null){
+            accountType="2";
+        }
         if (accountType.equals("2"))
         {
             bankInfoService.queryInfo(account);
