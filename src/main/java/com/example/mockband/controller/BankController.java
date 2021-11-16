@@ -96,10 +96,9 @@ public class BankController {
 
     @RequestMapping("/query/transfer/bank/log")
     public void queryTransferLog(HttpServletRequest request, HttpServletResponse response){
-        //TODO:新增了账户类型，accountType，1为跟个人的交易，0为跟央行的交易
-        //TODO:User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();这个是当前用户登录信息，确保你能拿到自己有关的交易记录
-        List<TranInfo> list = tranInfoService.queryBank(request);
-        int totalCount = tranInfoService.countBank(request);//数据总数
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<TranInfo> list = tranInfoService.queryBank(request, user.getName());
+        int totalCount = tranInfoService.countBank(request, user.getName());//数据总数
         AllPage  allPage = new AllPage();
         allPage.setPageCount(totalCount);
         allPage.setTotal(list);
@@ -155,6 +154,7 @@ public class BankController {
         String type = request.getParameter("type");//交易类型，1成长币,2债券
         String content = request.getParameter("content");//交易备注
         String toAccount = request.getParameter("account");//对方账号
+        String target = request.getParameter("target");//交易类型，1央行，2商业银行，3个人
 
         //检查账户是否存在
         boolean isAccount = accountInfoService.queryInfo(toAccount);
@@ -165,11 +165,23 @@ public class BankController {
         }
 
         //检查账户是否为央行或个人
-        BankInfo bankInfo = bankInfoService.queryInfo(toAccount);
         CbankInfo cbankInfo = cbankInfoService.queryInfo(toAccount);
-        if (bankInfo == null && cbankInfo == null)
+        UserInfo userInfo = userInfoService.queryInfo(toAccount);
+        if (cbankInfo == null && userInfo == null)
         {
-            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"该账户不是央行或个人",response);
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"输入的账户不是央行或个人",response);
+            return;
+        }
+
+        //检查账号和账户类型是否匹配
+        if (target.equals("1") && cbankInfo == null)
+        {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"输入的账户不是央行",response);
+            return;
+        }
+        if (target.equals("3") && userInfo == null)
+        {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"输入的账户不是个人",response);
             return;
         }
 

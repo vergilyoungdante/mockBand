@@ -65,7 +65,9 @@
   <select id="selectBank" resultMap="BaseResultMap" parameterType="java.util.Map">
     select * from tran_info_tbl
     <where>
-      tran_type = 2 or tran_type = 3
+      (from_account = #{loginName,jdbcType=VARCHAR}
+      or
+      to_account = #{loginName,jdbcType=VARCHAR})
       <if test="fromAccount != null and fromAccount != ''">
         and from_account like concat('%', #{fromAccount}, '%')
       </if>
@@ -109,7 +111,9 @@
   <select id="selectPeopleCount" resultType="java.lang.Integer" parameterType="java.util.Map">
     select count(*) from tran_info_tbl
     <where>
-        tran_type = 4 or tran_type = 5
+      (from_account = #{loginName,jdbcType=VARCHAR}
+      or
+      to_account = #{loginName,jdbcType=VARCHAR})
       <if test="fromAccount != null and fromAccount != ''">
         and from_account like concat('%', #{fromAccount}, '%')
       </if>
@@ -131,7 +135,9 @@
   <select id="selectBankCount" resultType="java.lang.Integer" parameterType="java.util.Map">
     select count(*) from tran_info_tbl
     <where>
-      tran_type = 2 or tran_type = 3
+      (from_account = #{loginName,jdbcType=VARCHAR}
+      or
+      to_account = #{loginName,jdbcType=VARCHAR})
       <if test="fromAccount != null and fromAccount != ''">
         and from_account like concat('%', #{fromAccount}, '%')
       </if>

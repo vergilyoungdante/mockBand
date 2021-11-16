@@ -132,7 +132,7 @@ public class TranInfoServiceImpl implements TranInfoService{
     }
 
     @Override
-    public int countPeople(HttpServletRequest request) {
+    public int countPeople(HttpServletRequest request, String loginName) {
         String fromAccount = request.getParameter("fromAccount");
         String toAccount = request.getParameter("toAccount");
         String curType = request.getParameter("type");
@@ -153,12 +153,13 @@ public class TranInfoServiceImpl implements TranInfoService{
         hashMap.put("curType", curType);
         hashMap.put("fromDate", fromDate);
         hashMap.put("toDate", toDate);
+        hashMap.put("loginName", loginName);
 
         return tranInfoMapper.selectPeopleCount(hashMap);
     }
 
     @Override
-    public List<TranInfo> queryBank(HttpServletRequest request) {
+    public List<TranInfo> queryBank(HttpServletRequest request, String loginName) {
         String fromAccount = request.getParameter("fromAccount");
         String toAccount = request.getParameter("toAccount");
         String curType = request.getParameter("type");
@@ -191,6 +192,7 @@ public class TranInfoServiceImpl implements TranInfoService{
         hashMap.put("curType", curType);
         hashMap.put("fromDate", fromDate);
         hashMap.put("toDate", toDate);
+        hashMap.put("loginName", loginName);
 
         int startIndex = (page - 1) * limit;
         hashMap.put("startIndex", startIndex);
@@ -200,7 +202,7 @@ public class TranInfoServiceImpl implements TranInfoService{
     }
 
     @Override
-    public int countBank(HttpServletRequest request) {
+    public int countBank(HttpServletRequest request, String loginName) {
         String fromAccount = request.getParameter("fromAccount");
         String toAccount = request.getParameter("toAccount");
         String curType = request.getParameter("type");
@@ -221,6 +223,7 @@ public class TranInfoServiceImpl implements TranInfoService{
         hashMap.put("curType", curType);
         hashMap.put("fromDate", fromDate);
         hashMap.put("toDate", toDate);
+        hashMap.put("loginName", loginName);
 
         return tranInfoMapper.selectBankCount(hashMap);
     }

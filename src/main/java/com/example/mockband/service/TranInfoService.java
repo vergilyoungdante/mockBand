@@ -16,9 +16,9 @@ public interface TranInfoService {
 
     List<TranInfo> queryPeople(HttpServletRequest request, String loginName);
 
-    int countPeople(HttpServletRequest request);
+    int countPeople(HttpServletRequest request, String loginName);
 
-    List<TranInfo> queryBank(HttpServletRequest request);
+    List<TranInfo> queryBank(HttpServletRequest request, String loginName);
 
-    int countBank(HttpServletRequest request);
+    int countBank(HttpServletRequest request, String loginName);
 }

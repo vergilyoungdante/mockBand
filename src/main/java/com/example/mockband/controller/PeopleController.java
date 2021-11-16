@@ -97,7 +97,7 @@ public class PeopleController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String loginName = user.getName();
         List<TranInfo> list = tranInfoService.queryPeople(request, loginName);
-        int totalCount = tranInfoService.countPeople(request);//数据总数
+        int totalCount = tranInfoService.countPeople(request, loginName);//数据总数
         AllPage  allPage = new AllPage();
         allPage.setPageCount(totalCount);
         allPage.setTotal(list);
@@ -117,6 +117,7 @@ public class PeopleController {
         String type = request.getParameter("type");//交易类型，1成长币，2债券
         String content = request.getParameter("content");//交易备注
         String toAccount = request.getParameter("account");//对方账号
+        String target = request.getParameter("target");//交易类型，1央行，2商业银行，3个人
 
         //检查账户是否存在
         boolean isAccount = accountInfoService.queryInfo(toAccount);
@@ -131,7 +132,19 @@ public class PeopleController {
         UserInfo userInfo = userInfoService.queryInfo(toAccount);
         if (bankInfo == null && userInfo == null)
         {
-            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"该账户不是商业银行或个人",response);
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"输入的账户不是商业银行或个人",response);
+            return;
+        }
+
+        //检查账号和账户类型是否匹配
+        if (target.equals("2") && bankInfo == null)
+        {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"输入的账户不是商业银行",response);
+            return;
+        }
+        if (target.equals("3") && userInfo == null)
+        {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"输入的账户不是个人",response);
             return;
         }
 
