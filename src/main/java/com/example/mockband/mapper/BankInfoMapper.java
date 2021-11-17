@@ -2,7 +2,11 @@ package com.example.mockband.mapper;
 
 import com.example.mockband.entity.BankInfo;
 import com.example.mockband.entity.CbankInfo;
+import com.example.mockband.entity.TranInfo;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.HashMap;
+import java.util.List;
 
 @Mapper
 public interface BankInfoMapper {
@@ -23,4 +27,8 @@ public interface BankInfoMapper {
     BankInfo selectByLoginName(String loginName);
 
     int updateByLoginName(BankInfo bankInfo);
+
+    List<BankInfo> selectBankCredit(HashMap<String, Object> hashMap);
+
+    int selectBankCreditCount(HashMap<String, Object> hashMap);
 }

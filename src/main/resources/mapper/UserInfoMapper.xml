@@ -26,6 +26,25 @@
     where login_name = #{loginName,jdbcType=VARCHAR}
   </select>
 
+  <select id="selectPeopleCredit" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select * from user_info_tbl
+    <where>
+      <if test="loginName != null and loginName != ''">
+        and login_name like concat('%', #{loginName}, '%')
+      </if>
+    </where>
+    limit #{startIndex}, #{pageSize}
+  </select>
+
+  <select id="selectPeopleCreditCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*) from user_info_tbl
+    <where>
+      <if test="loginName != null and loginName != ''">
+        and login_name like concat('%', #{loginName}, '%')
+      </if>
+    </where>
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

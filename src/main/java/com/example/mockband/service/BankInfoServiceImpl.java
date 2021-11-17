@@ -11,7 +11,10 @@ import com.example.mockband.mapper.UserInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class BankInfoServiceImpl implements BankInfoService{
@@ -56,6 +59,25 @@ public class BankInfoServiceImpl implements BankInfoService{
         BankInfo bankInfo = bankInfoMapper.selectByLoginName(loginName);
         bankInfo.setBankCredits(Double.parseDouble(credit));
         bankInfoMapper.updateByLoginName(bankInfo);
+    }
+
+    @Override
+    public List<BankInfo> queryInfoList(String loginName, int page, int limit) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("loginName", loginName);
+
+        int startIndex = (page - 1) * limit;
+        hashMap.put("startIndex", startIndex);
+        hashMap.put("pageSize", limit);
+
+        return bankInfoMapper.selectBankCredit(hashMap);
+    }
+
+    @Override
+    public int countInfoList(String loginName, int page, int limit) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("loginName", loginName);
+        return bankInfoMapper.selectBankCreditCount(hashMap);
     }
 
     @Override

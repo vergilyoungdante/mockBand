@@ -4,6 +4,9 @@ import com.example.mockband.entity.BankInfo;
 import com.example.mockband.entity.CbankInfo;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 @Service
 public interface BankInfoService {
 
@@ -18,4 +21,8 @@ public interface BankInfoService {
     void transfer(String loginName, double tranAmount, String curType, String target, String toAccount, String remark);
 
     void modifyCredit(String loginName, String credit);
+
+    List<BankInfo> queryInfoList(String loginName, int page, int limit);
+
+    int countInfoList(String loginName, int page, int limit);
 }

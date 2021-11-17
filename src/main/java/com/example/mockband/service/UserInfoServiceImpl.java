@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
@@ -46,6 +48,25 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserInfo userInfo = userInfoMapper.selectByLoginName(loginName);
         userInfo.setUserCredits(Double.parseDouble(credit));
         userInfoMapper.updateByLoginName(userInfo);
+    }
+
+    @Override
+    public List<UserInfo> queryInfoList(String loginName, int page, int limit) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("loginName", loginName);
+
+        int startIndex = (page - 1) * limit;
+        hashMap.put("startIndex", startIndex);
+        hashMap.put("pageSize", limit);
+
+        return userInfoMapper.selectPeopleCredit(hashMap);
+    }
+
+    @Override
+    public int countInfoList(String loginName, int page, int limit) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("loginName", loginName);
+        return userInfoMapper.selectPeopleCreditCount(hashMap);
     }
 
     @Override

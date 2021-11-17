@@ -5,6 +5,8 @@ import com.example.mockband.entity.UserInfo;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface UserInfoService {
 
@@ -19,4 +21,8 @@ public interface UserInfoService {
     boolean createUser(UserInfo userInfo);
 
     void modifyCredit(String loginName, String credit);
+
+    List<UserInfo> queryInfoList(String loginName, int page, int limit);
+
+    int countInfoList(String loginName, int page, int limit);
 }

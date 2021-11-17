@@ -76,6 +76,16 @@ public class TranInfoServiceImpl implements TranInfoService{
             String[] dateArr = date.split(" - ");
             fromDate = dateArr[0];
             toDate = dateArr[1];
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date date1 = dateFormat.parse(toDate);
+                Calendar c = Calendar.getInstance();
+                c.setTime(date1);
+                c.add(Calendar.DAY_OF_MONTH, 1);
+                toDate = dateFormat.format(c.getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 
         HashMap<String, Object> hashMap = new HashMap<>();
@@ -145,6 +155,16 @@ public class TranInfoServiceImpl implements TranInfoService{
             String[] dateArr = date.split(" - ");
             fromDate = dateArr[0];
             toDate = dateArr[1];
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date date1 = dateFormat.parse(toDate);
+                Calendar c = Calendar.getInstance();
+                c.setTime(date1);
+                c.add(Calendar.DAY_OF_MONTH, 1);
+                toDate = dateFormat.format(c.getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 
         HashMap<String, Object> hashMap = new HashMap<>();
@@ -215,6 +235,16 @@ public class TranInfoServiceImpl implements TranInfoService{
             String[] dateArr = date.split(" - ");
             fromDate = dateArr[0];
             toDate = dateArr[1];
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date date1 = dateFormat.parse(toDate);
+                Calendar c = Calendar.getInstance();
+                c.setTime(date1);
+                c.add(Calendar.DAY_OF_MONTH, 1);
+                toDate = dateFormat.format(c.getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
 
         HashMap<String, Object> hashMap = new HashMap<>();

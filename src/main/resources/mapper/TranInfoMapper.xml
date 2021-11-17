@@ -31,7 +31,7 @@
         and tran_time &gt;= #{fromDate,jdbcType=DATE}
       </if>
       <if test="toDate != null and toDate != ''">
-        and tran_time &lt;= #{toDate,jdbcType=DATE}
+        and tran_time &lt; #{toDate,jdbcType=DATE}
       </if>
     </where>
     limit #{startIndex}, #{pageSize}
@@ -56,7 +56,7 @@
         and tran_time &gt;= #{fromDate,jdbcType=DATE}
       </if>
       <if test="toDate != null and toDate != ''">
-        and tran_time &lt;= #{toDate,jdbcType=DATE}
+        and tran_time &lt; #{toDate,jdbcType=DATE}
       </if>
     </where>
     limit #{startIndex}, #{pageSize}
@@ -81,7 +81,7 @@
         and tran_time &gt;= #{fromDate,jdbcType=DATE}
       </if>
       <if test="toDate != null and toDate != ''">
-        and tran_time &lt;= #{toDate,jdbcType=DATE}
+        and tran_time &lt; #{toDate,jdbcType=DATE}
       </if>
     </where>
     limit #{startIndex}, #{pageSize}
@@ -96,14 +96,14 @@
       <if test="toAccount != null and toAccount != ''">
         and to_account like concat('%', #{toAccount}, '%')
       </if>
-      <if test="currencyType != null and currencyType != ''">
-        and currency_type = #{currencyType,jdbcType=INTEGER}
+      <if test="curType != null and curType != ''">
+        and currency_type = #{curType,jdbcType=INTEGER}
       </if>
       <if test="fromDate != null and fromDate != ''">
         and tran_time &gt;= #{fromDate,jdbcType=DATE}
       </if>
       <if test="toDate != null and toDate != ''">
-        and tran_time &lt;= #{toDate,jdbcType=DATE}
+        and tran_time &lt; #{toDate,jdbcType=DATE}
       </if>
     </where>
   </select>
@@ -120,14 +120,14 @@
       <if test="toAccount != null and toAccount != ''">
         and to_account like concat('%', #{toAccount}, '%')
       </if>
-      <if test="currencyType != null and currencyType != ''">
-        and currency_type = #{currencyType,jdbcType=INTEGER}
+      <if test="curType != null and curType != ''">
+        and currency_type = #{curType,jdbcType=INTEGER}
       </if>
       <if test="fromDate != null and fromDate != ''">
         and tran_time &gt;= #{fromDate,jdbcType=DATE}
       </if>
       <if test="toDate != null and toDate != ''">
-        and tran_time &lt;= #{toDate,jdbcType=DATE}
+        and tran_time &lt; #{toDate,jdbcType=DATE}
       </if>
     </where>
   </select>
@@ -144,14 +144,14 @@
       <if test="toAccount != null and toAccount != ''">
         and to_account like concat('%', #{toAccount}, '%')
       </if>
-      <if test="currencyType != null and currencyType != ''">
-        and currency_type = #{currencyType,jdbcType=INTEGER}
+      <if test="curType != null and curType != ''">
+        and currency_type = #{curType,jdbcType=INTEGER}
       </if>
       <if test="fromDate != null and fromDate != ''">
         and tran_time &gt;= #{fromDate,jdbcType=DATE}
       </if>
       <if test="toDate != null and toDate != ''">
-        and tran_time &lt;= #{toDate,jdbcType=DATE}
+        and tran_time &lt; #{toDate,jdbcType=DATE}
       </if>
     </where>
   </select>

@@ -244,20 +244,30 @@ public class CBankController {
         //                {field: 'credit', title: '信用'},
         String account = request.getParameter("account");//账户
         String accountType = request.getParameter("type");//账户种类，2商业银行，3个人银行
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
         //默认是商业银行
         if(accountType==null){
             accountType="2";
         }
         if (accountType.equals("2"))
         {
-            bankInfoService.queryInfo(account);
+            List<BankInfo> list = bankInfoService.queryInfoList(account, page, limit);
+            int totalCount = bankInfoService.countInfoList(account, page, limit);//数据总数
+            AllPage allPage = new AllPage();
+            allPage.setPageCount(totalCount);
+            allPage.setTotalBank(list);
+            ResultMsgBuilder.success(allPage, response);
         }
         if (accountType.equals("3"))
         {
-            userInfoService.queryInfo(account);
+            List<UserInfo> list = userInfoService.queryInfoList(account, page, limit);
+            int totalCount = userInfoService.countInfoList(account, page, limit);//数据总数
+            AllPage allPage = new AllPage();
+            allPage.setPageCount(totalCount);
+            allPage.setTotalPeople(list);
+            ResultMsgBuilder.success(allPage, response);
         }
-
-        //todo:分页查询，返回结果
     }
     @RequestMapping("/credit/edit/user")
     public void editCredit(HttpServletRequest request, HttpServletResponse response){
