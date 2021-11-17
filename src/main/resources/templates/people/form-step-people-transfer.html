@@ -24,7 +24,7 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">收款账户:</label>
                                         <div class="layui-input-block">
-                                            <input type="text" id="account" placeholder="请填写收款账户" class="layui-input" lay-verify="number" required />
+                                            <input type="text" id="account" placeholder="请填写收款账户" class="layui-input" required />
 
                                         </div>
                                     </div>
@@ -53,17 +53,6 @@
                                             <input type="number" id="number" placeholder="请填写汇款金额" value="" class="layui-input" lay-verify="number" required>
                                         </div>
                                     </div>
-<!--                                    <div class="layui-form-item">-->
-<!--                                        <label class="layui-form-label">入款方式:</label>-->
-<!--                                        <div class="layui-input-block">-->
-<!--                                            <select lay-verify="required">-->
-<!--                                                <option value="1" selected>人工入款</option>-->
-<!--                                                <option value="2">修正</option>-->
-<!--                                                <option value="3">活动</option>-->
-<!--                                                <option value="4">佣金</option>-->
-<!--                                            </select>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">备注说明:</label>
                                         <div class="layui-input-block">
@@ -123,21 +112,12 @@
                                         汇款成功
                                     </div>
                                     <div style="font-size: 14px;color: #666;margin-top: 20px;">预计两小时到账</div>
+                                    <div style="text-align: center;margin-top: 50px;">
+                                        <button id="close" class="layui-btn next">关闭</button>
+                                    </div>
                                 </div>
-<!--                                <div style="text-align: center;margin-top: 50px;">-->
-<!--                                    <button class="layui-btn next">再汇一笔</button>-->
-<!--                                    <button class="layui-btn layui-btn-primary">返回主页</button>-->
-<!--                                </div>-->
                             </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div style="color: #666;margin-top: 30px;margin-bottom: 40px;padding-left: 30px;">
-                        <h3>说明</h3><br>
-                        <h4>入款到保险箱</h4>
-                        <p>如果需要，这里可以放一些关于产品的常见问题说明。</p>
-                        <br><h4>入款到现金</h4>
-                        <p>如果需要，这里可以放一些关于产品的常见问题说明。</p>
                     </div>
                 </div>
             </div>
@@ -197,6 +177,9 @@
                     },
                     change:function (){
                         return layui.$('#number').val();
+                    },
+                    target:function(){
+                        return layui.$('#aim').val();
                     }
                 }
                 ,contentType: 'application/json'
@@ -260,6 +243,10 @@
 
         $('.next').click(function () {
             step.next('#stepForm');
+        });
+
+        $('#close').click(function (){
+            window.close();
         });
     })
 </script>

@@ -1,7 +1,7 @@
 {
   "homeInfo": {
     "title": "首页",
-    "href": "/people/identity"
+    "href": "/welcome"
   },
   "logoInfo": {
     "title": "银行管理系统",
@@ -29,7 +29,7 @@
             },
             {
               "title": "信用积分查看",
-              "href": "query/credit",
+              "href": "/people/query/credit",
               "icon": "fa fa-meetup",
               "target": "_self"
             }
@@ -43,51 +43,23 @@
           "child": [
             {
               "title": "余额查询",
-              "href": "query/balance",
+              "href": "/people/query/balance",
               "icon": "fa fa-calendar",
               "target": "_self"
             },
             {
               "title": "交易流水",
-              "href": "",
+              "href": "/people/transfer/log",
               "icon": "fa fa-calendar",
-              "target": "_self",
-              "child": [
-                {
-                  "title": "成长币交易流水",
-                  "href": "page/people/table-people-coin.html",
-                  "icon": "fa fa-calendar",
-                  "target": "_self"
-                },
-                {
-                  "title": "可流动债券交易流水",
-                  "href": "page/people/table-people-debt.html",
-                  "icon": "fa fa-calendar",
-                  "target": "_self"
-                }
-              ]
+              "target": "_self"
             }
           ]
         },
         {
           "title": "转账汇款",
-          "href": "",
+          "href": "/people/transfer",
           "icon": "fa fa-superpowers",
-          "target": "_self",
-          "child": [
-            {
-              "title": "向个人用户转账",
-              "href": "page/people/form-step-people-to-people.html",
-              "icon": "fa fa-calendar",
-              "target": "_self"
-            },
-            {
-              "title": "向商业银行转账",
-              "href": "page/people/form-step-people-to-bank.html",
-              "icon": "fa fa-calendar",
-              "target": "_self"
-            }
-          ]
+          "target": "_self"
         }
       ]
     }
