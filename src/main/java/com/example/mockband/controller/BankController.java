@@ -49,6 +49,8 @@ public class BankController {
         modelAndView.addObject("bankName", bankInfo.getBankName());
         modelAndView.addObject("bankHead", bankInfo.getBankHead());
         //todo: 如何获取bankLicense
+        //bankLicense的图片路径传过来就行了
+        //TODO:bankType现在为空呀
         modelAndView.addObject("bankType",bankInfo.getBankType());
         return modelAndView;
     }

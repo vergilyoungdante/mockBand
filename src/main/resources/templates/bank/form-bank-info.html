@@ -32,13 +32,13 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">银行名称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="bankName" lay-verify="required" lay-reqtext="银行名称不能为空" placeholder="请输入银行名称" autocomplete="off" class="layui-input">
+                    <input type="text" name="bankName" lay-verify="required" lay-reqtext="银行名称不能为空" value="${bankName}" placeholder="请输入银行名称" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">银行负责人</label>
                 <div class="layui-input-block">
-                    <input type="text" name="managerName" lay-verify="required" lay-reqtext="银行负责人不能为空" placeholder="请输入银行负责人" autocomplete="off" class="layui-input">
+                    <input type="text" name="managerName" lay-verify="required" lay-reqtext="银行负责人不能为空" value="${bankHead}" placeholder="请输入银行负责人" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
@@ -50,7 +50,7 @@
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">银行性质</label>
                 <div class="layui-input-block">
-                    <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+                    <input type="text" readonly placeholder="请输入内容" value="${bankType}" class="layui-textarea"></input>
                 </div>
             </div>
             <div class="layui-form-item">
