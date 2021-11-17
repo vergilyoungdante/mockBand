@@ -121,20 +121,11 @@
                                     </div>
                                     <div style="font-size: 14px;color: #666;margin-top: 20px;">预计两小时到账</div>
                                 </div>
-<!--                                <div style="text-align: center;margin-top: 50px;">-->
-<!--                                    <button class="layui-btn next">再汇一笔</button>-->
-<!--                                    <button class="layui-btn layui-btn-primary">返回主页</button>-->
-<!--                                </div>-->
+                                <div style="text-align: center;margin-top: 50px;">
+                                    <button id="close" class="layui-btn">关闭</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div style="color: #666;margin-top: 30px;margin-bottom: 40px;padding-left: 30px;">
-                        <h3>说明</h3><br>
-                        <h4>入款到保险箱</h4>
-                        <p>如果需要，这里可以放一些关于产品的常见问题说明。</p>
-                        <br><h4>入款到现金</h4>
-                        <p>如果需要，这里可以放一些关于产品的常见问题说明。</p>
                     </div>
                 </div>
             </div>
@@ -145,10 +136,11 @@
 <script src="/../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
 <script src="/../../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
 <script>
-    layui.use([ 'form', 'step'], function () {
+    layui.use([ 'form', 'step','miniTab'], function () {
         var $ = layui.$,
             form = layui.form,
-            step = layui.step;
+            step = layui.step,
+            miniTab = layui.miniTab;
 
         step.render({
             elem: '#stepForm',
@@ -257,6 +249,9 @@
 
         $('.next').click(function () {
             step.next('#stepForm');
+        });
+        $('#close').click(function (){
+            miniTab.deleteCurrentByIframe();
         });
     })
 </script>

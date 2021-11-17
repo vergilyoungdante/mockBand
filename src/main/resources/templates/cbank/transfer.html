@@ -105,6 +105,9 @@
                                     </div>
                                     <div style="font-size: 14px;color: #666;margin-top: 20px;">资金已到账</div>
                                 </div>
+                                <div style="text-align: center;margin-top: 50px;">
+                                    <button id="close" class="layui-btn">关闭</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -225,6 +228,9 @@
 
         $('.next').click(function () {
             step.next('#stepForm');
+        });
+        $('#close').click(function (){
+            miniTab.deleteCurrentByIframe();
         });
     })
 </script>

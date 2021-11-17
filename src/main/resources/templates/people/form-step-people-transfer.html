@@ -111,9 +111,9 @@
                                     <div style="font-size: 24px;color: #333;font-weight: 500;margin-top: 30px;">
                                         汇款成功
                                     </div>
-                                    <div style="font-size: 14px;color: #666;margin-top: 20px;">预计两小时到账</div>
+                                    <div style="font-size: 14px;color: #666;margin-top: 20px;">资金已到账</div>
                                     <div style="text-align: center;margin-top: 50px;">
-                                        <button id="close" class="layui-btn next">关闭</button>
+                                        <button id="close" class="layui-btn">关闭</button>
                                     </div>
                                 </div>
                             </div>
@@ -128,10 +128,11 @@
 <script src="../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
 <script src="../../js/lay-config.js?v=1.0.4" charset="utf-8"></script>
 <script>
-    layui.use([ 'form', 'step'], function () {
+    layui.use([ 'form', 'step','miniTab'], function () {
         var $ = layui.$,
             form = layui.form,
-            step = layui.step;
+            step = layui.step,
+            miniTab = layui.miniTab;
 
         step.render({
             elem: '#stepForm',
@@ -246,7 +247,7 @@
         });
 
         $('#close').click(function (){
-            window.close();
+            miniTab.deleteCurrentByIframe();
         });
     })
 </script>
