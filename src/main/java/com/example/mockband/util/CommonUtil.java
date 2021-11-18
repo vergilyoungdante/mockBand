@@ -20,7 +20,7 @@ public class CommonUtil {
         File file = null;
         try {
             String originalFilename = multipartFile.getOriginalFilename();
-            String fileLocation = Thread.currentThread().getContextClassLoader().getResource("").getPath()+"picture/";
+            String fileLocation = Thread.currentThread().getContextClassLoader().getResource("").getPath()+"static/picture/";
 
             file=new File(fileLocation+userName+".jpg");
             if  (!file.exists()  && !file.isDirectory())

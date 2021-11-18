@@ -50,7 +50,6 @@ public class BankController {
         modelAndView.addObject("bankHead", bankInfo.getBankHead());
         //todo: 如何获取bankLicense
         //bankLicense的图片路径传过来就行了
-        //TODO:bankType现在为空呀
         modelAndView.addObject("bankType",bankInfo.getBankType());
         return modelAndView;
     }
@@ -98,7 +97,6 @@ public class BankController {
 
     @RequestMapping("/query/transfer/bank/log")
     public void queryTransferLog(HttpServletRequest request, HttpServletResponse response){
-        //TODO:这个还有问题，搜索功能失效
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<TranInfo> list = tranInfoService.queryBank(request, user.getName());
         int totalCount = tranInfoService.countBank(request, user.getName());//数据总数
@@ -130,7 +128,7 @@ public class BankController {
 //            return;
 //        }
         if(!newPassword.equals(againPassword)){
-            return ResultMsgBuilder.success("test",null);
+            return ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"密码不一样",response);
         }
 
         UserInfo userInfo = new UserInfo();
@@ -215,4 +213,5 @@ public class BankController {
             ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"余额不足",response);
         }
     }
+    //TODO:银行销户，需要看到自己开的所有户，然后再来个删除接口（最后搞）
 }

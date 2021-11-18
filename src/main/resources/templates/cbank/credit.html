@@ -86,23 +86,20 @@
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports'],
             parseData: function (res) {  //与后端数据交互，需要传固定格式，转换为下面所示
-                console.log(res.data.pageCount);
                 return {
                     "code": 0, //数据状态
                     "msg": "",  //状态信息
                     "count": res.data.pageCount, //数据总数
                     "data": res.data.total, //后端的详细数据
-
                 }
             },
             cols: [[
-                {field: 'account', minWidth: 80, title: '账号'},
+                {field: 'bankName', minWidth: 80, title: '账号'},
                 {field: 'bank', minWidth: 80, title: '所属银行'},
                 {field: 'name', minWidth: 80, title: '用户名称'},
-                {field: 'bond', minWidth: 80, title: '债券'},
-                {field: 'coin', minWidth: 80, title: '成长币'},
-                {field: 'type', minWidth: 80, title: '账户类型'},
-                {field: 'credit', minWidth: 80, title: '信用',edit:'text'},
+                {field: 'bankBond', minWidth: 80, title: '债券'},
+                {field: 'bankGrowingCoin', minWidth: 80, title: '成长币'},
+                {field: 'bankCredits', minWidth: 80, title: '信用',edit:'text'},
             ]],
             limits: [5,10, 15, 20],
             limit: 5,

@@ -100,7 +100,9 @@ public class CBankController {
                            @RequestParam("bankName") String bankName,
                            @RequestParam("bankHead") String bankHead,
                            @RequestParam("credit") String credit,
+                           @RequestParam("bankType") String bankType,
                            @RequestParam("file") MultipartFile file) throws IOException {
+        //TODO:bankType没存
 
         if(file.isEmpty()){
             ResultMsgBuilder.commonError(EnumMsgCode.NO_PHOTO_ERROR,"需要上传营业执照",response);
@@ -235,13 +237,6 @@ public class CBankController {
     @RequestMapping("/credit/all/user")
     public void allCredit(HttpServletRequest request, HttpServletResponse response){
         //TODO:用户信用列表,下面是你的List里要带的属性，你要是查不全我前端就去了，尽量查全了。属性可以换成你要的名字，前端改起来非常省事，优先保证你那边的复用
-        //                {field: 'account', title: '账号'},
-        //                {field: 'bank', title: '所属银行'},
-        //                {field: 'name', title: '用户名称'},
-        //                {field: 'bond', title: '债券'},
-        //                {field: 'coin', title: '成长币'},
-        //                {field: 'accountType', title: '账户类型'},
-        //                {field: 'credit', title: '信用'},
         String account = request.getParameter("account");//账户
         String accountType = request.getParameter("type");//账户种类，2商业银行，3个人银行
         int page = Integer.parseInt(request.getParameter("page"));

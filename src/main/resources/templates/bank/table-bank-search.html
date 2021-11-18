@@ -18,16 +18,16 @@
             <div style="margin: 10px 10px 10px 10px">
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">账户种类</label>
-                            <div class="layui-input-inline">
-                                <select name="accountType" >
-                                    <option value=""></option>
-                                    <option value="0">央行</option>
-                                    <option value="1">个人账户</option>
-                                </select>
-                            </div>
-                        </div>
+<!--                        <div class="layui-inline">-->
+<!--                            <label class="layui-form-label">账户种类</label>-->
+<!--                            <div class="layui-input-inline">-->
+<!--                                <select name="accountType" >-->
+<!--                                    <option value=""></option>-->
+<!--                                    <option value="0">央行</option>-->
+<!--                                    <option value="1">个人账户</option>-->
+<!--                                </select>-->
+<!--                            </div>-->
+<!--                        </div>-->
                         <div class="layui-inline">
                             <label class="layui-form-label">付款账户</label>
                             <div class="layui-input-inline">
@@ -122,9 +122,10 @@
                 , where: {
                     fromAccount:data.field.fromAccount,
                     toAccount:data.field.toAccount,
-                    type:data.field.type,
+                    type:data.field.transferType,
                     date:data.field.date,
-                    accountType:data.field.accountType,
+                    // accountType:data.field.accountType,
+
                 }
             }, 'data');
 

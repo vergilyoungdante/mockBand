@@ -54,6 +54,12 @@
                     <input id="credit" type="number" name="credit" lay-verify="number" placeholder="请输入信用积分" lay-reqtext="信用积分不能为空" value="" class="layui-input">
                 </div>
             </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">银行性质</label>
+                <div class="layui-input-block">
+                    <input id="bankType" type="text" name="bankType" lay-verify="required" placeholder="请输入性质" lay-reqtext="性质不能为空" value="" class="layui-input">
+                </div>
+            </div>
             <div class="layui-upload-drag" id="upPicture" name="picture">
                 <i class="layui-icon">上传营业执照，大小不能超过1M(必填)</i>
                 <p>点击上传，或将文件拖拽到此处</p>
@@ -103,10 +109,13 @@
                 },
                 credit: function (){
                     return layui.$('#credit').val();
+                },
+                bankType: function (){
+                    return layui.$('#bankType').val();
                 }
             }
             ,accept:'image'
-            ,acceptMime: 'image/*'
+            ,acceptMime: 'image/jpg'
             ,auto: false
             ,bindAction: '#submit'
             ,size:1024*1024
