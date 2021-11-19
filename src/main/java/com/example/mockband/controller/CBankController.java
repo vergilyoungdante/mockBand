@@ -214,7 +214,7 @@ public class CBankController {
     @RequestMapping("/credit")
     public ModelAndView credit(){
 
-        ModelAndView modelAndView = new ModelAndView("/cbank/credit");
+        ModelAndView modelAndView = new ModelAndView("credit-bank");
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         CbankInfo cbankInfo = cbankInfoService.queryInfo(user.getName());
