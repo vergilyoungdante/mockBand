@@ -18,10 +18,25 @@
       "child": [
         {
           "title": "信用管理",
-          "href": "/cbank/credit",
-          "icon": "fa fa-dashboard",
-          "target": "_self"
+          "href": "",
+          "icon": "fa fa-rocket",
+          "target": "_self",
+          "child": [
+            {
+              "title": "银行信用管理",
+              "href": "/cbank/credit/bank",
+              "icon": "fa fa-dashboard",
+              "target": "_self"
+            },
+            {
+              "title": "用户信用管理",
+              "href": "/cbank/credit/user",
+              "icon": "fa fa-dashboard",
+              "target": "_self"
+            }
+          ]
         },
+
         {
           "title": "转账记录",
           "href": "/cbank/transfer/log",

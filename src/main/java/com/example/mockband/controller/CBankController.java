@@ -211,10 +211,22 @@ public class CBankController {
         ResultMsgBuilder.success(allPage, response);
     }
 
-    @RequestMapping("/credit")
-    public ModelAndView credit(){
+    @RequestMapping("/credit/bank")
+    public ModelAndView creditBank(){
 
-        ModelAndView modelAndView = new ModelAndView("credit-bank");
+        ModelAndView modelAndView = new ModelAndView("/cbank/credit-bank");
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        CbankInfo cbankInfo = cbankInfoService.queryInfo(user.getName());
+        modelAndView.addObject("credit", String.valueOf(cbankInfo.getInitCredits()));
+
+        return modelAndView;
+    }
+
+    @RequestMapping("/credit/user")
+    public ModelAndView creditUser(){
+
+        ModelAndView modelAndView = new ModelAndView("/cbank/credit-people");
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         CbankInfo cbankInfo = cbankInfoService.queryInfo(user.getName());
@@ -237,6 +249,7 @@ public class CBankController {
     @RequestMapping("/credit/all/user")
     public void allCredit(HttpServletRequest request, HttpServletResponse response){
         //TODO:用户信用列表,下面是你的List里要带的属性，你要是查不全我前端就去了，尽量查全了。属性可以换成你要的名字，前端改起来非常省事，优先保证你那边的复用
+        //TODO:现在分开了，所以要写两个接口了，一个给银行用，一个给普通用户用
         String account = request.getParameter("account");//账户
         String accountType = request.getParameter("type");//账户种类，2商业银行，3个人银行
         int page = Integer.parseInt(request.getParameter("page"));

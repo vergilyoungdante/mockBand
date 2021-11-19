@@ -82,7 +82,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '/cbank/credit/all/user',//换个新的
+            url: '/cbank/credit/all/user',//TODO:换个新的
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports'],
             parseData: function (res) {  //与后端数据交互，需要传固定格式，转换为下面所示
@@ -93,7 +93,7 @@
                     "data": res.data.total, //后端的详细数据
                 }
             },
-            cols: [[
+            cols: [[//TODO:跟后端对上
                 {field: 'bankName', minWidth: 80, title: '账号'},
                 {field: 'bank', minWidth: 80, title: '所属银行'},
                 {field: 'name', minWidth: 80, title: '用户名称'},
@@ -118,7 +118,7 @@
             $.ajax({
                 type:"get",
                 //后端接口
-                url:"/cbank/credit/edit/user",
+                url:"/cbank/credit/edit/user",//TODO:换个新的
                 //数据
                 data: {
                     credit:obj.val,
@@ -131,8 +131,9 @@
                     {
                         layer.alert('修改成功', { icon: 1, closeBtn: 0 }, function (index) {
                             layer.close(index);
-                            window.location.reload();
-                        });                    }
+                            table.reload();
+                        });
+                    }
                     else
                     {
                         layer.alert("修改失败："+data['data']);
@@ -170,8 +171,9 @@
                     {
                         layer.alert('修改成功', { icon: 1, closeBtn: 0 }, function (index) {
                             layer.close(index);
-                            window.location.reload();
-                        });                    }
+                            table.reload();
+                        });
+                    }
                     else
                     {
                         layer.alert("修改失败："+data['data']);
