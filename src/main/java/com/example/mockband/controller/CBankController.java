@@ -5,9 +5,7 @@ import com.example.mockband.model.EnumMsgCode;
 import com.example.mockband.model.ResultMsgBuilder;
 import com.example.mockband.service.*;
 import com.example.mockband.util.CommonUtil;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,10 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
-
 
 @Controller
 @RequestMapping("/cbank")
@@ -102,7 +98,6 @@ public class CBankController {
                            @RequestParam("credit") String credit,
                            @RequestParam("bankType") String bankType,
                            @RequestParam("file") MultipartFile file) throws IOException {
-        //TODO:bankType没存
 
         if(file.isEmpty()){
             ResultMsgBuilder.commonError(EnumMsgCode.NO_PHOTO_ERROR,"需要上传营业执照",response);
@@ -118,6 +113,7 @@ public class CBankController {
         bankInfo.setBankName(bankName);
         bankInfo.setBankHead(bankHead);
         bankInfo.setBankCredits(Double.parseDouble(credit));
+        bankInfo.setBankType(bankType);
 
         AccountInfo accountInfo = new AccountInfo();
         accountInfo.setLoginName(userName);
@@ -213,13 +209,10 @@ public class CBankController {
 
     @RequestMapping("/credit/bank")
     public ModelAndView creditBank(){
-
         ModelAndView modelAndView = new ModelAndView("/cbank/credit-bank");
-
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         CbankInfo cbankInfo = cbankInfoService.queryInfo(user.getName());
         modelAndView.addObject("credit", String.valueOf(cbankInfo.getInitCredits()));
-
         return modelAndView;
     }
 
@@ -247,49 +240,44 @@ public class CBankController {
         }
     }
     @RequestMapping("/credit/all/user")
-    public void allCredit(HttpServletRequest request, HttpServletResponse response){
-        //TODO:用户信用列表,下面是你的List里要带的属性，你要是查不全我前端就去了，尽量查全了。属性可以换成你要的名字，前端改起来非常省事，优先保证你那边的复用
-        //TODO:现在分开了，所以要写两个接口了，一个给银行用，一个给普通用户用
+    public void allPeopleCredit(HttpServletRequest request, HttpServletResponse response){
         String account = request.getParameter("account");//账户
-        String accountType = request.getParameter("type");//账户种类，2商业银行，3个人银行
         int page = Integer.parseInt(request.getParameter("page"));
         int limit = Integer.parseInt(request.getParameter("limit"));
-        //默认是商业银行
-        if(accountType==null){
-            accountType="2";
-        }
-        if (accountType.equals("2"))
-        {
-            List<BankInfo> list = bankInfoService.queryInfoList(account, page, limit);
-            int totalCount = bankInfoService.countInfoList(account, page, limit);//数据总数
-            AllPage allPage = new AllPage();
-            allPage.setPageCount(totalCount);
-            allPage.setTotalBank(list);
-            ResultMsgBuilder.success(allPage, response);
-        }
-        if (accountType.equals("3"))
-        {
-            List<UserInfo> list = userInfoService.queryInfoList(account, page, limit);
-            int totalCount = userInfoService.countInfoList(account, page, limit);//数据总数
-            AllPage allPage = new AllPage();
-            allPage.setPageCount(totalCount);
-            allPage.setTotalPeople(list);
-            ResultMsgBuilder.success(allPage, response);
-        }
+
+        List<UserInfo> list = userInfoService.queryInfoList(account, page, limit);
+        int totalCount = userInfoService.countInfoList(account, page, limit);//数据总数
+        AllPage allPage = new AllPage();
+        allPage.setPageCount(totalCount);
+        allPage.setTotalPeople(list);
+        ResultMsgBuilder.success(allPage, response);
     }
+
+    @RequestMapping("/credit/all/bank")
+    public void allBankCredit(HttpServletRequest request, HttpServletResponse response){
+        String account = request.getParameter("account");//账户
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+
+        List<BankInfo> list = bankInfoService.queryInfoList(account, page, limit);
+        int totalCount = bankInfoService.countInfoList(account, page, limit);//数据总数
+        AllPage allPage = new AllPage();
+        allPage.setPageCount(totalCount);
+        allPage.setTotalBank(list);
+        ResultMsgBuilder.success(allPage, response);
+    }
+
     @RequestMapping("/credit/edit/user")
-    public void editCredit(HttpServletRequest request, HttpServletResponse response){
-        //TODO:更改对应的账户的信用分
+    public void editPeopleCredit(HttpServletRequest request, HttpServletResponse response){
         String credit = request.getParameter("credit");//新的信用分
         String account = request.getParameter("account");//账户号
-        String accountType = request.getParameter("type");//账户类型，根据你传回来的值定的种类（/credit/all/user接口）
-        if (accountType.equals("2"))
-        {
-            bankInfoService.modifyCredit(account, credit);
-        }
-        if (accountType.equals("3"))
-        {
-            userInfoService.modifyCredit(account, credit);
-        }
+        userInfoService.modifyCredit(account, credit);
+    }
+
+    @RequestMapping("/credit/edit/bank")
+    public void editBankCredit(HttpServletRequest request, HttpServletResponse response){
+        String credit = request.getParameter("credit");//新的信用分
+        String account = request.getParameter("account");//账户号
+        bankInfoService.modifyCredit(account, credit);
     }
 }
