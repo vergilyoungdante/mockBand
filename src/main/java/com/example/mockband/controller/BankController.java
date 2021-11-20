@@ -1,7 +1,6 @@
 package com.example.mockband.controller;
 
 import com.example.mockband.entity.*;
-import com.example.mockband.mapper.BankInfoMapper;
 import com.example.mockband.model.EnumMsgCode;
 import com.example.mockband.model.ResultMsg;
 import com.example.mockband.model.ResultMsgBuilder;
@@ -11,12 +10,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.transform.Result;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -48,9 +45,11 @@ public class BankController {
         BankInfo bankInfo = bankInfoService.queryInfo(user.getName());
         modelAndView.addObject("bankName", bankInfo.getBankName());
         modelAndView.addObject("bankHead", bankInfo.getBankHead());
-        //todo: 如何获取bankLicense
-        //bankLicense的图片路径传过来就行了
         modelAndView.addObject("bankType",bankInfo.getBankType());
+
+        //设置并返回图片路径
+        String imgPath = user.getName() + ".jpg";
+        modelAndView.addObject("imgPath",imgPath);
         return modelAndView;
     }
 
@@ -109,7 +108,6 @@ public class BankController {
     @RequestMapping("/people")
     public ModelAndView toRegister(){
         ModelAndView modelAndView = new ModelAndView("/bank/form-bank-create-people");
-
         return modelAndView;
     }
 
@@ -141,10 +139,12 @@ public class BankController {
         accountInfo.setLoginPassword(newPassword);
         accountInfo.setAccountType(3);
 
-        //todo:如果要创建的银行已经存在，该如何返回
+        boolean isExist = accountInfoService.createAccount(accountInfo);
+        if (!isExist)
+        {
+            return ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"账户已存在",response);
+        }
         userInfoService.createUser(userInfo);
-        accountInfoService.createAccount(accountInfo);
-        //ResultMsgBuilder.success("test")
         return ResultMsgBuilder.success("test",null);
     }
 

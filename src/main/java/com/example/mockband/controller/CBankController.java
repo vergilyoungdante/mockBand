@@ -66,7 +66,6 @@ public class CBankController {
         }else {
             ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"余额不足",response);
         }
-
     }
     @PostMapping("/change/coin")
     public void changeCoin(@RequestBody Map<String,Object> param, HttpServletRequest request, HttpServletResponse response){
@@ -84,7 +83,6 @@ public class CBankController {
     @RequestMapping("/register")
     public ModelAndView toRegister(){
         ModelAndView modelAndView = new ModelAndView("/cbank/register");
-
         return modelAndView;
     }
 
@@ -98,7 +96,6 @@ public class CBankController {
                            @RequestParam("credit") String credit,
                            @RequestParam("bankType") String bankType,
                            @RequestParam("file") MultipartFile file) throws IOException {
-
         if(file.isEmpty()){
             ResultMsgBuilder.commonError(EnumMsgCode.NO_PHOTO_ERROR,"需要上传营业执照",response);
             return;
@@ -218,13 +215,10 @@ public class CBankController {
 
     @RequestMapping("/credit/user")
     public ModelAndView creditUser(){
-
         ModelAndView modelAndView = new ModelAndView("/cbank/credit-people");
-
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         CbankInfo cbankInfo = cbankInfoService.queryInfo(user.getName());
         modelAndView.addObject("credit", String.valueOf(cbankInfo.getInitCredits()));
-
         return modelAndView;
     }
 
