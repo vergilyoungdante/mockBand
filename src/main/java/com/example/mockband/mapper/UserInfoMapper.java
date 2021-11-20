@@ -28,4 +28,8 @@ public interface UserInfoMapper {
     List<UserInfo> selectPeopleCredit(HashMap<String, Object> hashMap);
 
     int selectPeopleCreditCount(HashMap<String, Object> hashMap);
+
+    List<UserInfo> selectCustomer(HashMap<String, Object> hashMap);
+
+    int CountCustomer(HashMap<String, Object> hashMap);
 }

@@ -70,6 +70,25 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
+    public List<UserInfo> queryCustomer(String bankName, int page, int limit) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("bankName", bankName);
+
+        int startIndex = (page - 1) * limit;
+        hashMap.put("startIndex", startIndex);
+        hashMap.put("pageSize", limit);
+
+        return userInfoMapper.selectCustomer(hashMap);
+    }
+
+    @Override
+    public int countCustomer(String bankName) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("bankName", bankName);
+        return userInfoMapper.CountCustomer(hashMap);
+    }
+
+    @Override
     public boolean checkAmount(String loginName, double tranAmount, String curType) {
         UserInfo userInfo = userInfoMapper.selectByLoginName(loginName);
 

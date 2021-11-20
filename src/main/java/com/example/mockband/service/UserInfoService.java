@@ -25,4 +25,8 @@ public interface UserInfoService {
     List<UserInfo> queryInfoList(String loginName, int page, int limit);
 
     int countInfoList(String loginName, int page, int limit);
+
+    List<UserInfo> queryCustomer(String bankName, int page, int limit);
+
+    int countCustomer(String bankName);
 }

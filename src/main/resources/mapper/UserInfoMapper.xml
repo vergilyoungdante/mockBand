@@ -45,6 +45,27 @@
     </where>
   </select>
 
+  <select id="selectCustomer" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select * from user_info_tbl
+    <where>
+      bank_name = #{bankName,jdbcType=VARCHAR}
+      <if test="loginName != null and loginName != ''">
+        and login_name like concat('%', #{loginName}, '%')
+      </if>
+    </where>
+    limit #{startIndex}, #{pageSize}
+  </select>
+
+  <select id="CountCustomer" resultType="java.lang.Integer" parameterType="java.util.Map">
+    select count(*) from user_info_tbl
+    <where>
+      bank_name = #{bankName,jdbcType=VARCHAR}
+      <if test="loginName != null and loginName != ''">
+        and login_name like concat('%', #{loginName}, '%')
+      </if>
+    </where>
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

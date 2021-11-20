@@ -11,7 +11,6 @@ import com.example.mockband.mapper.UserInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -78,6 +77,17 @@ public class BankInfoServiceImpl implements BankInfoService{
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("loginName", loginName);
         return bankInfoMapper.selectBankCreditCount(hashMap);
+    }
+
+    @Override
+    public boolean deleteCustomer(String loginName) {
+        BankInfo bankInfo = bankInfoMapper.selectByLoginName(loginName);
+        if (bankInfo == null)
+        {
+            return false;
+        }
+        bankInfoMapper.deleteByLoginName(loginName);
+        return true;
     }
 
     @Override

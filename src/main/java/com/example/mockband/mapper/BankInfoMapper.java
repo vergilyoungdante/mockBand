@@ -31,4 +31,6 @@ public interface BankInfoMapper {
     List<BankInfo> selectBankCredit(HashMap<String, Object> hashMap);
 
     int selectBankCreditCount(HashMap<String, Object> hashMap);
+
+    int deleteByLoginName(String loginName);
 }

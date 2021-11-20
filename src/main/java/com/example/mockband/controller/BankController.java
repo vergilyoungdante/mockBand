@@ -213,5 +213,28 @@ public class BankController {
             ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"余额不足",response);
         }
     }
-    //TODO:银行销户，需要看到自己开的所有户，然后再来个删除接口（最后搞）
+
+    @RequestMapping("/query/customer")
+    public void queryCustomer(HttpServletRequest request, HttpServletResponse response){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int page = Integer.parseInt(request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit"));
+        List<UserInfo> list = userInfoService.queryCustomer(user.getName(), page, limit);
+        int totalCount = userInfoService.countCustomer(user.getName());//数据总数
+        AllPage allPage = new AllPage();
+        allPage.setPageCount(totalCount);
+        allPage.setTotalPeople(list);
+        ResultMsgBuilder.success(allPage, response);
+    }
+
+    @RequestMapping("/delete/customer")
+    public void deleteCustomer(HttpServletRequest request, HttpServletResponse response){
+        String account = request.getParameter("account");//账户号
+        boolean isDelete = bankInfoService.deleteCustomer(account);
+        if (!isDelete)
+        {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"账户已被删除",response);
+        }
+        ResultMsgBuilder.success("删除成功", response);
+    }
 }

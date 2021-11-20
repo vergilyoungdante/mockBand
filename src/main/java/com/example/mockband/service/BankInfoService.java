@@ -25,4 +25,6 @@ public interface BankInfoService {
     List<BankInfo> queryInfoList(String loginName, int page, int limit);
 
     int countInfoList(String loginName, int page, int limit);
+
+    boolean deleteCustomer(String loginName);
 }
