@@ -142,10 +142,10 @@ public class BankController {
         boolean isExist = accountInfoService.createAccount(accountInfo);
         if (!isExist)
         {
-            return ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"账户已存在",response);
+            return ResultMsgBuilder.commonError(EnumMsgCode.REPEAT_ACCOUNT_ERROR,"账户已存在",response);
         }
         userInfoService.createUser(userInfo);
-        return ResultMsgBuilder.success("test",null);
+        return ResultMsgBuilder.success("开户成功",null);
     }
 
     @RequestMapping("/check/count")

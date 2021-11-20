@@ -128,7 +128,7 @@ public class CBankController {
             //保存图片
             File outputFile =  CommonUtil.transferToFile(file,userName);
             bankInfoService.createBank(bankInfo);
-            ResultMsgBuilder.commonError(EnumMsgCode.SUCCESS,"开户成功",response);
+            ResultMsgBuilder.success("开户成功",response);
             return;
         }
     }
