@@ -1,6 +1,5 @@
 package com.example.mockband.controller;
 
-
 import com.example.mockband.entity.*;
 import com.example.mockband.mapper.AccountInfoMapper;
 import com.example.mockband.model.EnumMsgCode;
@@ -62,7 +61,6 @@ public class PeopleController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userInfoService.modifyInfo(user.getName(), phone, department);
         accountInfoService.modifyInfo(user.getName(), password);
-
         ResultMsgBuilder.success(new HashMap<>(),response);
     }
 
@@ -124,6 +122,13 @@ public class PeopleController {
         if (!isAccount)
         {
             ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"账户不存在",response);
+            return;
+        }
+
+        //检查转出金额是否小于0
+        if (Double.parseDouble(change) < 0)
+        {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"转出金额不能小于0",response);
             return;
         }
 

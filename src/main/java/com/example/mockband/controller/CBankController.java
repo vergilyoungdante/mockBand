@@ -82,8 +82,7 @@ public class CBankController {
 
     @RequestMapping("/register")
     public ModelAndView toRegister(){
-        ModelAndView modelAndView = new ModelAndView("/cbank/register");
-        return modelAndView;
+        return new ModelAndView("/cbank/register");
     }
 
     @RequestMapping("/create/bank")
@@ -121,7 +120,6 @@ public class CBankController {
         if(!res)
         {
             ResultMsgBuilder.commonError(EnumMsgCode.REPEAT_ACCOUNT_ERROR,"账户已存在",response);
-            return;
         }
         else
         {
@@ -129,7 +127,6 @@ public class CBankController {
             File outputFile =  CommonUtil.transferToFile(file,userName);
             bankInfoService.createBank(bankInfo);
             ResultMsgBuilder.success("开户成功",response);
-            return;
         }
     }
 
@@ -151,6 +148,13 @@ public class CBankController {
         if (!isAccount)
         {
             ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"账户不存在",response);
+            return;
+        }
+
+        //检查转出金额是否小于0
+        if (Double.parseDouble(change) < 0)
+        {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"转出金额不能小于0",response);
             return;
         }
 
@@ -269,6 +273,7 @@ public class CBankController {
         if (!isModified)
         {
             ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR, "该客户已被删除，修改失败", response);
+            return;
         }
         ResultMsgBuilder.success("修改成功", response);
     }
@@ -281,6 +286,7 @@ public class CBankController {
         if (!isModified)
         {
             ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR, "该银行已被删除，修改失败", response);
+            return;
         }
         ResultMsgBuilder.success("修改成功", response);
     }

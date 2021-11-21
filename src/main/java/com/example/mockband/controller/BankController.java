@@ -2,7 +2,6 @@ package com.example.mockband.controller;
 
 import com.example.mockband.entity.*;
 import com.example.mockband.model.EnumMsgCode;
-import com.example.mockband.model.ResultMsg;
 import com.example.mockband.model.ResultMsgBuilder;
 import com.example.mockband.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,8 +106,7 @@ public class BankController {
 
     @RequestMapping("/people")
     public ModelAndView toRegister(){
-        ModelAndView modelAndView = new ModelAndView("/bank/form-bank-create-people");
-        return modelAndView;
+        return new ModelAndView("/bank/form-bank-create-people");
     }
 
     @RequestMapping("/create/people")
@@ -119,7 +117,6 @@ public class BankController {
                                   @RequestParam("phoneNumber") String phoneNumber,
                                   @RequestParam("loginName") String loginName) throws IOException {
 
-        //TODO:银行名称需要后台自己查表拿
 //        if(file.isEmpty()){
 //            jsonObject.put("message","需要上传执照");
 //            response.getWriter().write(jsonObject.toString());
@@ -151,7 +148,6 @@ public class BankController {
         }
         userInfoService.createUser(userInfo);
         ResultMsgBuilder.success("开户成功",response);
-        return;
     }
 
     @RequestMapping("/check/count")
@@ -168,6 +164,13 @@ public class BankController {
         if (!isAccount)
         {
             ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"账户不存在",response);
+            return;
+        }
+
+        //检查转出金额是否小于0
+        if (Double.parseDouble(change) < 0)
+        {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"转出金额不能小于0",response);
             return;
         }
 
@@ -221,8 +224,7 @@ public class BankController {
     }
     @RequestMapping("/manage")
     public ModelAndView manage(){
-        ModelAndView modelAndView = new ModelAndView("/bank/manage-user");
-        return modelAndView;
+        return new ModelAndView("/bank/manage-user");
     }
 
     @RequestMapping("/query/customer")
@@ -236,7 +238,6 @@ public class BankController {
         allPage.setPageCount(totalCount);
         allPage.setTotalPeople(list);
         ResultMsgBuilder.success(allPage, response);
-        //TODO:怎么没有数据呀
     }
 
     @RequestMapping("/delete/customer")
