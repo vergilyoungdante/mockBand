@@ -114,12 +114,11 @@ public class BankController {
     @RequestMapping("/create/people")
     public ResultMsg<String> createPeople(HttpServletRequest request, HttpServletResponse response,
                                   @RequestParam("userName") String userName,
-                                  @RequestParam("bankName") String bankName,
                                   @RequestParam("newPassword") String newPassword,
                                   @RequestParam("againPassword") String againPassword,
                                   @RequestParam("loginName") String loginName) throws IOException {
 
-
+        //TODO:银行名称需要后台自己查表拿
 //        if(file.isEmpty()){
 //            jsonObject.put("message","需要上传执照");
 //            response.getWriter().write(jsonObject.toString());
@@ -132,7 +131,7 @@ public class BankController {
         UserInfo userInfo = new UserInfo();
         userInfo.setUserName(userName);
         userInfo.setLoginName(loginName);
-        userInfo.setBankName(bankName);
+//        userInfo.setBankName(bankName);
 
         AccountInfo accountInfo = new AccountInfo();
         accountInfo.setLoginName(loginName);
@@ -213,6 +212,11 @@ public class BankController {
             ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"余额不足",response);
         }
     }
+    @RequestMapping("/manage")
+    public ModelAndView manage(){
+        ModelAndView modelAndView = new ModelAndView("/bank/manage-user");
+        return modelAndView;
+    }
 
     @RequestMapping("/query/customer")
     public void queryCustomer(HttpServletRequest request, HttpServletResponse response){
@@ -225,6 +229,7 @@ public class BankController {
         allPage.setPageCount(totalCount);
         allPage.setTotalPeople(list);
         ResultMsgBuilder.success(allPage, response);
+        //TODO:怎么没有数据呀
     }
 
     @RequestMapping("/delete/customer")

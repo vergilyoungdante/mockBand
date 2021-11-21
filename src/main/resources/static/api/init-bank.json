@@ -1,4 +1,3 @@
-//TODO:这个是商业银行的加载菜单JSON
 {
   "homeInfo": {
     "title": "首页",
@@ -55,6 +54,12 @@
             {
               "title": "转账记录",
               "href": "/bank/transfer/bank/log",
+              "icon": "fa fa-rocket",
+              "target": "_self"
+            },
+            {
+              "title": "管理账户",
+              "href": "/bank/manage",
               "icon": "fa fa-rocket",
               "target": "_self"
             }

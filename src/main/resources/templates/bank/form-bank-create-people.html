@@ -12,29 +12,33 @@
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
-
-
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
             <legend>身份信息</legend>
         </fieldset>
 
-        <form class="layui-form" action="">
+        <form class="layui-form" action="/bank/create/people">
             <div class="layui-form-item">
                 <label class="layui-form-label">卡号</label>
                 <div class="layui-input-block">
-                    <input type="text" name="cardNumber" lay-verify="required" lay-reqtext="卡号不能为空" placeholder="请输入卡号" autocomplete="off" class="layui-input">
+                    <input type="text" id="cardNumber" name="loginName" lay-verify="required" lay-reqtext="卡号不能为空" placeholder="请输入卡号" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">用户姓名</label>
                 <div class="layui-input-block">
-                    <input type="text" name="username" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                    <input type="text" id="userName" name="userName" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="请输入姓名" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">用户初始密码</label>
+                <label class="layui-form-label">初始密码</label>
                 <div class="layui-input-block">
-                    <input type="text" name="password" lay-verify="required" lay-reqtext="密码不能为空" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    <input type="text" id="password" name="newPassword" lay-verify="required" lay-reqtext="密码不能为空" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">密码确认</label>
+                <div class="layui-input-block">
+                    <input id="againPassword" id="againPassword" type="password" name="againPassword" lay-verify="required|confirmPass" lay-reqtext="新的密码不能为空" placeholder="请输入新的密码"  value="" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -93,8 +97,37 @@
 
         //监听提交
         form.on('submit(demo1)', function (data) {
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
+            console.log(data)
+            $.ajax({
+                type: "GET"
+                ,url: "/bank/create/people"
+                ,data:{
+                    userName: function (){
+                        return layui.$('#userName').val();
+                    },
+                    loginName: function (){
+                        return layui.$('#cardNumber').val();
+                    },
+                    newPassword:function (){
+                        return layui.$('#password').val();
+                    },
+                    againPassword:function (){
+                        return layui.$('#againPassword').val();
+                    }
+                }
+                ,contentType: 'application/json'
+                ,success:function(data){
+                    if(data.resultCode==200){
+                        step.next('#stepForm');
+                    }else {
+                        layer.msg(data.data);
+                    }
+
+                },
+                error: function(){
+                    layer.msg("通信失败")
+                }
+
             })
             return false;
         });

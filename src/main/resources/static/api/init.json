@@ -227,6 +227,12 @@
               "href": "/bank/transfer/bank/log",
               "icon": "fa fa-rocket",
               "target": "_self"
+            },
+            {
+              "title": "管理账户",
+              "href": "/bank/manage",
+              "icon": "fa fa-rocket",
+              "target": "_self"
             }
           ]
         }
