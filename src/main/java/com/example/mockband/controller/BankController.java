@@ -116,6 +116,7 @@ public class BankController {
                                   @RequestParam("userName") String userName,
                                   @RequestParam("newPassword") String newPassword,
                                   @RequestParam("againPassword") String againPassword,
+                                  @RequestParam("phoneNumber") String phoneNumber,
                                   @RequestParam("loginName") String loginName) throws IOException {
 
         //TODO:银行名称需要后台自己查表拿
