@@ -44,15 +44,6 @@
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">账号类型</label>
-                            <div class="layui-input-inline">
-                                <select name="type" >
-                                    <option value="2">商业银行</option>
-                                    <option value="3">个人账户</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="layui-inline">
                             <input type=button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn" value="搜 索">
                         </div>
                     </div>
@@ -82,7 +73,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '/cbank/credit/all/user',//TODO:换个新的
+            url: '/cbank/credit/all/user',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports'],
             parseData: function (res) {  //与后端数据交互，需要传固定格式，转换为下面所示
@@ -90,16 +81,17 @@
                     "code": 0, //数据状态
                     "msg": "",  //状态信息
                     "count": res.data.pageCount, //数据总数
-                    "data": res.data.total, //后端的详细数据
+                    "data": res.data.totalPeople, //后端的详细数据
                 }
             },
-            cols: [[//TODO:跟后端对上
-                {field: 'bankName', minWidth: 80, title: '账号'},
-                {field: 'bank', minWidth: 80, title: '所属银行'},
-                {field: 'name', minWidth: 80, title: '用户名称'},
-                {field: 'bankBond', minWidth: 80, title: '债券'},
-                {field: 'bankGrowingCoin', minWidth: 80, title: '成长币'},
-                {field: 'bankCredits', minWidth: 80, title: '信用',edit:'text'},
+            cols: [[
+                {field: 'loginName', minWidth: 80, title: '账号'},
+                {field: 'bankName', minWidth: 80, title: '所属银行'},
+                {field: 'userName', minWidth: 80, title: '用户名称'},
+                {field: 'userDepartment', minWidth: 80, title: '用户部门'},
+                {field: 'userBond', minWidth: 80, title: '债券'},
+                {field: 'userGrowingCoin', minWidth: 80, title: '成长币'},
+                {field: 'userCredits', minWidth: 80, title: '信用',edit:'text'},
             ]],
             limits: [5,10, 15, 20],
             limit: 5,
@@ -114,16 +106,15 @@
             ,range: true
         });
         table.on('edit(currentTableFilter)', function(obj){ //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
-
+            console.log(obj)
             $.ajax({
                 type:"get",
                 //后端接口
-                url:"/cbank/credit/edit/user",//TODO:换个新的
+                url:"/cbank/credit/edit/user",
                 //数据
                 data: {
-                    credit:obj.val,
-                    account:obj.data.account,
-                    type:obj.data.type,
+                    credit:obj.value,
+                    account:obj.data.loginName,
                 },
                 contentType: 'application/json',
                 success:function(data){
@@ -153,7 +144,6 @@
                 }
                 , where: {
                     account:data.field.account,
-                    type:data.field.type,
                 }
             }, 'data');
         });

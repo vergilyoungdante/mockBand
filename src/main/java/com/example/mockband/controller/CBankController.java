@@ -266,6 +266,7 @@ public class CBankController {
         String credit = request.getParameter("credit");//新的信用分
         String account = request.getParameter("account");//账户号
         userInfoService.modifyCredit(account, credit);
+        //TODO:就差个返回状态了
     }
 
     @RequestMapping("/credit/edit/bank")
@@ -273,5 +274,6 @@ public class CBankController {
         String credit = request.getParameter("credit");//新的信用分
         String account = request.getParameter("account");//账户号
         bankInfoService.modifyCredit(account, credit);
+        //TODO:就差个返回状态了
     }
 }
