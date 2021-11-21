@@ -132,6 +132,7 @@ public class BankController {
         UserInfo userInfo = new UserInfo();
         userInfo.setUserName(userName);
         userInfo.setLoginName(loginName);
+        userInfo.setUserMobile(phoneNumber);
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         userInfo.setBankName(user.getName());
