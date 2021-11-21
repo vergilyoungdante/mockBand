@@ -186,6 +186,12 @@
                     },
                     change:function (){
                         return layui.$('#number').val();
+                    },
+                    target: function () {
+                        return layui.$('#aim').val();
+                    },
+                    content: function() {
+                        return layui.$('#commit').val();
                     }
                 }
                 ,contentType: 'application/json'

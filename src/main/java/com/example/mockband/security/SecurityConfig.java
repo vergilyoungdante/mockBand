@@ -51,6 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .logoutSuccessUrl("/login")  //设置登出后的跳转页面
                 .and()
                 .headers().frameOptions().sameOrigin();// 允许来自同一来源的H2 控制台的请求
+//                .and()
+//                .sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(false);
 
     }
 }
