@@ -65,16 +65,15 @@
                     "code": 0, //数据状态
                     "msg": "",  //状态信息
                     "count": res.data.pageCount, //数据总数
-                    "data": res.data.totalBank, //后端的详细数据
+                    "data": res.data.totalPeople, //后端的详细数据
                 }
             },
             cols: [[
                 {field: 'loginName', minWidth: 80, title: '账号'},
                 {field: 'bankName', minWidth: 80, title: '银行名称'},
-                {field: 'bankHead', minWidth: 80, title: '管理人'},
-                {field: 'bankBond', minWidth: 80, title: '债券'},
-                {field: 'bankGrowingCoin', minWidth: 80, title: '成长币'},
-                {field: 'bankCredits', minWidth: 80, title: '信用',edit:'text'},
+                {field: 'userBond', minWidth: 80, title: '债券'},
+                {field: 'userGrowingCoin', minWidth: 80, title: '成长币'},
+                {field: 'userCredits', minWidth: 80, title: '信用',edit:'text'},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"},
             ]],
             limits: [5,10, 15, 20],
@@ -89,34 +88,38 @@
             ,type: 'date'
             ,range: true
         });
-        table.on('toolbar(currentTableFilter)', function(obj){ //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
+        table.on('tool(currentTableFilter)', function(obj){ //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
             if (obj.event === 'delete') {  // 监听删除操作
-                $.ajax({
-                    type:"get",
-                    //后端接口
-                    url:"/bank/delete/customer",
-                    //数据
-                    data: {
-                        account:obj.data.loginName,
-                    },
-                    contentType: 'application/json',
-                    success:function(data){
-                        if(data['resultCode'] === "200")
-                        {
-                            layer.alert('删除成功', { icon: 1, closeBtn: 0 }, function (index) {
-                                layer.close(index);
-                                table.reload();
-                            });
+                layer.confirm('真的删除行么', function (index) {
+                    $.ajax({
+                        type:"get",
+                        //后端接口
+                        url:"/bank/delete/customer",
+                        //数据
+                        data: {
+                            account:obj.data.loginName,
+                        },
+                        contentType: 'application/json',
+                        success:function(data){
+                            if(data['resultCode'] === "200")
+                            {
+                                layer.alert('删除成功', { icon: 1, closeBtn: 0 }, function (index) {
+                                    layer.close(index);
+                                    table.reload();
+                                });
+                            }
+                            else
+                            {
+                                layer.alert("删除失败："+data['data']);
+                            }
+                        },
+                        error: function(){
+                            layer.alert("删除失败");
                         }
-                        else
-                        {
-                            layer.alert("删除失败："+data['data']);
-                        }
-                    },
-                    error: function(){
-                        layer.alert("删除失败");
-                    }
-                })
+                    })
+
+                });
+
             }
             else if(obj.event === 'edit'){
                 $.ajax({

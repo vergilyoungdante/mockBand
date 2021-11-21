@@ -243,6 +243,7 @@ public class BankController {
         if (!isDelete)
         {
             ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"账户已被删除",response);
+            return;
         }
         ResultMsgBuilder.success("删除成功", response);
     }
