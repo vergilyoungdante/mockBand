@@ -73,7 +73,7 @@
                 {field: 'bankName', minWidth: 80, title: '银行名称'},
                 {field: 'userBond', minWidth: 80, title: '债券'},
                 {field: 'userGrowingCoin', minWidth: 80, title: '成长币'},
-                {field: 'userCredits', minWidth: 80, title: '信用',edit:'text'},
+                {field: 'userCredits', minWidth: 80, title: '信用'},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"},
             ]],
             limits: [5,10, 15, 20],
@@ -90,7 +90,7 @@
         });
         table.on('tool(currentTableFilter)', function(obj){ //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
             if (obj.event === 'delete') {  // 监听删除操作
-                layer.confirm('真的删除行么', function (index) {
+                layer.confirm('是否删除账户', function (index) {
                     $.ajax({
                         type:"get",
                         //后端接口
@@ -120,35 +120,6 @@
 
                 });
 
-            }
-            else if(obj.event === 'edit'){
-                $.ajax({
-                    type:"get",
-                    //后端接口
-                    url:"/bank/delete/customer",
-                    //数据
-                    data: {
-                        credit:obj.value,
-                        account:obj.data.loginName,
-                    },
-                    contentType: 'application/json',
-                    success:function(data){
-                        if(data['resultCode'] === "200")
-                        {
-                            layer.alert('修改成功', { icon: 1, closeBtn: 0 }, function (index) {
-                                layer.close(index);
-                                table.reload();
-                            });
-                        }
-                        else
-                        {
-                            layer.alert("修改失败："+data['data']);
-                        }
-                    },
-                    error: function(){
-                        layer.alert("修改失败");
-                    }
-                })
             }
         });
         // 监听搜索操作
