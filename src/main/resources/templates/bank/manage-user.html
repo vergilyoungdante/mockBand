@@ -105,6 +105,7 @@
                             {
                                 layer.alert('删除成功', { icon: 1, closeBtn: 0 }, function (index) {
                                     layer.close(index);
+                                    obj.del();
                                     table.reload();
                                 });
                             }

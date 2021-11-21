@@ -112,7 +112,7 @@ public class BankController {
     }
 
     @RequestMapping("/create/people")
-    public ResultMsg<String> createPeople(HttpServletRequest request, HttpServletResponse response,
+    public void createPeople(HttpServletRequest request, HttpServletResponse response,
                                   @RequestParam("userName") String userName,
                                   @RequestParam("newPassword") String newPassword,
                                   @RequestParam("againPassword") String againPassword,
@@ -126,7 +126,8 @@ public class BankController {
 //            return;
 //        }
         if(!newPassword.equals(againPassword)){
-            return ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"密码不一样",response);
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR,"密码不一样",response);
+            return;
         }
 
         UserInfo userInfo = new UserInfo();
@@ -145,10 +146,12 @@ public class BankController {
         boolean isExist = accountInfoService.createAccount(accountInfo);
         if (!isExist)
         {
-            return ResultMsgBuilder.commonError(EnumMsgCode.REPEAT_ACCOUNT_ERROR,"账户已存在",response);
+            ResultMsgBuilder.commonError(EnumMsgCode.REPEAT_ACCOUNT_ERROR,"账户已存在",response);
+            return;
         }
         userInfoService.createUser(userInfo);
-        return ResultMsgBuilder.success("开户成功",response);
+        ResultMsgBuilder.success("开户成功",response);
+        return;
     }
 
     @RequestMapping("/check/count")

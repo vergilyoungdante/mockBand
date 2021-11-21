@@ -16,7 +16,7 @@
             <legend>身份信息</legend>
         </fieldset>
 
-        <form class="layui-form" action="/bank/create/people">
+        <form class="layui-form">
             <div class="layui-form-item">
                 <label class="layui-form-label">卡号</label>
                 <div class="layui-input-block">
@@ -32,7 +32,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">初始密码</label>
                 <div class="layui-input-block">
-                    <input type="againPassword" id="password" name="newPassword" lay-verify="required" lay-reqtext="密码不能为空" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    <input type="password" id="password" name="newPassword" lay-verify="required" lay-reqtext="密码不能为空" placeholder="请输入密码" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -49,7 +49,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit="" lay-filter="demo1">提交</button>
+                    <button class="layui-btn" lay-submit lay-filter="demo1">提交</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
@@ -62,6 +62,7 @@
 <script>
     layui.use(['form', 'layedit', 'laydate'], function () {
         var form = layui.form
+            , $ = layui.jquery
             , layer = layui.layer
             , layedit = layui.layedit
             , laydate = layui.laydate;
@@ -119,12 +120,18 @@
                     },
                     againPassword:function (){
                         return layui.$('#againPassword').val();
+                    },
+                    phoneNumber:function (){
+                        return layui.$('#phoneNumber').val();
                     }
                 }
                 ,contentType: 'application/json'
                 ,success:function(data){
                     if(data.resultCode==200){
-                        step.next('#stepForm');
+                        layer.alert('创建成功', { icon: 1, closeBtn: 0 }, function (index) {
+                            layer.close(index);
+                            window.location.reload();
+                        });
                     }else {
                         layer.msg(data.data);
                     }
