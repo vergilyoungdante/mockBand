@@ -20,7 +20,7 @@ public interface BankInfoService {
 
     void transfer(String loginName, double tranAmount, String curType, String target, String toAccount, String remark);
 
-    void modifyCredit(String loginName, String credit);
+    boolean modifyCredit(String loginName, String credit);
 
     List<BankInfo> queryInfoList(String loginName, int page, int limit);
 

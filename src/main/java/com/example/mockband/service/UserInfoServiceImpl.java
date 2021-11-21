@@ -44,10 +44,15 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public void modifyCredit(String loginName, String credit) {
+    public boolean modifyCredit(String loginName, String credit) {
         UserInfo userInfo = userInfoMapper.selectByLoginName(loginName);
+        if (userInfo == null)
+        {
+            return false;
+        }
         userInfo.setUserCredits(Double.parseDouble(credit));
         userInfoMapper.updateByLoginName(userInfo);
+        return true;
     }
 
     @Override

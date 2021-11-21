@@ -265,15 +265,23 @@ public class CBankController {
     public void editPeopleCredit(HttpServletRequest request, HttpServletResponse response){
         String credit = request.getParameter("credit");//新的信用分
         String account = request.getParameter("account");//账户号
-        userInfoService.modifyCredit(account, credit);
-        //TODO:就差个返回状态了
+        boolean isModified = userInfoService.modifyCredit(account, credit);
+        if (!isModified)
+        {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR, "该客户已被删除，修改失败", response);
+        }
+        ResultMsgBuilder.success("修改成功", response);
     }
 
     @RequestMapping("/credit/edit/bank")
     public void editBankCredit(HttpServletRequest request, HttpServletResponse response){
         String credit = request.getParameter("credit");//新的信用分
         String account = request.getParameter("account");//账户号
-        bankInfoService.modifyCredit(account, credit);
-        //TODO:就差个返回状态了
+        boolean isModified = bankInfoService.modifyCredit(account, credit);
+        if (!isModified)
+        {
+            ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR, "该银行已被删除，修改失败", response);
+        }
+        ResultMsgBuilder.success("修改成功", response);
     }
 }
