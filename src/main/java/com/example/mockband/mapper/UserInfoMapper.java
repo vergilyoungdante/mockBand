@@ -32,4 +32,6 @@ public interface UserInfoMapper {
     List<UserInfo> selectCustomer(HashMap<String, Object> hashMap);
 
     int CountCustomer(HashMap<String, Object> hashMap);
+
+    int deleteByLoginName(String loginName);
 }

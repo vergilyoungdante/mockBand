@@ -1,13 +1,7 @@
 package com.example.mockband.service;
 
-import com.example.mockband.entity.BankInfo;
-import com.example.mockband.entity.CbankInfo;
-import com.example.mockband.entity.TranInfo;
-import com.example.mockband.entity.UserInfo;
-import com.example.mockband.mapper.BankInfoMapper;
-import com.example.mockband.mapper.CbankInfoMapper;
-import com.example.mockband.mapper.TranInfoMapper;
-import com.example.mockband.mapper.UserInfoMapper;
+import com.example.mockband.entity.*;
+import com.example.mockband.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +22,9 @@ public class BankInfoServiceImpl implements BankInfoService{
 
     @Autowired
     TranInfoMapper tranInfoMapper;
+
+    @Autowired
+    AccountInfoMapper accountInfoMapper;
 
     @Override
     public boolean createBank(BankInfo bankInfo) {
@@ -86,12 +83,14 @@ public class BankInfoServiceImpl implements BankInfoService{
 
     @Override
     public boolean deleteCustomer(String loginName) {
-        BankInfo bankInfo = bankInfoMapper.selectByLoginName(loginName);
-        if (bankInfo == null)
+        UserInfo userInfo = userInfoMapper.selectByLoginName(loginName);
+        AccountInfo accountInfo = accountInfoMapper.selectByLoginName(loginName);
+        if (userInfo == null || accountInfo == null)
         {
             return false;
         }
-        bankInfoMapper.deleteByLoginName(loginName);
+        userInfoMapper.deleteByLoginName(loginName);
+        accountInfoMapper.deleteByLoginName(loginName);
         return true;
     }
 

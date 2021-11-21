@@ -20,4 +20,6 @@ public interface AccountInfoMapper {
     AccountInfo selectByLoginName(String loginName);
 
     int updateByLoginName(AccountInfo record);
+
+    int deleteByLoginName(String loginName);
 }

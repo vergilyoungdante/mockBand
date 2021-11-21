@@ -76,6 +76,12 @@
     delete from user_info_tbl
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
+
+  <delete id="deleteByLoginName" parameterType="java.lang.String" >
+    delete from user_info_tbl
+    where login_name = #{loginName,jdbcType=VARCHAR}
+  </delete>
+
   <insert id="insert" parameterType="com.example.mockband.entity.UserInfo" >
     insert into user_info_tbl (user_id, bank_name, login_name, 
       user_name, user_department, user_mobile, 
