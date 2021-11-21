@@ -17,8 +17,9 @@ public interface CbankInfoMapper {
 
     int updateByPrimaryKey(CbankInfo record);
 
-
     CbankInfo selectByLoginName(String loginName);
 
     int updateByLoginName(CbankInfo cbankInfo);
+
+    CbankInfo selectAll();
 }

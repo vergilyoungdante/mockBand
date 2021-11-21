@@ -32,6 +32,10 @@
     where login_name = #{loginName,jdbcType=VARCHAR}
   </select>
 
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select * from cbank_info_tbl
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from cbank_info_tbl
     where cbank_id = #{cbankId,jdbcType=INTEGER}
