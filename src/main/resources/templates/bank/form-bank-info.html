@@ -44,13 +44,13 @@
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">银行牌照</label>
                 <div class="layui-input-block">
-                    <textarea class="layui-textarea"></textarea>
+                    <img id="pic" style="max-width: 800px"></img>
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">银行性质</label>
                 <div class="layui-input-block">
-                    <input type="text" readonly placeholder="请输入内容" value="${bankType}" class="layui-text"></input>
+                    <input type="text" placeholder="请输入内容" value="${bankType}" class="layui-text"></input>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -454,12 +454,17 @@
 <script src="../../lib/layui-v2.6.3/layui.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
+    var picture = "${imgPath}";
+    var host = window.location.host;
+
     layui.use(['form', 'layedit', 'laydate'], function () {
         var form = layui.form
+            ,$ = layui.jquery
             , layer = layui.layer
             , layedit = layui.layedit
             , laydate = layui.laydate;
 
+        $("#pic").attr('src','http://'+host +'/picture/' + picture);
         //日期
         laydate.render({
             elem: '#date'

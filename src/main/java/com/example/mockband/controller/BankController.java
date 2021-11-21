@@ -146,7 +146,7 @@ public class BankController {
             return ResultMsgBuilder.commonError(EnumMsgCode.REPEAT_ACCOUNT_ERROR,"账户已存在",response);
         }
         userInfoService.createUser(userInfo);
-        return ResultMsgBuilder.success("开户成功",null);
+        return ResultMsgBuilder.success("开户成功",response);
     }
 
     @RequestMapping("/check/count")
