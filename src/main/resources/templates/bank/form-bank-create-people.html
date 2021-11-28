@@ -18,9 +18,9 @@
 
         <form class="layui-form">
             <div class="layui-form-item">
-                <label class="layui-form-label">卡号</label>
+                <label class="layui-form-label">用户名</label>
                 <div class="layui-input-block">
-                    <input type="text" id="cardNumber" name="loginName" lay-verify="required" lay-reqtext="卡号不能为空" placeholder="请输入卡号" autocomplete="off" class="layui-input">
+                    <input type="text" id="cardNumber" name="loginName" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="请输入用户名" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -144,18 +144,6 @@
             })
             return false;
         });
-
-        //表单初始赋值
-        form.val('example', {
-            "username": "贤心" // "name": "value"
-            , "password": "123456"
-            , "interest": 1
-            , "like[write]": true //复选框选中状态
-            , "close": true //开关状态
-            , "sex": "女"
-            , "desc": "我爱 layui"
-        })
-
 
     });
 </script>

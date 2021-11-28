@@ -61,6 +61,9 @@ public class UserInfo implements Serializable {
     }
 
     public String getUserDepartment() {
+        if(userDepartment==null){
+            return "暂未设置";
+        }
         return userDepartment;
     }
 
@@ -85,6 +88,9 @@ public class UserInfo implements Serializable {
     }
 
     public Double getUserGrowingCoin() {
+        if(userGrowingCoin==null){
+            return 0.0;
+        }
         return userGrowingCoin;
     }
 
@@ -93,6 +99,9 @@ public class UserInfo implements Serializable {
     }
 
     public Double getUserBond() {
+        if(userBond==null){
+            return 0.0;
+        }
         return userBond;
     }
 

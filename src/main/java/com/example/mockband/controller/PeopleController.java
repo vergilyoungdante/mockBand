@@ -49,6 +49,7 @@ public class PeopleController {
         modelAndView.addObject("userMobile", userInfo.getUserMobile());
         modelAndView.addObject("userDepartment",userInfo.getUserDepartment());
         modelAndView.addObject("password", accountInfo.getLoginPassword());
+        modelAndView.addObject("loginName",accountInfo.getLoginName());
         return modelAndView;
     }
 

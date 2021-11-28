@@ -24,8 +24,14 @@
 
         <form class="layui-form" action="">
             <div class="layui-form-item">
+                <label class="layui-form-label">登录名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" value=${loginName}  readonly autocomplete="off" class="layui-input" disabled="">
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <label class="layui-form-label">用户姓名</label>
-                <div class="layui-input-block">
+                <div class="layui-input-inline">
                     <input type="text" value=${userName} id="username" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="请输入姓名" autocomplete="off" class="layui-input" disabled="">
                 </div>
             </div>
