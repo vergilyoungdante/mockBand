@@ -1,7 +1,7 @@
 {
   "homeInfo": {
     "title": "首页",
-    "href": "/welcome"
+    "href": "/people/query/balance"
   },
   "logoInfo": {
     "title": "银行管理系统",

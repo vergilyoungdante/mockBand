@@ -1,7 +1,7 @@
 {
   "homeInfo": {
     "title": "首页",
-    "href": "/welcome"
+    "href": "/cbank/total"
   },
   "logoInfo": {
     "title": "银行管理系统",
