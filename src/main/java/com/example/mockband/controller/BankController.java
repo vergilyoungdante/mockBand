@@ -216,16 +216,6 @@ public class BankController {
         //如果转出金额大于余额
         boolean isSuccess = bankInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
         if(isSuccess){
-            //手续费 5%，15元封顶
-            if(target.equals("3")){
-                double trans = Double.parseDouble(change);
-                if(trans * 0.05>15){
-                    change = String.valueOf(trans-15);
-                }else {
-                    change = String.valueOf(trans*0.95);
-                }
-            }
-
             bankInfoService.transfer(user.getName(), Double.parseDouble(change), type, target, toAccount, content);
             ResultMsgBuilder.success(new HashMap<>(),response);
         }else {

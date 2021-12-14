@@ -176,19 +176,21 @@ public class PeopleController {
         boolean isSuccess = userInfoService.checkAmount(user.getName(), Double.parseDouble(change), type);
         double serviceChange = 0.0;
         if(isSuccess){
-            //手续费 5%，15元封顶
-            double trans = Double.parseDouble(change);
-            if(trans * 0.05>15){
-                change = String.valueOf(trans-15);
-                serviceChange = 15.0;
-            }else {
-                change = String.valueOf(trans*0.95);
-                serviceChange = trans*0.05;
+            if(target.equals("3")){
+                //手续费 5%，15元封顶
+                double trans = Double.parseDouble(change);
+                if(trans * 0.05>15){
+                    change = String.valueOf(trans-15);
+                    serviceChange = 15.0;
+                }else {
+                    change = String.valueOf(trans*0.95);
+                    serviceChange = trans*0.05;
+                }
+
+                UserInfo userInfo = userInfoService.queryInfo(user.getName());
+                userInfoService.transfer(user.getName(), serviceChange, type, "2", userInfo.getBankName(), "手续费");
             }
 
-            UserInfo userInfo = userInfoService.queryInfo(user.getName());
-
-            userInfoService.transfer(user.getName(), serviceChange, type, "2", userInfo.getBankName(), "手续费");
             userInfoService.transfer(user.getName(), Double.parseDouble(change), type, target, toAccount, content);
             ResultMsgBuilder.success(new HashMap<>(),response);
         }else {
