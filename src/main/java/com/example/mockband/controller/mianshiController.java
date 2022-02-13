@@ -16,8 +16,8 @@ import java.time.format.DateTimeFormatter;
 public class mianshiController {
 
     @GetMapping("/healthcheck")
-    @ResponseBody
-    public String healthcheck(String format){
+    @ResponseBody()
+    public ObjectNode healthcheck(String format){
         if(format==null){
             throw new ArgException();
         }
@@ -29,11 +29,11 @@ public class mianshiController {
             LocalDateTime localDateTime = LocalDateTime.now();
             DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
             objectNode.put("currentTime",pattern.format(localDateTime));
-            return objectNode.toString();
+            return objectNode;
 
         }
         if(format.equals("short")){
-            return objectNode.toString();
+            return objectNode;
 
         }
         throw new ArgException();
