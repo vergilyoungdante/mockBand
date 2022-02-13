@@ -1,10 +1,12 @@
 package com.example.mockband.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.micrometer.core.instrument.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,16 +23,35 @@ public class mianshiController {
         if(StringUtils.isBlank(format)){
             return;
         }
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("status","OK");
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode objectNode = objectMapper.createObjectNode();
+
+        objectNode.put("status","OK");
         if("full".equals(format)){
             LocalDateTime localDateTime = LocalDateTime.now();
             DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
-            jsonObject.addProperty("currentTime",pattern.format(localDateTime));
-            response.getWriter().write(new Gson().toJson(jsonObject));
+            objectNode.put("currentTime",pattern.format(localDateTime));
+            response.getWriter().write(objectNode.toString());
         }
         if("short".equals(format)){
-            response.getWriter().write(new Gson().toJson(jsonObject));
+            response.getWriter().write(objectNode.toString());
         }
+        response.setStatus(400);
     }
+    @PutMapping("/healthcheck")
+    public void healthcheckPut(HttpServletResponse response){
+        response.setStatus(405);
+        return;
+    }
+    @PostMapping("/healthcheck")
+    public void healthcheckPost(HttpServletResponse response){
+        response.setStatus(405);
+        return;
+    }
+    @DeleteMapping("/healthcheck")
+    public void healthcheckDelete(HttpServletResponse response){
+        response.setStatus(405);
+        return;
+    }
+
 }
