@@ -36,21 +36,34 @@ public class mianshiController {
         if("short".equals(format)){
             response.getWriter().write(objectNode.toString());
         }
-        response.setStatus(400);
+        response.sendError(400);
     }
     @PutMapping("/healthcheck")
     public void healthcheckPut(HttpServletResponse response){
-        response.setStatus(405);
+        try{
+            response.sendError(405);
+        }catch (Exception e){
+
+        }
+
         return;
     }
     @PostMapping("/healthcheck")
     public void healthcheckPost(HttpServletResponse response){
-        response.setStatus(405);
+        try{
+            response.sendError(405);
+        }catch (Exception e){
+
+        }
         return;
     }
     @DeleteMapping("/healthcheck")
     public void healthcheckDelete(HttpServletResponse response){
-        response.setStatus(405);
+        try{
+            response.sendError(405);
+        }catch (Exception e){
+
+        }
         return;
     }
 
