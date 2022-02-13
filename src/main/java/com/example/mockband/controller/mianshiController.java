@@ -4,7 +4,7 @@ package com.example.mockband.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import io.micrometer.core.instrument.util.StringUtils;
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ public class mianshiController {
     @GetMapping("/healthcheck")
     @ResponseBody
     public String healthcheck(String format){
-        if(StringUtils.isBlank(format)){
+        if(format==null){
             throw new ArgException();
         }
         ObjectMapper objectMapper = new ObjectMapper();
@@ -54,12 +54,13 @@ public class mianshiController {
         throw new OtherException();
     }
 
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    class OtherException extends RuntimeException{
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    class ArgException extends RuntimeException{
+    }
+
 }
 
-@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
-class OtherException extends RuntimeException{
-}
-
-@ResponseStatus(HttpStatus.BAD_REQUEST)
-class ArgException extends RuntimeException{
-}
