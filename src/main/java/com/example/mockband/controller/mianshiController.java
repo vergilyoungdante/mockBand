@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+import java.time.ZonedDateTime;
 @RestController
 public class mianshiController {
 
@@ -26,8 +26,8 @@ public class mianshiController {
 
         objectNode.put("status","OK");
         if(format.equals("full")){
-            LocalDateTime localDateTime = LocalDateTime.now();
-            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+            ZonedDateTime localDateTime = ZonedDateTime.now();
+            DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssZ");
             objectNode.put("currentTime",pattern.format(localDateTime));
             return objectNode;
 
