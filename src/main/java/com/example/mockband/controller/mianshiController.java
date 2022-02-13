@@ -6,11 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.micrometer.core.instrument.util.StringUtils;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,53 +16,50 @@ import java.time.format.DateTimeFormatter;
 public class mianshiController {
 
     @GetMapping("/healthcheck")
-    public void healthcheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String format = request.getParameter("format");
+    @ResponseBody
+    public String healthcheck(String format){
         if(StringUtils.isBlank(format)){
-            return;
+            throw new ArgException();
         }
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectNode objectNode = objectMapper.createObjectNode();
 
         objectNode.put("status","OK");
-        if("full".equals(format)){
+        if(format.equals("full")){
             LocalDateTime localDateTime = LocalDateTime.now();
             DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
             objectNode.put("currentTime",pattern.format(localDateTime));
-            response.getWriter().write(objectNode.toString());
+            return objectNode.toString();
+
         }
-        if("short".equals(format)){
-            response.getWriter().write(objectNode.toString());
+        if(format.equals("short")){
+            return objectNode.toString();
+
         }
-        response.sendError(400);
+        throw new ArgException();
     }
     @PutMapping("/healthcheck")
-    public void healthcheckPut(HttpServletResponse response){
-        try{
-            response.sendError(405);
-        }catch (Exception e){
-
-        }
-
-        return;
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    public void healthcheckPut(){
+        throw new OtherException();
     }
     @PostMapping("/healthcheck")
-    public void healthcheckPost(HttpServletResponse response){
-        try{
-            response.sendError(405);
-        }catch (Exception e){
-
-        }
-        return;
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    public void healthcheckPost(){
+        throw new OtherException();
     }
     @DeleteMapping("/healthcheck")
-    public void healthcheckDelete(HttpServletResponse response){
-        try{
-            response.sendError(405);
-        }catch (Exception e){
-
-        }
-        return;
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    public void healthcheckDelete(){
+        throw new OtherException();
     }
 
+}
+
+@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+class OtherException extends RuntimeException{
+}
+
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+class ArgException extends RuntimeException{
 }
