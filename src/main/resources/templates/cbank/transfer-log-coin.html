@@ -49,6 +49,9 @@
                         <div class="layui-inline">
                             <input type=button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn" value="搜 索">
                         </div>
+                        <div class="layui-inline">
+                            <input type=button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-export-btn" value="导 出">
+                        </div>
                     </div>
                 </form>
             </div>
@@ -130,6 +133,12 @@
                     date:data.field.date,
                 }
             }, 'data');
+        });
+
+        form.on('submit(data-export-btn)', function (data) {
+            var url = '/cbank/export/transfer/log?fromAccount=' + data.field.fromAccount +
+                '&toAccount=' + data.field.toAccount + '&type=' + data.field.type + '&date=' + data.field.date;
+            window.open(url,"_blank");
         });
     });
 </script>

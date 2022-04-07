@@ -37,6 +37,27 @@
     limit #{startIndex}, #{pageSize}
   </select>
 
+  <select id="exportSelective" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select * from tran_info_tbl
+    <where>
+      <if test="fromAccount != null and fromAccount != ''">
+        and from_account like concat('%', #{fromAccount}, '%')
+      </if>
+      <if test="toAccount != null and toAccount != ''">
+        and to_account like concat('%', #{toAccount}, '%')
+      </if>
+      <if test="curType != null and curType != ''">
+        and currency_type = #{curType,jdbcType=INTEGER}
+      </if>
+      <if test="fromDate != null and fromDate != ''">
+        and tran_time &gt;= #{fromDate,jdbcType=DATE}
+      </if>
+      <if test="toDate != null and toDate != ''">
+        and tran_time &lt; #{toDate,jdbcType=DATE}
+      </if>
+    </where>
+  </select>
+
   <select id="selectPeople" resultMap="BaseResultMap" parameterType="java.util.Map">
     select * from tran_info_tbl
     <where>

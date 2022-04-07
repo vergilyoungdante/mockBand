@@ -1,19 +1,22 @@
 package com.example.mockband.entity;
 
+import cn.afterturn.easypoi.excel.annotation.Excel;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class TranInfo implements Serializable {
     private Integer tranId;
 
+    @Excel(name ="转出账户")
     private String fromAccount;
-
+    @Excel(name ="转入账户")
     private String toAccount;
-
+    @Excel(name ="交易种类",replace = {"成长币_1","债券_2"})
     private Integer currencyType;
-
+    @Excel(name ="交易金额")
     private Double tranAmount;
-
+    @Excel(name ="交易时间")
     private Date tranTime;
 
     private Integer tranType;
@@ -33,7 +36,7 @@ public class TranInfo implements Serializable {
     public void setRemark(String remark) {
         this.remark = remark;
     }
-
+    @Excel(name ="备注")
     private String remark;
 
     private static final long serialVersionUID = 1L;

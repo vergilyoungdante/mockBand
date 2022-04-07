@@ -1,10 +1,13 @@
 package com.example.mockband.controller;
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
 import com.example.mockband.entity.*;
 import com.example.mockband.model.EnumMsgCode;
 import com.example.mockband.model.ResultMsgBuilder;
 import com.example.mockband.service.*;
 import com.example.mockband.util.CommonUtil;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,10 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -206,6 +212,23 @@ public class CBankController {
         allPage.setPageCount(totalCount);
         allPage.setTotal(list);
         ResultMsgBuilder.success(allPage, response);
+    }
+
+    @RequestMapping("/export/transfer/log")
+    public void exportTransferLog(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        List<TranInfo> list = tranInfoService.export(request);
+        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("交易记录","交易"),TranInfo.class,list);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+
+        String fileName = simpleDateFormat.format(new Date());
+        response.reset();
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-Disposition","attachment;filename=" + new String(("交易记录-" + fileName + ".xls").getBytes(),"iso-8859-1"));
+
+        ServletOutputStream servletOutputStream = response.getOutputStream();
+        workbook.write(servletOutputStream);
+        servletOutputStream.flush();
+        servletOutputStream.close();
     }
 
     @RequestMapping("/credit/bank")

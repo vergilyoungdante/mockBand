@@ -22,6 +22,8 @@ public interface TranInfoMapper {
 
     List<TranInfo> selectSelective(HashMap<String, Object> hashMap);
 
+    List<TranInfo> exportSelective(HashMap<String, Object> hashMap);
+
     int selectSelectiveCount(HashMap<String, Object> hashMap);
 
     List<TranInfo> selectPeople(HashMap<String, Object> hashMap);
