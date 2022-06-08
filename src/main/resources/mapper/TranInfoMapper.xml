@@ -34,6 +34,7 @@
         and tran_time &lt; #{toDate,jdbcType=DATE}
       </if>
     </where>
+    order by tran_time desc
     limit #{startIndex}, #{pageSize}
   </select>
 
@@ -80,6 +81,7 @@
         and tran_time &lt; #{toDate,jdbcType=DATE}
       </if>
     </where>
+    order by tran_time desc
     limit #{startIndex}, #{pageSize}
   </select>
 
@@ -105,6 +107,7 @@
         and tran_time &lt; #{toDate,jdbcType=DATE}
       </if>
     </where>
+    order by tran_time desc
     limit #{startIndex}, #{pageSize}
   </select>
 
