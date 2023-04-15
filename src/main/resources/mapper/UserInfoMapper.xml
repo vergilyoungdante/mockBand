@@ -13,10 +13,11 @@
     <result column="user_bond" property="userBond" jdbcType="DOUBLE" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="active" property="active" jdbcType="BOOLEAN" />
   </resultMap>
   <sql id="Base_Column_List" >
     user_id, bank_name, login_name, user_name, user_department, user_mobile, user_credits, 
-    user_growing_coin, user_bond, create_time, modify_time
+    user_growing_coin, user_bond, create_time, modify_time,active
   </sql>
 
   <select id="selectByLoginName" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -222,7 +223,8 @@
         user_mobile = #{userMobile,jdbcType=VARCHAR},
         user_bond = #{userBond,jdbcType=DOUBLE},
         user_growing_coin = #{userGrowingCoin,jdbcType=DOUBLE},
-        user_credits = #{userCredits,jdbcType=DOUBLE}
+        user_credits = #{userCredits,jdbcType=DOUBLE},
+        active = #{active,jdbcType=BOOLEAN}
     where login_name = #{loginName,jdbcType=VARCHAR}
   </update>
 </mapper>

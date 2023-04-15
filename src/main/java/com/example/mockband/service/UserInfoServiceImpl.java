@@ -44,13 +44,17 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public boolean modifyCredit(String loginName, String credit) {
+    public boolean modifyCredit(String loginName, String credit,String field) {
         UserInfo userInfo = userInfoMapper.selectByLoginName(loginName);
         if (userInfo == null)
         {
             return false;
         }
-        userInfo.setUserCredits(Double.parseDouble(credit));
+        if(field.equals("credit")){
+            userInfo.setUserCredits(Double.parseDouble(credit));
+        }else if(field.equals("active")){
+            userInfo.setActive(Boolean.parseBoolean(credit));
+        }
         userInfoMapper.updateByLoginName(userInfo);
         return true;
     }

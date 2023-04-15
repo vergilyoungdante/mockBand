@@ -1,6 +1,8 @@
 package com.example.mockband.security;
 
 import com.example.mockband.entity.User;
+import com.example.mockband.entity.UserInfo;
+import com.example.mockband.repository.UserInfoRepository;
 import com.example.mockband.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,6 +19,10 @@ import java.util.List;
 public class UserSecurityService implements UserDetailsService {
     @Autowired
     private UserRepository UserRepository;
+
+    @Autowired
+    private UserInfoRepository userInfoRepository;
+
     /**
      * 通过重写loadUserByUsername方法查询对应的用户
      * UserDetails是Spring Security的一个核心接口
@@ -27,8 +33,13 @@ public class UserSecurityService implements UserDetailsService {
         //根据用户名（页面接收的用户名）查询当前用户
         User user = UserRepository.findByName(username);
         //没有用户直接退出
-        if(user == null) {
+        if (user == null) {
             throw new UsernameNotFoundException("用户名不存在");
+        }
+
+        UserInfo userInfo = userInfoRepository.findByLoginName(user.getName());
+        if (userInfo != null && userInfo.isActive() == false) {
+            throw new UsernameNotFoundException("用户被锁定");
         }
         return user;
     }

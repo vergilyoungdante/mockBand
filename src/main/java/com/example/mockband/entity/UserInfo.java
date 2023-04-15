@@ -1,9 +1,15 @@
 package com.example.mockband.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity
+@Table(name = "user_info_tbl")
 public class UserInfo implements Serializable {
+    @Id
     private Integer userId;
 
     private String bankName;
@@ -25,6 +31,8 @@ public class UserInfo implements Serializable {
     private Date createTime;
 
     private Date modifyTime;
+
+    private boolean active;
 
     private static final long serialVersionUID = 1L;
 
@@ -123,5 +131,13 @@ public class UserInfo implements Serializable {
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

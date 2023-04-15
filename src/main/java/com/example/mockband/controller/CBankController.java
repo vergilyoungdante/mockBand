@@ -291,8 +291,9 @@ public class CBankController {
     @RequestMapping("/credit/edit/user")
     public void editPeopleCredit(HttpServletRequest request, HttpServletResponse response){
         String credit = request.getParameter("credit");//新的信用分
+        String field = request.getParameter("field");//改的列，现在又active了
         String account = request.getParameter("account");//账户号
-        boolean isModified = userInfoService.modifyCredit(account, credit);
+        boolean isModified = userInfoService.modifyCredit(account, credit,field);
         if (!isModified)
         {
             ResultMsgBuilder.commonError(EnumMsgCode.UNKONWN_ERROR, "该客户已被删除，修改失败", response);

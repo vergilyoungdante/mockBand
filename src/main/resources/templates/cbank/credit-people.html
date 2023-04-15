@@ -92,6 +92,7 @@
                 {field: 'userBond', minWidth: 80, title: '债券'},
                 {field: 'userGrowingCoin', minWidth: 80, title: '成长币'},
                 {field: 'userCredits', minWidth: 80, title: '信用',edit:'text'},
+                {field: 'active', title:'是否可用', width:85, edit:'text'},
             ]],
             limits: [5,10, 15, 20],
             limit: 5,
@@ -114,6 +115,7 @@
                 //数据
                 data: {
                     credit:obj.value,
+                    field:obj.field,
                     account:obj.data.loginName,
                 },
                 contentType: 'application/json',

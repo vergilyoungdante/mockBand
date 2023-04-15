@@ -20,7 +20,7 @@ public interface UserInfoService {
 
     boolean createUser(UserInfo userInfo);
 
-    boolean modifyCredit(String loginName, String credit);
+    boolean modifyCredit(String loginName, String credit, String field);
 
     List<UserInfo> queryInfoList(String loginName, int page, int limit);
 
